@@ -1,5 +1,7 @@
+import { AuthStateStoreInterface } from "~/interfaces/store/auth/AuthStateStoreInterface";
+
 export default {
-  setUser(state: any, user: any) {
+  setUser(state: AuthStateStoreInterface, user: any) {
     state.user = user;
   }
 }

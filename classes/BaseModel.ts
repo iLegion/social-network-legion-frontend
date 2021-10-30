@@ -1,1 +1,3 @@
-export default class BaseModel {}
+export default abstract class BaseModel {
+  protected abstract fillData(data: Object): void;
+}

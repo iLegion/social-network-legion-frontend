@@ -11,7 +11,7 @@ export default class BaseApi {
   }
 
   protected async callToApi(uri: string, type: Method, params?: Object): Promise<Promise<Object> | any> {
-    const response = await this.api.$request({
+    return await this.api.$request({
       url: uri,
       method: type,
       params: params
@@ -22,7 +22,5 @@ export default class BaseApi {
 
       throw new Error('[BaseApi->callToApi] Unknown error.');
     });
-
-    return response.data;
   }
 }

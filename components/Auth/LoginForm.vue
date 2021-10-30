@@ -93,13 +93,15 @@ export default Vue.extend({
         this.errors.password = errors.password[0];
       }
     },
-    removeError(type: string): void {
+    // TODO: Need to fix it.
+    removeError(type: string = 'all'): void {
       if (type === 'all') {
-        for (let key in this.errors) {
-          this.errors[key] = '';
-        }
-      } else {
-        this.errors[type] = '';
+        this.errors.email = '';
+        this.errors.password = '';
+      } else if (type === 'email') {
+        this.errors.email = '';
+      } else if (type === 'password') {
+        this.errors.password = '';
       }
     },
 
@@ -107,7 +109,7 @@ export default Vue.extend({
       this.removeError(type);
     },
 
-    async send() {
+    async send(): Promise<void> {
       const email = this.form.email;
       const password = this.form.password;
 
@@ -115,24 +117,24 @@ export default Vue.extend({
 
       try {
         const response = await this.$api.login.login({ email, password });
-        const token = response.type + ' ' + response.token;
+        const token = response.data.type + ' ' + response.data.token;
 
         LocalStorageService.setToken(token);
         this.$axios.setToken(token);
-        await this.getUser();
 
-        // await this.$router.push("/");
+        await this.getUser();
+        await this.$router.push('/');
       } catch (e) {
         if (e instanceof ValidationError) {
           this.setErrors(e.errors);
         }
       }
     },
-    async getUser() {
+    async getUser(): Promise<void> {
       try {
         const response = await this.$api.user.me();
 
-        this.setUser(response)
+        this.setUser(response.data)
       } catch (e) {}
     }
   }
