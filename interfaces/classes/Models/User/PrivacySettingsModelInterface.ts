@@ -1,7 +1,7 @@
 export interface PrivacySettingsInterface {
   addFriendsMode: number;
   createdAt: string;
-  id: bigint;
+  id: number;
   messageWritingMode: number;
   profileDisplayMode: number;
   updatedAt: string;

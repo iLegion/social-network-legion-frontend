@@ -4,7 +4,7 @@ import { PrivacySettingsInterface } from "~/interfaces/classes/Models/User/Priva
 export interface UserInterface {
   createdAt: string;
   email: string;
-  id: bigint;
+  id: number;
   name: string;
   privacySettings: PrivacySettingsInterface;
   roles: RoleInterface[];

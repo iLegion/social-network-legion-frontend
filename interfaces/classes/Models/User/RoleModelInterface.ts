@@ -1,6 +1,6 @@
 export interface RoleInterface {
   createdAt: string;
-  id: bigint;
+  id: number;
   title: string;
   updatedAt: string;
 }
