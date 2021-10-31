@@ -62,6 +62,9 @@ import { faComments } from '@fortawesome/free-regular-svg-icons';
 import Dropdown from "~/components/Dropdown/Dropdown.vue";
 import Logout from "~/components/Auth/Logout.vue";
 
+import Dropdown from "~/components/Dropdown/Dropdown.vue";
+import Logout from "~/components/Auth/Logout.vue";
+
 export default Vue.extend({
   components: {
     Dropdown,
