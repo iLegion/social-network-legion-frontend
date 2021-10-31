@@ -2,6 +2,7 @@ import { RoleInterface } from "~/interfaces/classes/Models/User/RoleModelInterfa
 import { PrivacySettingsInterface } from "~/interfaces/classes/Models/User/PrivacySettingsModelInterface";
 
 export interface UserInterface {
+  avatar: string;
   createdAt: string;
   email: string;
   id: number;

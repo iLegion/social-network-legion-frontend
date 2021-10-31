@@ -5,6 +5,6 @@ export default {
     return state.user;
   },
   isAuth(state: AuthStateStoreInterface): boolean {
-    return !!Object.keys(state.user).length;
+    return !!state.user.id;
   }
 }
