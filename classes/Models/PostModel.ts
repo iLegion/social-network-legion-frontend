@@ -80,7 +80,5 @@ export default class PostModel extends BaseModel {
     this.title = data.title;
     this.updatedAt = data.updatedAt;
     this.viewsCount = data.viewsCount;
-
-    console.log(this);
   }
 }

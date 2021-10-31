@@ -1,3 +1,5 @@
+import UserModel from "~/classes/Models/User/UserModel";
+
 export default  {
-  user: {}
+  user: new UserModel()
 }

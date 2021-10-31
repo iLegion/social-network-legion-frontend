@@ -1,3 +1,4 @@
+import UserModel from "~/classes/Models/User/UserModel";
 import { AuthStateStoreInterface } from "~/interfaces/store/auth/AuthStateStoreInterface";
 
 export default {
@@ -5,6 +6,6 @@ export default {
     state.user = user;
   },
   removeUser(state: AuthStateStoreInterface) {
-    state.user = {};
+    state.user = new UserModel();
   }
 }
