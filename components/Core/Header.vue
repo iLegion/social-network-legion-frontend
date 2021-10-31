@@ -20,9 +20,23 @@
           </ul>
           <div class="d-flex">
             <div>
-              <button v-if="isAuth">
-                <font-awesome-icon :icon="faUser" fixed-width />
-              </button>
+              <Dropdown v-if="isAuth">
+                <template v-slot:dropdown-button-content>
+                  <font-awesome-icon :icon="faUser" fixed-width />
+                </template>
+
+                <template v-slot:dropdown-list-content>
+                  <li>
+                    <router-link class="dropdown-item" to="/profile">Profile</router-link>
+                  </li>
+                  <li>
+                    <Logout>
+                      <button type="button" class="dropdown-item">Log out</button>
+                    </Logout>
+                  </li>
+                </template>
+              </Dropdown>
+
               <router-link v-else to="/auth">
                 <font-awesome-icon :icon="faUser" fixed-width />
               </router-link>
@@ -39,7 +53,14 @@ import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import { faUser } from '@fortawesome/free-regular-svg-icons'
 
+import Dropdown from "~/components/Dropdown/Dropdown.vue";
+import Logout from "~/components/Auth/Logout.vue";
+
 export default Vue.extend({
+  components: {
+    Dropdown,
+    Logout
+  },
   computed: {
     ...mapGetters('auth', ['isAuth']),
 

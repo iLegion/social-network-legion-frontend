@@ -3,5 +3,8 @@ import { UserInterface } from "~/interfaces/classes/Models/User/UserModelInterfa
 export default {
   setUser({ commit } : any, user: UserInterface) {
     commit("setUser", user);
+  },
+  removeUser({ commit } : any) {
+    commit("removeUser");
   }
 }

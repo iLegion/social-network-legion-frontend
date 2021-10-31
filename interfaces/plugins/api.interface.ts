@@ -1,6 +1,7 @@
 import { NuxtAxiosInstance } from "@nuxtjs/axios";
 
 import LoginApi from "~/classes/Api/Auth/LoginApi";
+import LogoutApi from "~/classes/Api/Auth/LogoutApi";
 import UserApi from "~/classes/Api/UserApi";
 import PostApi from "~/classes/Api/PostApi";
 
@@ -12,6 +13,7 @@ export interface Context {
 
 export interface Api {
   login: LoginApi;
+  logout: LogoutApi;
   user: UserApi;
   post: PostApi;
 }

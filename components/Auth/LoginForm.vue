@@ -1,5 +1,5 @@
 <template>
-  <div id="login-form-component">
+  <div class="login-form-component">
     <div class="fs-2 fw-bold text-center mb-5">Login</div>
 
     <form @submit.prevent="send">
@@ -70,7 +70,7 @@ export default Vue.extend({
   data: () => {
     return {
       form: {
-        // email: '',
+        // email: '', TODO: Need to fix.
         // password: '',
         email: 'admin@admin.admin',
         password: '12345678'
@@ -142,7 +142,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-  #login-form-component {
+  .login-form-component {
     form {
       .form-group {
         .input-group {
