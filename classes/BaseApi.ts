@@ -3,17 +3,18 @@ import { AxiosError, Method } from "axios";
 
 import ValidationError from "~/classes/Errors/ValidationError";
 
-export default class BaseApi {
+export default abstract class BaseApi {
+  protected abstract uri: string;
   protected api: NuxtAxiosInstance;
 
   constructor(axios: NuxtAxiosInstance) {
     this.api = axios;
   }
 
-  protected async callToApi(uri: string, type: Method, params?: Object): Promise<Promise<Object> | any> {
+  protected async callToApi(type: Method, uri: string, params?: Object): Promise<Promise<Object> | any> {
     return await this.api.$request({
-      url: uri,
       method: type,
+      url: uri,
       params: params
     }).catch((e: AxiosError) => {
       if (e.response?.status === 422) {
