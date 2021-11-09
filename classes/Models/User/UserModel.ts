@@ -7,10 +7,12 @@ export default class UserModel extends BaseModel {
   private _avatar: string = '';
   private _createdAt: string = '';
   private _email: string = '';
+  private _friendsCount: number = 0;
   private _id: number = 0;
   private _name: string = '';
-  private _privacySettings: PrivacySettingsModel = new PrivacySettingsModel();
-  private _roles: RoleModel[] = [new RoleModel()];
+  private _postsCount: number = 0;
+  private _privacySettings: PrivacySettingsModel | null = null;
+  private _roles: RoleModel[] | [] = [];
   private _updatedAt: string = '';
 
   get avatar(): string {
@@ -37,6 +39,14 @@ export default class UserModel extends BaseModel {
     this._email = value;
   }
 
+  get friendsCount(): number {
+    return this._friendsCount;
+  }
+
+  set friendsCount(value: number) {
+    this._friendsCount = value;
+  }
+
   get id(): number {
     return this._id;
   }
@@ -53,11 +63,19 @@ export default class UserModel extends BaseModel {
     this._name = value;
   }
 
-  get privacySettings(): PrivacySettingsModel {
+  get postsCount(): number {
+    return this._postsCount;
+  }
+
+  set postsCount(value: number) {
+    this._postsCount = value;
+  }
+
+  get privacySettings(): PrivacySettingsModel | null {
     return this._privacySettings;
   }
 
-  set privacySettings(value: PrivacySettingsModel) {
+  set privacySettings(value: PrivacySettingsModel | null) {
     this._privacySettings = value;
   }
 
@@ -89,8 +107,10 @@ export default class UserModel extends BaseModel {
     this.avatar = data.avatar;
     this.createdAt = data.createdAt;
     this.email = data.email;
+    this.friendsCount = data.friendsCount;
     this.id = data.id;
     this.name = data.name;
+    this.postsCount = data.postsCount;
     this.privacySettings = new PrivacySettingsModel(data.privacySettings);
     this.roles = data.roles.map(i => new RoleModel(i));
     this.updatedAt = data.updatedAt;

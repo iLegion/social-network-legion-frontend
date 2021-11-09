@@ -14,11 +14,11 @@
 
             <ul class="list-group list-group-horizontal">
               <li class="list-group-item text-center">
-                <div class="badge rounded-pill bg-light text-dark">100</div>
+                <div class="badge rounded-pill bg-light text-dark">{{ user.postsCount }}</div>
                 <div>Posts</div>
               </li>
               <li class="list-group-item text-center">
-                <div class="badge rounded-pill bg-light text-dark">100</div>
+                <div class="badge rounded-pill bg-light text-dark">{{ user.friendsCount }}</div>
                 <div>Friends</div>
               </li>
             </ul>

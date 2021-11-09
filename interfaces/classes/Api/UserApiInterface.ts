@@ -3,3 +3,8 @@ import { UserInterface } from "~/interfaces/classes/Models/User/UserModelInterfa
 export interface UserResponseInterface {
   data: UserInterface;
 }
+
+export interface UsersResponseInterface {
+  data: UserInterface[];
+  pagination: Object;
+}
