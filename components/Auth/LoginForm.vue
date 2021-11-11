@@ -1,6 +1,6 @@
 <template>
   <div class="login-form-component">
-    <div class="fs-2 fw-bold text-center mb-5">Login</div>
+    <div class="fs-2 mt-5 fw-bold text-center mb-5">Login</div>
 
     <form @submit.prevent="send">
       <div class="form-group mb-4">
