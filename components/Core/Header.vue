@@ -18,7 +18,10 @@
               <router-link class="nav-link" to="/posts">Posts</router-link>
             </li>
           </ul>
-          <div class="d-flex">
+          <div class="d-flex align-items-center">
+            <router-link to="/chat">
+                <font-awesome-icon :icon="faComments" class="me-2" fixed-width />
+              </router-link>
             <div>
               <Dropdown v-if="isAuth">
                 <template v-slot:dropdown-button-content>
@@ -51,7 +54,8 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
-import { faUser } from '@fortawesome/free-regular-svg-icons'
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { faComments } from '@fortawesome/free-regular-svg-icons';
 
 import Dropdown from "~/components/Dropdown/Dropdown.vue";
 import Logout from "~/components/Auth/Logout.vue";
@@ -66,7 +70,16 @@ export default Vue.extend({
 
     faUser() {
       return faUser;
+    },
+    faComments() {
+      return faComments;
     }
   }
 })
 </script>
+
+<style lang="scss">
+  .navbar {
+      height: 8vh;
+  }
+</style>

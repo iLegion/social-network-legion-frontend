@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-12 col-xxl-4">
+      <div class="col-12 col-md-4">
         <LoginForm />
       </div>
     </div>

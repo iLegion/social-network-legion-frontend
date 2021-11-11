@@ -5,8 +5,8 @@
         <div class="col-12 col-xxl-7">
           <div v-if="posts.length">
             <Post v-for="post in posts "
-                  :key="'post' + post.id"
-                  :post="post"></Post>
+              :key="'post' + post.id"
+            :post="post"></Post>
           </div>
           <div v-else></div>
         </div>

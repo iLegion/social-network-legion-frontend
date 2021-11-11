@@ -1,13 +1,7 @@
 <template>
   <div>
     <Header></Header>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <Nuxt></Nuxt>
-        </div>
-      </div>
-    </div>
+    <Nuxt></Nuxt>
   </div>
 </template>
 
