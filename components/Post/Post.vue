@@ -20,7 +20,10 @@ import PostModel from "~/classes/Models/PostModel";
 
 export default Vue.extend({
   props: {
-    post: PostModel
+    post: {
+      type: PostModel,
+      default: () => {}
+    }
   }
 })
 </script>

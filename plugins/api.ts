@@ -2,6 +2,8 @@ import LoginApi from "~/classes/Api/Auth/LoginApi";
 import LogoutApi from "~/classes/Api/Auth/LogoutApi";
 import UserApi from "~/classes/Api/UserApi";
 import PostApi from "~/classes/Api/PostApi";
+import DialogApi from "~/classes/Api/Dialog/DialogApi";
+import DialogMessageApi from "~/classes/Api/Dialog/DialogMessageApi";
 import { Api, Context } from "~/interfaces/plugins/api.interface";
 
 declare module 'vue/types/vue' {
@@ -17,6 +19,8 @@ export default ({ app }: Context, inject: Function) => {
     login: new LoginApi(axios),
     logout: new LogoutApi(axios),
     user: new UserApi(axios),
-    post: new PostApi(axios)
+    post: new PostApi(axios),
+    dialog: new DialogApi(axios),
+    dialogMessage: new DialogMessageApi(axios)
   })
 }
