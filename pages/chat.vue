@@ -1,13 +1,17 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="list col-4 p-0">
-        <ChatDialogsList />
-      </div>
-      <div class="dialog col-8 p-0">
-        <WithWho />
-        <Dialog />
-        <TextField />
+  <div class="chat-page p-2">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-4 p-0">
+          <ChatList />
+        </div>
+        <div class="col-8 p-0">
+          <div class="dialog">
+            <WithWho />
+            <Dialog />
+            <TextField />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -15,26 +19,17 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import ChatDialogsList from "~/components/Chat/ChatDialogsList.vue";
+import ChatList from "~/components/Chat/ChatList.vue";
 import WithWho from "~/components/Chat/ChatContent/WithWho.vue";
 import Dialog from "~/components/Chat/ChatContent/Dialog.vue";
 import TextField from "~/components/Chat/ChatContent/TextField.vue";
 
 export default Vue.extend({
   components: {
-    ChatDialogsList,
+    ChatList,
     WithWho,
     Dialog,
     TextField
   }
 })
 </script>
-
-<style lang="scss">
-  .row {
-    padding: 10px 10px 0px 10px;
-  }
-  .dialog {
-    position: relative;
-  }
-</style>
