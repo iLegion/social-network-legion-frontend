@@ -19,8 +19,10 @@
             </li>
           </ul>
           <div class="d-flex align-items-center">
-            <router-link to="/chat">
-                <font-awesome-icon :icon="faComments" class="me-2" fixed-width />
+            <router-link v-if="isAuth"
+                         to="/chat"
+                         class="btn btn-secondary text-center me-2">
+                <font-awesome-icon :icon="faComments" fixed-width />
               </router-link>
             <div>
               <Dropdown v-if="isAuth">
