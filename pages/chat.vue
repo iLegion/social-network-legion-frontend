@@ -10,7 +10,8 @@
                class="dialog border rounded">
             <DialogContentTopBar :dialog="getSelectedDialog" />
             <DialogContentMiddleSide :dialog="getSelectedDialog" />
-            <DialogContentBottomBar />
+            <DialogContentBottomBar :dialog="getSelectedDialog"
+                                    @sentMessage="handleSentMessage" />
           </div>
         </div>
       </div>
@@ -40,7 +41,7 @@ export default Vue.extend({
       const dialog = this.dialogs.find(i => i.id === this.selectedDialogId);
 
       return dialog ?? null;
-    }
+    },
   },
   data: (): { dialogs: DialogModel[], pagination: Object, selectedDialogId: number } => {
     return {
@@ -58,6 +59,11 @@ export default Vue.extend({
       if (!this.dialogs[dialogIndex].messages.length) {
         this.getMessages(id, dialogIndex);
       }
+    },
+    handleSentMessage(id: number, payload: DialogMessageModel): void {
+      const dialogIndex = this.dialogs.findIndex(i => i.id === id);
+
+      this.dialogs[dialogIndex].messages.push(payload);
     },
 
     async get(): Promise<void> {

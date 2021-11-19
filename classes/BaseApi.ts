@@ -11,11 +11,12 @@ export default abstract class BaseApi {
     this.api = axios;
   }
 
-  protected async callToApi(type: Method, uri: string, params?: Object): Promise<Promise<Object> | any> {
+  protected async callToApi(type: Method, uri: string, params?: Object, data?: Object): Promise<Promise<Object> | any> {
     return await this.api.$request({
       method: type,
       url: uri,
-      params: params
+      params: params,
+      data: data
     }).catch((e: AxiosError) => {
       if (e.response?.status === 422) {
         throw new ValidationError(e.response);
