@@ -7,10 +7,10 @@
         </div>
         <div class="col-8">
           <div v-if="selectedDialogId"
-               class="dialog">
-            <WithWho />
-            <Dialog :dialog="getSelectedDialog" />
-            <TextField />
+               class="dialog border rounded">
+            <DialogContentTopBar :dialog="getSelectedDialog" />
+            <DialogContentMiddleSide :dialog="getSelectedDialog" />
+            <DialogContentBottomBar />
           </div>
         </div>
       </div>
@@ -24,16 +24,16 @@ import Vue from 'vue';
 import DialogModel from "~/classes/Models/Dialog/DialogModel";
 import DialogMessageModel from "~/classes/Models/Dialog/DialogMessageModel";
 import DialogList from "~/components/Chat/DialogList.vue";
-import WithWho from "~/components/Chat/ChatContent/WithWho.vue";
-import Dialog from "~/components/Chat/ChatContent/Dialog.vue";
-import TextField from "~/components/Chat/ChatContent/TextField.vue";
+import DialogContentTopBar from "~/components/Chat/ChatContent/DialogContentTopBar/DialogContentTopBar.vue";
+import DialogContentMiddleSide from "~/components/Chat/ChatContent/DialogContentMiddleSide/DialogContentMiddleSide.vue";
+import DialogContentBottomBar from "~/components/Chat/ChatContent/DialogContentBottomBar/DialogContentBottomBar.vue";
 
 export default Vue.extend({
   components: {
     DialogList,
-    WithWho,
-    Dialog,
-    TextField
+    DialogContentTopBar,
+    DialogContentMiddleSide,
+    DialogContentBottomBar
   },
   computed: {
     getSelectedDialog(): DialogModel | null {
@@ -90,3 +90,9 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style lang="scss">
+.dialog {
+  height: 90vh;
+}
+</style>
