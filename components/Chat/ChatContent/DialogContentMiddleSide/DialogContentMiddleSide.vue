@@ -1,10 +1,12 @@
 <template>
   <div class="dialog-content-middle-side-component bg-light">
-    <div class="content p-2">
+    <div id="scrollable"
+         class="content p-2">
       <template v-if="dialog && dialog.messages.length">
         <DialogMessage v-for="message in dialog.messages"
                        :key="'message' + message.id"
-                       :message="message"/>
+                       :message="message"
+                       class="mb-2"/>
       </template>
     </div>
   </div>
@@ -24,6 +26,24 @@ export default Vue.extend({
     dialog: {
       type: Object as () => DialogModel,
       default: () => {}
+    },
+    enableAutoScroll: {
+      type: Boolean,
+      default: false
+    }
+  },
+  methods: {
+    scrollToBottom(): void {
+      const el = document.getElementById('scrollable');
+
+      if (el) {
+        el.scrollTo(0, el.scrollHeight);
+      }
+    }
+  },
+  updated() {
+    if (this.dialog?.messages.length) {
+      this.scrollToBottom();
     }
   }
 })
@@ -34,6 +54,7 @@ export default Vue.extend({
   height: 76vh;
 
   .content {
+    height: 76vh;
     overflow-y: auto;
 
     &::-webkit-scrollbar {
