@@ -9,7 +9,7 @@
         </div>
         <div class="col-8">
           <div v-if="selectedDialogId"
-               class="dialog border rounded">
+               class="dialog border rounded shadow">
             <DialogContentTopBar :dialog="getSelectedDialog" />
             <DialogContentMiddleSide :dialog="getSelectedDialog" />
             <DialogContentBottomBar :dialog="getSelectedDialog"

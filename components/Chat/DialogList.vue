@@ -1,5 +1,5 @@
 <template>
-  <div class="chat-dialogs-list-component">
+  <div class="chat-dialogs-list-component shadow">
     <ul class="list-group">
       <li v-for="dialog in dialogs"
           :key="'dialog' + dialog.id"
