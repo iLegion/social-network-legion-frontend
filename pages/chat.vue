@@ -3,7 +3,9 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-4">
-          <DialogList :dialogs="dialogs" @onSelect="handleSelectDialog" />
+          <DialogList :dialogs="dialogs"
+                      :selected-dialog="getSelectedDialog"
+                      @onSelect="handleSelectDialog" />
         </div>
         <div class="col-8">
           <div v-if="selectedDialogId"
