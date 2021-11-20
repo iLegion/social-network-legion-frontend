@@ -3,7 +3,8 @@
     <ul class="list-group">
       <li v-for="dialog in dialogs"
           :key="'dialog' + dialog.id"
-          class="list-group-item d-flex justify-content-between align-items-start"
+          class="list-group-item list-group-item-action d-flex justify-content-between align-items-start"
+          :class="{ 'active': isSelectedDialog(dialog.id) }"
           @click="handleClickDialog(dialog.id)">
         <div class="ms-2 me-auto">
           <div class="fw-bold">{{ dialog.title }}</div>
@@ -26,10 +27,18 @@ export default Vue.extend({
   props: {
     dialogs: {
       type: Array as () => DialogModel[],
-      default: []
+      default: () => []
+    },
+    selectedDialog: {
+      type: Object as () => DialogModel,
+      default: () => {}
     }
   },
   methods: {
+    isSelectedDialog(id: number): boolean {
+      return this.selectedDialog?.id === id;
+    },
+
     handleClickDialog(id: number): void {
       this.$emit('onSelect', id);
     }
@@ -45,6 +54,7 @@ export default Vue.extend({
       height: 90vh;
       overflow-y: hidden;
       border: 1px solid rgba(0, 0, 0, 0.125);
+      cursor: pointer;
 
       &:hover {
         overflow-y: auto;
@@ -63,13 +73,19 @@ export default Vue.extend({
       }
 
       .list-group-item {
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+
         &:first-child {
           border-top: 0;
         }
 
-        border-left: 0;
-        border-right: 0;
-        border-radius: 0;
+        &.active {
+          color: #212529;
+          background-color: #e9ecef;
+          border-color: rgba(0, 0, 0, 0.125);
+        }
 
         .message {
           display: -webkit-box;
