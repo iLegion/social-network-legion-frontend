@@ -5,8 +5,10 @@
         <div class="col-12 col-xxl-7">
           <div v-if="posts.length">
             <Post v-for="post in posts"
-              :key="'post' + post.id"
-            :post="post"></Post>
+                  :key="'post' + post.id"
+                  :post="post"
+                  @onAddLike="handleLike"
+                  @onAddView="handleAddView"></Post>
           </div>
           <div v-else></div>
         </div>
@@ -32,6 +34,21 @@ export default Vue.extend({
     }
   },
   methods: {
+    handleLike(id: number): void {
+      const postIndex = this.posts.findIndex(i => i.id === id);
+
+      if (postIndex !== -1) {
+        this.posts[postIndex].likesCount += 1;
+      }
+    },
+    handleAddView(id: number): void {
+      const postIndex = this.posts.findIndex(i => i.id === id);
+
+      if (postIndex !== -1) {
+        this.posts[postIndex].viewsCount += 1;
+      }
+    },
+
     async get(): Promise<void> {
       try {
         const response = await this.$api.post.getAll();

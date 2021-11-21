@@ -32,6 +32,7 @@ export default {
     { src: '~/plugins/axios.ts' },
     { src: '~/plugins/api.ts' },
     { src: '~/plugins/font-awesome.ts' },
+    { src: '~/plugins/notification.ts' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
