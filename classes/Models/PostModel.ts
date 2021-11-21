@@ -9,6 +9,7 @@ export default class PostModel extends BaseModel {
   private _title: string = '';
   private _updatedAt: string = '';
   private _viewsCount: number = 0;
+  private _commentsCount: number = 0;
 
   get createdAt(): string {
     return this._createdAt;
@@ -66,6 +67,14 @@ export default class PostModel extends BaseModel {
     this._viewsCount = value;
   }
 
+  get commentsCount(): number {
+    return this._commentsCount;
+  }
+
+  set commentsCount(value: number) {
+    this._commentsCount = value;
+  }
+
   constructor(data: PostInterface) {
     super();
 
@@ -80,5 +89,6 @@ export default class PostModel extends BaseModel {
     this.title = data.title;
     this.updatedAt = data.updatedAt;
     this.viewsCount = data.viewsCount;
+    this.commentsCount = data.commentsCount;
   }
 }

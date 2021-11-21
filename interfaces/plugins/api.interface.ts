@@ -6,6 +6,8 @@ import UserApi from "~/classes/Api/UserApi";
 import PostApi from "~/classes/Api/PostApi";
 import DialogApi from "~/classes/Api/Dialog/DialogApi";
 import DialogMessageApi from "~/classes/Api/Dialog/DialogMessageApi";
+import LikeApi from "~/classes/Api/LikeApi";
+import ViewApi from "~/classes/Api/ViewApi";
 
 export interface Context {
   app: {
@@ -20,4 +22,6 @@ export interface Api {
   post: PostApi;
   dialog: DialogApi;
   dialogMessage: DialogMessageApi;
+  like: LikeApi;
+  view: ViewApi;
 }

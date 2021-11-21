@@ -6,4 +6,5 @@ export interface PostInterface {
   title: string;
   updatedAt: string;
   viewsCount: number;
+  commentsCount: number;
 }
