@@ -9,13 +9,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+  import Vue from 'vue';
 
-import LoginForm from "~/components/Auth/LoginForm.vue";
+  import LoginForm from "~/components/Auth/LoginForm.vue";
 
-export default Vue.extend({
-  components: {
-    LoginForm
-  }
-})
+  export default Vue.extend({
+    components: {
+      LoginForm
+    }
+  })
+
 </script>
