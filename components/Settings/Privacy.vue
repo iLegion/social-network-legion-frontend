@@ -1,5 +1,8 @@
 <template>
   <div class="privacy-component">
+   <div class="container d-flex justify-content-center">
+      <div class="row">
+        <div class="col mt-3">
     <form class="mt-3">
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Profile display mode</label>
@@ -52,8 +55,13 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Save</button>
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-dark">Save</button>
+      </div>
     </form>
+  </div>
+  </div>
+  </div>
   </div>
 </template>
 

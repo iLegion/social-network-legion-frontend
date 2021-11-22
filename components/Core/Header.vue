@@ -35,6 +35,9 @@
                     <router-link class="dropdown-item" to="/profile">Profile</router-link>
                   </li>
                   <li>
+                    <router-link class="dropdown-item" to="/settings">Settings</router-link>
+                  </li>
+                  <li>
                     <Logout>
                       <button type="button" class="dropdown-item">Log out</button>
                     </Logout>
@@ -58,12 +61,6 @@ import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faComments } from '@fortawesome/free-regular-svg-icons';
-
-import Dropdown from "~/components/Dropdown/Dropdown.vue";
-import Logout from "~/components/Auth/Logout.vue";
-
-import Dropdown from "~/components/Dropdown/Dropdown.vue";
-import Logout from "~/components/Auth/Logout.vue";
 
 import Dropdown from "~/components/Dropdown/Dropdown.vue";
 import Logout from "~/components/Auth/Logout.vue";
