@@ -12,6 +12,7 @@ import Vue from 'vue'
 export default Vue.extend({
   methods: {
     redirectToPosts(): void {
+      console.log('redirectToPosts');
       this.$router.push('/posts');
     }
   },
