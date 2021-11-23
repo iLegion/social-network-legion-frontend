@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="text-muted">
-      {{ getformattedDate }}
+      {{ getFormattedDate }}
     </div>
   </div>
 </template>
@@ -53,39 +53,15 @@ export default Vue.extend({
     faEye() {
       return faEye;
     },
-    getformattedDate(): string {
-      const date = this.formattedDate(new Date(this.post.createdAt));
-      const today = this.formattedDate(new Date());
+    getFormattedDate(): string {
+      const dateService = new DateService();
 
-      if (today === date) {
-        return "Today";
-      }
-
-      return date;
-
-      // const createdAt = this.post.createdAt;
-
-      // return createdAt
-      //     ? (new DateService()).getFormattedDate(new Date(createdAt), 'h:m:s d-m-Y')
-      //     : '';
+      return dateService.isSame(new Date(this.post.createdAt), new Date())
+          ? 'Today'
+          : dateService.getFormattedDate(new Date(this.post.createdAt));
     }
   },
   methods: {
-    formattedDate(date) {
-      let day = date.getDate();
-      let month = date.getMonth() + 1;
-      let year = date.getFullYear();
-
-      if (day < 10) {
-        day = "0" + day;
-      }
-
-      if (month < 10) {
-        month = "0" + month;
-      }
-
-      return `${day}.${month}.${year}`;
-    },
     handleLike() {
       this.like('post', this.post.id);
     },
