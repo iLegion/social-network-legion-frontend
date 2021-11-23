@@ -1,4 +1,8 @@
 export default class DateService {
+  public isSame(firstDate: Date, secondDate: Date): boolean {
+    return this.getFormattedDate(firstDate) === this.getFormattedDate(secondDate);
+  }
+
   public getFormattedDate(value: Date, format = 'd-m-Y'): string {
     const day = value.getDate();
     const month = value.getMonth() + 1;
