@@ -19,11 +19,12 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      // { rel: 'stylesheet', type: 'text/css', href: 'https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css' },
+      { rel: 'stylesheet', type: 'text/css', href: 'https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css' },
     ],
     script: [
       { src: 'https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/chat.js' },
-      { src: 'https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js' }
+      { src: '/js/botMan.js', body: true },
+      { src: 'https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js', body: true }
     ]
   },
 
