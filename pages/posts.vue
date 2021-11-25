@@ -2,6 +2,13 @@
   <div id="posts-page">
     <div class="container-fluid">
       <div class="row">
+        <div class="col d-flex justify-content-end mt-2 mb-2">
+          <div class="">
+            <button type="button" class="button_hola">by likes</button>
+            <button class="double-border-button">by views</button>
+            <!-- <button type="button" class="button_hola">by views</button> -->
+          </div>
+        </div>
         <div class="col-12 col-xxl-7">
           <div v-if="posts.length">
             <Post v-for="post in posts"
@@ -66,3 +73,130 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style>
+.button_hola,
+.button_hola::before,
+.button_hola::after,
+.button_hola span,
+.button_hola span::before,
+.button_hola span::after
+{
+  transition: all ease .5s;
+}
+ 
+.button_hola{
+  position: relative;
+  display: inline-block;
+  margin: 1em;
+  border: solid 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: #fff;
+}
+ 
+.button_hola:hover
+{
+  box-shadow: 0 0 5em .5em rgba(50,50,150,0.5);
+}
+ 
+.button_hola span
+{
+  display: inline-block;
+  width: 100%;
+  padding: 0.6em 2em;
+}
+ 
+.button_hola:hover span
+{
+  background-color: #fff;
+  color: #112;
+}
+ 
+.button_hola::before,
+.button_hola::after,
+.button_hola span::before,
+.button_hola span::after
+{
+  content: '';
+  position: absolute;
+  border: 1px;
+}
+ 
+.button_hola::before,
+.button_hola span::before
+{
+  border-style: solid none;  
+}
+ 
+.button_hola::before,
+.button_hola span::after{      
+  left: 0;
+  top: -0.4em;
+  width: 100%; 
+  height: calc(100% + 0.8em);
+}
+ 
+.button_hola::after,
+.button_hola span::after
+{
+  border-style: none solid;   
+}
+ 
+.button_hola::after,
+.button_hola span::before
+{
+  top: 0;
+  left: -0.4em;
+  height: 100%;
+  width: calc(100% + 0.8em); 
+}
+ 
+.button_hola:hover::after,
+.button_hola:hover span::after
+{
+  transform: scaleY(0);
+}
+ 
+.button_hola:hover::before,
+.button_hola:hover span::before
+{
+  transform: scaleX(0);
+}
+ 
+.button_hola:hover span::after,
+.button_hola:hover span::before
+{
+  opacity: 0;
+}
+.double-border-button {
+  text-decoration: none;
+  display: inline-block;
+  margin: 10px 20px;
+  padding: 5px 10px;
+  position: relative;
+  border: 1px solid #000000;
+  color: #000000;
+  transition: .4s;
+  background-color: #fff;
+}
+.double-border-button:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  border: 1px solid rgba(0, 0, 0, 0);
+  transition: .4s;
+}
+.double-border-button:hover:after {
+  border-color: #000000;
+  width: calc(100% - 10px);
+  height: calc(100% + 10px);
+}
+
+</style>

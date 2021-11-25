@@ -1,6 +1,6 @@
 <template>
   <div class="profile-info">
-    <div class="card mb-3">
+    <div class="card mt-3 mb-3 p-3">
       <div class="row g-0">
         <div class="col-md-4 d-flex justify-content-center align-items-center">
           <img :src="user.avatar" class="img-fluid rounded-start" alt="...">
