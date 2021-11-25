@@ -111,8 +111,8 @@ export default class UserModel extends BaseModel {
     this.id = data.id;
     this.name = data.name;
     this.postsCount = data.postsCount;
-    this.privacySettings = new PrivacySettingsModel(data.privacySettings);
-    this.roles = data.roles.map(i => new RoleModel(i));
+    this.privacySettings = data.privacySettings ? new PrivacySettingsModel(data.privacySettings) : null;
+    this.roles = data.roles ? data.roles.map(i => new RoleModel(i)) : [];
     this.updatedAt = data.updatedAt;
   }
 }

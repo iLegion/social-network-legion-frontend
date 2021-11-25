@@ -1,4 +1,6 @@
 import BaseModel from "~/classes/BaseModel";
+import UserModel from "~/classes/Models/User/UserModel";
+import { UserResponseInterface } from "~/interfaces/classes/Api/UserApiInterface";
 import { PostInterface } from "~/interfaces/classes/Models/PostModelInterface";
 
 export default class PostModel extends BaseModel {
@@ -7,6 +9,7 @@ export default class PostModel extends BaseModel {
   private _likesCount: number = 0;
   private _text: string = '';
   private _title: string = '';
+  private _author: UserModel | null = null;
   private _updatedAt: string = '';
   private _viewsCount: number = 0;
   private _commentsCount: number = 0;
@@ -41,6 +44,14 @@ export default class PostModel extends BaseModel {
 
   set text(value: string) {
     this._text = value;
+  }
+
+  get author(): UserModel | null {
+    return this._author;
+  }
+
+  set author(value: UserModel | null) {
+    this._author = value;
   }
 
   get title(): string {
@@ -86,6 +97,7 @@ export default class PostModel extends BaseModel {
     this.id = data.id;
     this.likesCount = data.likesCount;
     this.text = data.text;
+    this.author = data.author ? new UserModel(data.author) : null;
     this.title = data.title;
     this.updatedAt = data.updatedAt;
     this.viewsCount = data.viewsCount;

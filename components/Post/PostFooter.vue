@@ -21,8 +21,16 @@
         <span>{{ post.viewsCount }}</span>
       </div>
     </div>
+    <div class="d-flex">
+    <div class="me-3">
+      <font-awesome-icon class="icon"
+                          :icon="faUser"
+                          fixed-width />
+      <router-link class="author" to="/profile">{{ getAuthor }}</router-link>
+    </div>
     <div class="text-muted">
       {{ getFormattedDate }}
+    </div>
     </div>
   </div>
 </template>
@@ -32,6 +40,7 @@ import Vue from "vue";
 import { faHeart } from "@fortawesome/free-regular-svg-icons/faHeart";
 import { faComments } from "@fortawesome/free-regular-svg-icons/faComments";
 import { faEye } from "@fortawesome/free-regular-svg-icons/faEye";
+import { faUser } from "@fortawesome/free-regular-svg-icons/faUser";
 
 import PostModel from "~/classes/Models/PostModel";
 import DateService from "~/services/DateService";
@@ -52,6 +61,12 @@ export default Vue.extend({
     },
     faEye() {
       return faEye;
+    },
+    faUser() {
+      return faUser;
+    },
+    getAuthor() {
+      return this.post.author?.name;
     },
     getFormattedDate(): string {
       const dateService = new DateService();
@@ -91,6 +106,10 @@ export default Vue.extend({
 .post-footer-component {
   .icon {
     cursor: pointer;
+  }
+  .author {
+    text-decoration: none;
+    color: inherit;
   }
 }
 </style>
