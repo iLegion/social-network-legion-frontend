@@ -2,6 +2,7 @@
   <div>
     <Header></Header>
     <Nuxt></Nuxt>
+    <BotMan />
   </div>
 </template>
 
@@ -11,10 +12,12 @@ import { mapActions } from "vuex";
 
 import LocalStorageService from "~/services/LocalStorageService";
 import Header from "~/components/Core/Header.vue";
+import BotMan from "~/components/BotMan/BotMan.vue";
 
 export default Vue.extend({
   components: {
-    Header
+    Header,
+    BotMan
   },
   methods: {
     ...mapActions('auth', ['setUser']),

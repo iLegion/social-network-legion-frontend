@@ -1,5 +1,5 @@
 <template>
-  <div class="botMan-component"></div>
+  <div class="botMan-component position-fixed"></div>
 </template>
 
 <script lang="ts">
@@ -8,6 +8,4 @@ import Vue from "vue";
 export default Vue.extend({});
 </script>
 
-<style scoped>
-
-</style>
+<style lang="scss"></style>
