@@ -23,12 +23,12 @@
     </div>
     <div class="d-flex">
     <div class="me-3">
-      <font-awesome-icon class="icon"
+      <font-awesome-icon class="icon text-muted"
                           :icon="faUser"
                           fixed-width />
-      <router-link class="author" to="/profile">{{ getAuthor }}</router-link>
+      <router-link class="author text-muted fst-italic" to="/profile">{{ getAuthor }}</router-link>
     </div>
-    <div class="text-muted">
+    <div class="text-muted fst-italic">
       {{ getFormattedDate }}
     </div>
     </div>
