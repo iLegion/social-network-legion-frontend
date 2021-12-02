@@ -2,12 +2,14 @@
   <div id="posts-page">
     <div class="container">
       <div class="row">
-        <div class="col d-flex justify-content-end mt-2 mb-2">
+        <div class="col-12 col-xxl-7 d-flex justify-content-end mt-2 mb-2">
           <div class="">
             <button type="button" class="button_hola">by likes</button>
             <button type="button" class="button_hola">by views</button>
           </div>
         </div>
+        </div>
+        <div class="row">
         <div class="col-12 col-xxl-7">
           <div v-if="posts.length">
             <Post v-for="post in posts"
@@ -19,9 +21,9 @@
           </div>
           <div v-else></div>
         </div>
+        </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
