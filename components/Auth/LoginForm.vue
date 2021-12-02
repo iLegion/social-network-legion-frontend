@@ -1,13 +1,13 @@
 <template>
   <div class="login-form-component">
-    <div class="fs-2 mt-5 fw-bold text-center mb-5">Login</div>
+    <div class="fs-2 mt-5 fw-bold text-center mb-3">Login</div>
 
     <form @submit.prevent="send">
       <div class="form-group mb-4">
         <label for="email" class="form-label">Email</label>
         <div class="input-group">
           <div class="input-group-text">
-            <font-awesome-icon :icon="faUser" fixed-width />
+            <font-awesome-icon :icon="faEnvelope" fixed-width />
           </div>
           <input type="text"
                  class="form-control"
@@ -51,7 +51,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from "vuex";
-import { faUser } from '@fortawesome/free-regular-svg-icons'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 
 import ValidationError from "~/classes/Errors/ValidationError";
@@ -60,8 +60,8 @@ import LocalStorageService from "~/services/LocalStorageService";
 export default Vue.extend({
   name: 'LoginForm',
   computed: {
-    faUser() {
-      return faUser;
+    faEnvelope() {
+      return faEnvelope;
     },
     faLock() {
       return faLock;
