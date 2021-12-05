@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <router-link class="navbar-brand" to="/">SC "Legion"</router-link>
         <button class="navbar-toggler"
@@ -13,24 +13,22 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-<!--            <li class="nav-item">-->
-<!--              <router-link class="nav-link" to="/posts">Posts</router-link>-->
-<!--            </li>-->
-          </ul>
           <div class="d-flex align-items-center">
             <router-link v-if="isAuth"
                          to="/chat"
-                         class="btn btn-secondary text-center me-2">
+                         class="btn btn-dark text-center me-2">
                 <font-awesome-icon :icon="faComments" fixed-width />
               </router-link>
             <div>
-              <Dropdown v-if="isAuth">
+              <Dropdown v-if="isAuth" theme="dark">
                 <template v-slot:dropdown-button-content>
                   <font-awesome-icon :icon="faUser" fixed-width />
                 </template>
 
                 <template v-slot:dropdown-list-content>
+                  <li>
+                    <span class="dropdown-item disabled">{{ user.name }}</span>
+                  </li>
                   <li>
                     <router-link class="dropdown-item" to="/profile">Profile</router-link>
                   </li>
@@ -71,7 +69,7 @@ export default Vue.extend({
     Logout
   },
   computed: {
-    ...mapGetters('auth', ['isAuth']),
+    ...mapGetters('auth', ['isAuth', 'user']),
 
     faUser() {
       return faUser;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isAuth">
     <Header></Header>
     <Nuxt></Nuxt>
   </div>
@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 import Header from "~/components/Core/Header.vue";
 import LocalStorageService from "~/services/LocalStorageService";
@@ -16,8 +16,11 @@ export default Vue.extend({
   components: {
     Header
   },
+  computed: {
+    ...mapGetters('auth', ['isAuth'])
+  },
   methods: {
-    ...mapActions("auth", ["setUser"]),
+    ...mapActions('auth', ['setUser']),
 
     setToken(): boolean {
       const token = LocalStorageService.getToken();

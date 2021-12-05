@@ -1,31 +1,50 @@
 <template>
   <div class="user-posts">
-  <div class="container">
-  <div class="row">
-    <div class="col">
-  <div v-if="posts.length">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 offset-xxl-7 col-xxl-3 d-flex justify-content-end mt-2 mb-2">
+          <PostFilter v-show="posts.length"
+                      :user="user"
+                      @onGetPosts="handleGetPosts" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 offset-xxl-2 col-xxl-8">
+          <div v-if="posts.length">
             <Post v-for="post in posts"
                   :key="'post' + post.id"
                   :post="post"
                   @onAddLike="handleLike"
-                  @onAddView="handleAddView">
-            </Post>
+                  @onAddView="handleAddView" />
           </div>
-          <div v-else></div>
-  </div>
-  </div>
-  </div>
+          <div v-else
+               class="text-center">
+            Posts not found. Please, add new posts.
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+
 import PostModel from "~/classes/Models/PostModel";
+import UserModel from "~/classes/Models/User/UserModel";
+import PostFilter from "~/components/Post/PostFilter.vue";
 import Post from "~/components/Post/Post.vue";
 
 export default Vue.extend({
-   components: {
-      Post
+  components: {
+    PostFilter,
+    Post
+  },
+  props: {
+    user: {
+      type: UserModel,
+      required: true
+    }
   },
   data: (): { posts: PostModel[], pagination: Object } => {
     return {
@@ -34,6 +53,9 @@ export default Vue.extend({
     }
   },
   methods: {
+    handleGetPosts(posts: PostModel[]): void {
+      this.posts.splice(0, this.posts.length, ...posts);
+    },
     handleLike(id: number): void {
       const postIndex = this.posts.findIndex(i => i.id === id);
 
@@ -48,21 +70,6 @@ export default Vue.extend({
         this.posts[postIndex].viewsCount += 1;
       }
     },
-
-    async get(): Promise<void> {
-      try {
-        const response = await this.$api.post.getAll();
-
-        this.posts.push(
-            ...response.data.map((i) => {
-              return new PostModel(i);
-            })
-        );
-      } catch (e) {}
-    }
-  },
-  async fetch(): Promise<void> {
-    await this.get();
   }
 });
 </script>

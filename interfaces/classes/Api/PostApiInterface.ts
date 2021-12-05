@@ -10,3 +10,9 @@ export interface PostsResponseInterface {
     total: number;
   }
 }
+
+export interface PostsGetPayloadInterface {
+  byLikes?: number;
+  byViews?: number;
+  userId?: number;
+}

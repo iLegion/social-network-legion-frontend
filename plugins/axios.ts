@@ -11,6 +11,8 @@ export default function ({ $axios, $config, app }: Context) {
   $axios.onResponseError((e) => {
     if (e.response?.status === 401) {
       app.router.push('/auth');
+    } else if (e.response?.status === 500) {
+      app.router.push('/500');
     }
   });
 }
