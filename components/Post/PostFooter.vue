@@ -15,18 +15,22 @@
         <span>{{ post.commentsCount }}</span>
       </div>
       <div>
-        <font-awesome-icon class="icon"
+        <font-awesome-icon class="pe-none"
                            :icon="faEye"
                            fixed-width />
         <span>{{ post.viewsCount }}</span>
       </div>
     </div>
     <div class="d-flex">
-    <div class="me-3">
-      <font-awesome-icon class="icon text-muted"
-                          :icon="faUser"
-                          fixed-width />
-      <router-link class="author text-muted fst-italic" to="/profile">{{ getAuthor }}</router-link>
+    <div v-if="author"
+         class="me-3">
+      <router-link class="author text-muted fst-italic"
+                   :to="'/users/' + author.id">
+        <font-awesome-icon class="icon text-muted"
+                           :icon="faUser"
+                           fixed-width />
+        <span>{{ author.name }}</span>
+      </router-link>
     </div>
     <div class="text-muted fst-italic">
       {{ getFormattedDate }}
@@ -37,6 +41,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapGetters } from "vuex";
 import { faHeart } from "@fortawesome/free-regular-svg-icons/faHeart";
 import { faComments } from "@fortawesome/free-regular-svg-icons/faComments";
 import { faEye } from "@fortawesome/free-regular-svg-icons/faEye";
@@ -44,6 +49,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons/faUser";
 
 import PostModel from "~/classes/Models/PostModel";
 import DateService from "~/services/DateService";
+import UserModel from "~/classes/Models/User/UserModel";
 
 export default Vue.extend({
   props: {
@@ -53,6 +59,8 @@ export default Vue.extend({
     }
   },
   computed: {
+    ...mapGetters('auth', ['user']),
+
     faHeart() {
       return faHeart;
     },
@@ -65,8 +73,10 @@ export default Vue.extend({
     faUser() {
       return faUser;
     },
-    getAuthor() {
-      return this.post.author?.name;
+    author(): UserModel | null {
+      const author = this.post.author;
+
+      return author && this.user.id !== author?.id ? author : null;
     },
     getFormattedDate(): string {
       const dateService = new DateService();
@@ -80,6 +90,9 @@ export default Vue.extend({
     handleLike() {
       this.like('post', this.post.id);
     },
+    handleView() {
+      this.view('post', this.post.id);
+    },
 
     async like(type: string, id: number): Promise<void> {
       try {
@@ -88,7 +101,7 @@ export default Vue.extend({
         this.$emit('onAddLike', id);
         this.$toasted.success('Like added successfully.');
 
-        await this.view(type, id);
+        this.handleView();
       } catch (e) {}
     },
     async view(type: string, id: number): Promise<void> {
@@ -107,6 +120,7 @@ export default Vue.extend({
   .icon {
     cursor: pointer;
   }
+
   .author {
     text-decoration: none;
     color: inherit;

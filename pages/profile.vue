@@ -7,7 +7,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col">
-        <UserPosts />
+        <UserPosts :user="user" />
       </div>
     </div>
   </div>
