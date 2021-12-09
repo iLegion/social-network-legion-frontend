@@ -1,5 +1,9 @@
 import { PostInterface } from "~/interfaces/classes/Models/PostModelInterface";
 
+export interface PostResponseInterface {
+  data: PostInterface;
+}
+
 export interface PostsResponseInterface {
   data: PostInterface[];
   pagination: {
@@ -15,4 +19,14 @@ export interface PostsGetPayloadInterface {
   byLikes?: number;
   byViews?: number;
   userId?: number;
+}
+
+export interface PostCreatePayloadInterface {
+  title: string;
+  text: string;
+}
+
+export interface PostUpdatePayloadInterface {
+  title: string;
+  text: string;
 }

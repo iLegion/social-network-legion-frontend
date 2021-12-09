@@ -15,8 +15,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapGetters } from "vuex";
 
+import UserModel from "~/classes/Models/User/UserModel";
 import UsersInfo from "~/components/Users/UsersInfo.vue";
 import UserPosts from "~/components/Users/UserPosts.vue";
 
@@ -25,8 +25,24 @@ export default Vue.extend({
     UsersInfo,
     UserPosts
   },
-  computed: {
-    ...mapGetters('auth', ['user'])
-  }
+  data: (): { user: UserModel | null } => {
+    return {
+      user: null
+    }
+  },
+  methods: {
+    async get(id: number): Promise<void> {
+      try {
+        const response = await this.$api.user.byId(id);
+
+        this.user = new UserModel(response.data);
+      } catch (e) {}
+    }
+  },
+  // async asyncData({ params }): Promise<Object> {
+  //   const userId = params.id;
+  //
+  //   return { userId };
+  // }
 });
 </script>

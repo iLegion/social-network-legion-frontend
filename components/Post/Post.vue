@@ -2,8 +2,13 @@
   <div class="card mb-3 shadow">
     <!--    <img src="..." class="card-img-top" alt="...">-->
     <div class="card-body">
+      <div class="d-flex justify-content-between align-items-end">
       <h5 class="card-title">{{ post.title }}</h5>
-      <p class="card-text">{{ isSimple ? shortDescription : post.text }}</p>
+        <PostHeaderDropdown v-if="post.author.id === user.id"
+                            :post="post"
+                            @onDelete="handleDelete" />
+      </div>
+      <p class="card-text mt-2">{{ isSimple ? shortDescription : post.text }}</p>
       <div class="d-flex justify-content-end">
         <button v-if="isSimple"
                 type="button"
@@ -32,9 +37,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapGetters } from "vuex";
 import { Modal as BootstrapModal } from 'bootstrap';
+import { faComments } from "@fortawesome/free-regular-svg-icons/faComments";
 
 import PostModel from "~/classes/Models/PostModel";
+import PostHeaderDropdown from "~/components/Post/PostHeaderDropdown.vue";
 import PostFooter from "~/components/Post/PostFooter.vue";
 import Modal from "~/components/Modal/Modal.vue";
 import Comment from "~/components/Comment/Comment.vue";
@@ -42,6 +50,7 @@ import Comment from "~/components/Comment/Comment.vue";
 export default Vue.extend({
   name: 'Post',
   components: {
+    PostHeaderDropdown,
     PostFooter,
     Modal,
     Comment
@@ -58,11 +67,16 @@ export default Vue.extend({
     }
   },
   computed: {
+    ...mapGetters('auth', ['user']),
+
     shortDescription() {
       return this.post.text.slice(0, 300) + "...";
     },
     modalId(): string {
       return 'modal-post-' + this.post.id;
+    },
+    faComments() {
+      return faComments;
     }
   },
   data: (): { modalInstance: BootstrapModal | null} => {
@@ -87,10 +101,9 @@ export default Vue.extend({
     },
     handleOpenModal(): void {
       this.modalInstance?.show();
-
-      if (this.$refs.PostFooter && this.$refs.PostFooter instanceof PostFooter) {
-        this.$refs.PostFooter.handleView();
-      }
+    },
+    handleDelete(id: number): void {
+      this.$emit('onDelete', id);
     }
   },
   mounted() {
@@ -98,3 +111,9 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style lang="scss">
+.icon {
+  margin-left: 3px;
+}
+</style>

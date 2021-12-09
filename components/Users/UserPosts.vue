@@ -15,7 +15,8 @@
                   :key="'post' + post.id"
                   :post="post"
                   @onAddLike="handleLike"
-                  @onAddView="handleAddView" />
+                  @onAddView="handleAddView"
+                  @onDelete="handleDelete" />
           </div>
           <div v-else
                class="text-center">
@@ -70,6 +71,13 @@ export default Vue.extend({
         this.posts[postIndex].viewsCount += 1;
       }
     },
+    handleDelete(id: number): void {
+      const postIndex = this.posts.findIndex(i => i.id === id);
+
+      if (postIndex !== -1) {
+        this.posts.splice(postIndex, 1);
+      }
+    }
   }
 });
 </script>

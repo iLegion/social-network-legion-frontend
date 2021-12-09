@@ -1,7 +1,7 @@
 import {AxiosResponse} from "axios";
 
 export default class ValidationError extends Error {
-  private _errors: { email?: string[], password?: string[] } = {};
+  private _errors: any = {};
 
   constructor(response: AxiosResponse) {
     super(response.statusText);
