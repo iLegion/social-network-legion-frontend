@@ -21,7 +21,12 @@ import Vue from 'vue';
 import { Dropdown } from 'bootstrap';
 
 export default Vue.extend({
+  name: "Dropdown",
   props: {
+    id: {
+      type: String,
+      required: true
+    },
     theme: {
       type: String,
       required: false,
@@ -30,11 +35,11 @@ export default Vue.extend({
   },
   methods: {
     initDropdown(): void {
-      const dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+      const el = document.getElementById(this.id);
 
-      dropdownElementList.map((dropdownToggleEl) => {
-        return new Dropdown(dropdownToggleEl)
-      })
+      if (el) {
+        new Dropdown(el);
+      }
     }
   },
   mounted() {

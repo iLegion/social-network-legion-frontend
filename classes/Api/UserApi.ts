@@ -7,4 +7,8 @@ export default class UserApi extends BaseApi{
   public async me(): Promise<UserResponseInterface> {
     return await this.callToApi('get', this.uri + '/me');
   }
+
+  public async byId(id: number): Promise<UserResponseInterface> {
+    return await this.callToApi('get', `this.uri + /${id}`);
+  }
 }

@@ -1,12 +1,14 @@
 <template>
   <div class="chat-page p-2">
     <div class="container-fluid">
-      <div class="row">
+      <div v-if="dialogs.length"
+           class="row">
         <div class="col-4">
           <DialogList :dialogs="dialogs"
                       :selected-dialog="getSelectedDialog"
                       @onSelect="handleSelectDialog" />
         </div>
+
         <div class="col-8">
           <div v-if="selectedDialogId"
                class="dialog border rounded shadow">
@@ -14,6 +16,19 @@
             <DialogContentMiddleSide :dialog="getSelectedDialog" />
             <DialogContentBottomBar :dialog="getSelectedDialog"
                                     @sentMessage="handleSentMessage" />
+          </div>
+          <div v-else
+               class="empty d-flex justify-content-center align-items-center vh-90">
+            Please, select a chat.
+          </div>
+        </div>
+      </div>
+
+      <div v-else
+           class="row">
+        <div class="col-12">
+          <div class="d-flex justify-content-center align-items-center vh-90">
+            You don`t have message :(
           </div>
         </div>
       </div>
