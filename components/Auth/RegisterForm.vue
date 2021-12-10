@@ -1,8 +1,8 @@
 <template>
   <div class="register-form-component">
     <div class="fs-2 mt-4 fw-bold text-center mb-3">Registration</div>
-    <form>
-              <div class="form-group mb-4">
+    <form @submit.prevent="send">
+      <div class="form-group mb-4">
         <label for="name" class="form-label">Name</label>
         <div class="input-group">
           <div class="input-group-text">
@@ -10,8 +10,14 @@
           </div>
           <input type="text"
                  class="form-control"
+                 :class="{ 'is-invalid': errors && errors.name }"
                  id="name"
-                 placeholder="Type your name">
+                 placeholder="Type your name"
+                 v-model="form.name">
+          <div v-if="errors && errors.name"
+               class="invalid-feedback">
+            {{ errors.name[0] }}
+          </div>
         </div>
       </div>
       <div class="form-group mb-4">
@@ -22,11 +28,17 @@
           </div>
           <input type="text"
                  class="form-control"
+                 :class="{ 'is-invalid': errors && errors.email }"
                  id="email"
-                 placeholder="Type your email">
+                 placeholder="Type your email"
+                 v-model="form.email">
+          <div v-if="errors && errors.email"
+               class="invalid-feedback">
+            {{ errors.email[0] }}
+          </div>
         </div>
       </div>
-      <div class="form-group mb-2">
+      <div class="form-group mb-4">
         <label for="password" class="form-label">Password</label>
         <div class="input-group">
           <div class="input-group-text">
@@ -34,28 +46,35 @@
           </div>
           <input type="password"
                  class="form-control"
+                 :class="{ 'is-invalid': errors && errors.password }"
                  id="password"
-                 placeholder="Type your password">
+                 placeholder="Type your password"
+                 v-model="form.password">
+          <div v-if="errors && errors.password"
+               class="invalid-feedback">
+            {{ errors.password[0] }}
+          </div>
         </div>
       </div>
-      <div class="text-end text-secondary mb-4">
-        <span>Forgot password?</span>
-      </div>
       <button type="submit"
-              class="btn btn-dark w-100">Registration</button>
+              class="btn btn-dark w-100">
+        Registration
+      </button>
     </form>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-
+import { mapActions } from "vuex";
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 
+import LocalStorageService from "~/services/LocalStorageService";
+import ValidationError from "~/classes/Errors/ValidationError";
+
 export default Vue.extend({
-  name: 'LoginForm',
   computed: {
     faUser() {
       return faUser;
@@ -65,6 +84,55 @@ export default Vue.extend({
     },
     faLock() {
       return faLock;
+    }
+  },
+  data: () => ({
+    form: {
+      name: '',
+      email: '',
+      password: '',
+    },
+    errors: {
+      name: '',
+      email: '',
+      password: ''
+    }
+  }),
+  methods: {
+    ...mapActions("auth", ["setUser"]),
+
+    handleInput(type: string): void {
+      const errors = this.errors;
+
+      if (errors) {
+        if (type === 'name' || type === 'email' || type === 'password') {
+          delete errors[type];
+        }
+      }
+    },
+
+    async send(): Promise<void> {
+      try {
+        const response = await this.$api.register.register(this.form);
+        const token = response.data.type + ' ' + response.data.token;
+
+        LocalStorageService.setToken(token);
+        this.$axios.setToken(token);
+
+        await this.getUser();
+        await this.$router.push('/profile');
+      } catch (e) {
+        if (e instanceof ValidationError) {
+          this.errors = e.errors;
+        }
+      }
+    },
+    async getUser(): Promise<void> {
+      try {
+        const response = await this.$api.user.me();
+
+        this.setUser(response.data)
+      } catch (e) {}
     }
   }
 })

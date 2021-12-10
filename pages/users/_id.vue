@@ -2,12 +2,15 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-6">
-        <UsersInfo :user="user"/>
+        <UsersInfo v-if="user"
+                   :user="user"
+                   @onAddFriend="handleAddFriend" />
       </div>
     </div>
         <div class="row justify-content-center">
       <div class="col">
-        <UserPosts :user="user" />
+        <UserPosts v-if="user"
+                   :user="user" />
       </div>
     </div>
   </div>
@@ -15,6 +18,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapGetters } from "vuex";
 
 import UserModel from "~/classes/Models/User/UserModel";
 import UsersInfo from "~/components/Users/UsersInfo.vue";
@@ -25,12 +29,27 @@ export default Vue.extend({
     UsersInfo,
     UserPosts
   },
+  computed: {
+    ...mapGetters('auth', {
+      authUser: 'user'
+    })
+  },
   data: (): { user: UserModel | null } => {
     return {
       user: null
     }
   },
   methods: {
+    handleAddFriend(): void {
+      const user = this.user;
+
+      if (user) {
+        user.isMyFriend = true;
+
+        this.user = user;
+      }
+    },
+
     async get(id: number): Promise<void> {
       try {
         const response = await this.$api.user.byId(id);
@@ -39,10 +58,14 @@ export default Vue.extend({
       } catch (e) {}
     }
   },
-  // async asyncData({ params }): Promise<Object> {
-  //   const userId = params.id;
-  //
-  //   return { userId };
-  // }
+  async fetch(): Promise<void> {
+    const userId = Number(this.$route.params.id);
+
+    if (this.authUser.id === userId) {
+      await this.$router.push('/profile');
+    } else {
+      await this.get(userId);
+    }
+  }
 });
 </script>

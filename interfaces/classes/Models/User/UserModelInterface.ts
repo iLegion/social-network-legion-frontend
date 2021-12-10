@@ -7,6 +7,7 @@ export interface UserInterface {
   email: string;
   friendsCount: number;
   id: number;
+  isMyFriend: boolean;
   name: string;
   postsCount: number;
   privacySettings: PrivacySettingsInterface;

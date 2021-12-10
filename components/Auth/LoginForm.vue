@@ -1,6 +1,6 @@
 <template>
   <div class="login-form-component">
-    <div class="fs-2 mt-5 fw-bold text-center mb-3">Login</div>
+    <div class="fs-2 mt-4 fw-bold text-center mb-3">Log in</div>
 
     <form @submit.prevent="send">
       <div class="form-group mb-4">
@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <div class="form-group mb-2">
+      <div class="form-group mb-4">
         <label for="password" class="form-label">Password</label>
         <div class="input-group">
           <div class="input-group-text">
@@ -39,11 +39,11 @@
           </div>
         </div>
       </div>
-      <div class="text-end text-secondary mb-4">
-        <span>Forgot password?</span>
-      </div>
+<!--      <div class="text-end text-secondary mb-4">-->
+<!--        <span>Forgot password?</span>-->
+<!--      </div>-->
       <button type="submit"
-              class="btn btn-dark w-100">Login</button>
+              class="btn btn-dark w-100">Log in</button>
     </form>
   </div>
 </template>
@@ -58,7 +58,6 @@ import ValidationError from "~/classes/Errors/ValidationError";
 import LocalStorageService from "~/services/LocalStorageService";
 
 export default Vue.extend({
-  name: 'LoginForm',
   computed: {
     faEnvelope() {
       return faEnvelope;

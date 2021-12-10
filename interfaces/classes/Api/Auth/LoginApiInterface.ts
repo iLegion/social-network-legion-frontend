@@ -4,3 +4,8 @@ export interface LoginResponseInterface {
     token: string
   }
 }
+
+export interface LoginStorePayloadInterface {
+  email: string,
+  password: string
+}

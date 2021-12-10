@@ -9,6 +9,7 @@ export default class UserModel extends BaseModel {
   private _email: string = '';
   private _friendsCount: number = 0;
   private _id: number = 0;
+  private _isMyFriend: boolean = false;
   private _name: string = '';
   private _postsCount: number = 0;
   private _privacySettings: PrivacySettingsModel | null = null;
@@ -53,6 +54,14 @@ export default class UserModel extends BaseModel {
 
   set id(value: number) {
     this._id = value;
+  }
+
+  get isMyFriend(): boolean {
+    return this._isMyFriend;
+  }
+
+  set isMyFriend(value: boolean) {
+    this._isMyFriend = value;
   }
 
   get name(): string {
@@ -109,6 +118,7 @@ export default class UserModel extends BaseModel {
     this.email = data.email;
     this.friendsCount = data.friendsCount;
     this.id = data.id;
+    this.isMyFriend = data.isMyFriend;
     this.name = data.name;
     this.postsCount = data.postsCount;
     this.privacySettings = data.privacySettings ? new PrivacySettingsModel(data.privacySettings) : null;

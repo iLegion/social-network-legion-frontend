@@ -40,7 +40,9 @@ export default Vue.extend({
     handleFilterByType(type: string): void {
       if (type === 'byLikes') {
         this.filters.byLikes = 1;
+        this.filters.byViews = 0;
       } else if (type === 'byViews') {
+        this.filters.byLikes = 0;
         this.filters.byViews = 1;
       }
 
