@@ -4,13 +4,15 @@
       <div v-show="users.length"
            class="row">
         <div class="col-12 col-xxl-3 offset-xxl-7 d-flex justify-content-end mt-2 mb-2">
-          <UserFilter @onGetUsers="handleGetUsers" />
+          <UserFilter :pagination="pagination"
+                      @onGetUsers="handleGetUsers" />
         </div>
       </div>
       <div class="row">
         <div class="col-12 col-xxl-8 offset-xxl-2">
           <UserList v-if="users.length"
-                    :users="users" />
+                    :users="users"
+                    @onAddFriend="handleAddFriend" />
 
           <div v-else
                class="d-flex justify-content-center align-items-center fw-bold vh-92">
@@ -41,9 +43,19 @@ export default Vue.extend({
     }
   },
   methods: {
-    handleGetUsers(posts: UserModel[]): void {
-      this.users.splice(0, this.users.length, ...posts);
+    handleGetUsers(posts: UserModel[], pagination: Object): void {
+      this.users.push(...posts);
+
+      this.pagination = pagination;
     },
+    handleAddFriend(id: number): void {
+      const userIndex = this.users.findIndex(i => i.id === id);
+      const user = this.users[userIndex];
+
+      user.isMyFriend = true;
+
+      this.users.splice(userIndex, 1, user)
+    }
   }
 });
 </script>

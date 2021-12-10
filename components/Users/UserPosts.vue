@@ -19,7 +19,7 @@
                   @onDelete="handleDelete" />
           </div>
           <div v-else
-               class="text-center">
+               class="text-center fw-bold">
             Posts not found. Please, add new posts.
           </div>
         </div>

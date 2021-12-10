@@ -19,6 +19,7 @@ export interface PostsGetPayloadInterface {
   byLikes?: number;
   byViews?: number;
   userId?: number;
+  page?: number;
 }
 
 export interface PostCreatePayloadInterface {
