@@ -69,7 +69,7 @@ export default Vue.extend({
   computed: {
     ...mapGetters('auth', ['user']),
 
-    shortDescription() {
+    shortDescription(): string {
       return this.post.text.slice(0, 300) + "...";
     },
     modalId(): string {
@@ -79,14 +79,12 @@ export default Vue.extend({
       return faComments;
     }
   },
-  data: (): { modalInstance: BootstrapModal | null} => {
-    return {
-      modalInstance: null
-    }
-  },
+  data: (): { modalInstance: BootstrapModal | null} => ({
+    modalInstance: null
+  }),
   methods: {
     initModal(): void {
-      const el = document.getElementById(this.modalId);
+      const el = document.getElementById((this.modalId as string));
 
       if (el) {
         this.modalInstance = new BootstrapModal(el)

@@ -8,3 +8,5 @@ export interface UsersResponseInterface {
   data: UserInterface[];
   pagination: Object;
 }
+
+export interface UsersGetPayloadInterface {}
