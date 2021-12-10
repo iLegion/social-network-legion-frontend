@@ -32,7 +32,8 @@
             <div class="d-flex">
               <button v-if="!user.isMyFriend && user.privacySettings.addFriendsMode"
                       type="button"
-                      class="btn btn-outline-dark me-2">
+                      class="btn btn-outline-dark me-2"
+                      @click="handleAddFriend">
                 Add to friends
               </button>
               <button v-if="user.isMyFriend || user.privacySettings.messageWritingMode"
@@ -58,6 +59,11 @@ export default Vue.extend({
     user: {
       type: Object as () => UserModel,
       required: true
+    }
+  },
+  methods: {
+    handleAddFriend(): void {
+      this.$emit('onAddFriend', this.user.id);
     }
   }
 });

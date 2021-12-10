@@ -2,7 +2,8 @@
   <div>
     <Item v-for="user in users"
           :key="'users-list-' + user.id"
-          :user="user" />
+          :user="user"
+          @onAddFriend="handleAddFriend" />
   </div>
 </template>
 
@@ -20,6 +21,20 @@ export default Vue.extend({
     users: {
       type: Array as () => UserModel[],
       required: true
+    }
+  },
+  methods: {
+    handleAddFriend(id: number): void {
+      this.addFriend(id);
+    },
+
+    async addFriend(id: number): Promise<void> {
+      try {
+        await this.$api.friend.store(id);
+
+        this.$toasted.success('Friend added successfully.');
+        this.$emit('onAddFriend', id);
+      } catch (e) {}
     }
   }
 });

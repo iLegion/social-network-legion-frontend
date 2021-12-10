@@ -8,8 +8,8 @@ import {
 export default class UserApi extends BaseApi{
   protected uri = 'users';
 
-  public async getAll(payload: UsersGetPayloadInterface): Promise<UsersResponseInterface> {
-    return await this.callToApi('get', this.uri, payload);
+  public async getAll(params: { page?: number } = {}, payload: UsersGetPayloadInterface): Promise<UsersResponseInterface> {
+    return await this.callToApi('get', this.uri, params, payload);
   }
 
   public async me(): Promise<UserResponseInterface> {

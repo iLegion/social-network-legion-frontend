@@ -4,14 +4,15 @@
       <div v-show="posts.length"
            class="row">
         <div class="col-12 col-xxl-3 offset-xxl-7 d-flex justify-content-end mt-2 mb-2">
-          <PostFilter @onGetPosts="handleGetPosts" />
+          <PostFilter :pagination="pagination"
+                      @onGetPosts="handleGetPosts" />
         </div>
       </div>
       <div class="row">
         <div class="col-12 offset-xxl-2 col-xxl-8">
           <template v-if="posts.length">
             <Post v-for="post in posts"
-                  :key="'post' + post.id"
+                  :key="'post-' + post.id"
                   :post="post"
                   @onAddLike="handleLike"
                   @onAddView="handleAddView"></Post>
@@ -45,8 +46,14 @@ export default Vue.extend({
     }
   },
   methods: {
-    handleGetPosts(posts: PostModel[]): void {
-      this.posts.splice(0, this.posts.length, ...posts);
+    handleGetPosts(posts: PostModel[], pagination: Object, reset: boolean = false): void {
+      if (reset) {
+        this.posts.splice(0, this.posts.length, ...posts);
+      } else {
+        this.posts.push(...posts);
+      }
+
+      this.pagination = pagination;
     },
     handleLike(id: number): void {
       const postIndex = this.posts.findIndex(i => i.id === id);

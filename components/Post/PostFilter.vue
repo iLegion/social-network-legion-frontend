@@ -26,17 +26,48 @@ export default Vue.extend({
       type: UserModel,
       required: false,
       default: null
+    },
+    pagination: {
+      type: Object,
+      required: false,
+      default: null
     }
   },
-  data: (): { filters: { byLikes: number, byViews: number } } => {
+  data: (): { filters: { byLikes: number, byViews: number }, isEnabledQuery: boolean, needReset: boolean } => {
     return {
       filters: {
         byLikes: 0,
         byViews: 0
-      }
+      },
+      isEnabledQuery: false,
+      needReset: false
     }
   },
   methods: {
+    initLazyLoading(): any {
+      const pagination = this.pagination;
+      const isEnabledQuery = this.isEnabledQuery;
+
+      if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+        if (!isEnabledQuery && pagination && (pagination.currentPage < pagination.lastPage)) {
+          this.get(this.getFilters(), pagination.currentPage + 1)
+        }
+      }
+    },
+    getFilters(): { byLikes?: number, byViews?: number } {
+      const formData: { byLikes?: number, byViews?: number } = {};
+
+      if (this.filters.byLikes) {
+        formData.byLikes = 1
+      }
+
+      if (this.filters.byViews) {
+        formData.byViews = 1
+      }
+
+      return formData;
+    },
+
     handleFilterByType(type: string): void {
       if (type === 'byLikes') {
         this.filters.byLikes = 1;
@@ -46,28 +77,43 @@ export default Vue.extend({
         this.filters.byViews = 1;
       }
 
-      this.get(this.filters);
+      this.needReset = true;
+
+      this.get(this.getFilters());
     },
 
-    async get(payload: PostsGetPayloadInterface = {}): Promise<void> {
+    async get(payload: PostsGetPayloadInterface = {}, page: number = 1): Promise<void> {
+      this.isEnabledQuery = true;
+
       if (this.user) {
         payload.userId = this.user.id;
       }
 
       try {
-        const response = await this.$api.post.getAll(payload);
+        const response = await this.$api.post.getAll(Object.assign(payload, { page }));
+
+        this.isEnabledQuery = false;
 
         this.$emit(
             'onGetPosts',
             response.data.map((i) => {
               return new PostModel(i);
-            })
+            }),
+            response.pagination,
+            this.needReset
         )
+
+        this.needReset = false;
       } catch (e) {}
     }
   },
   async fetch(): Promise<void> {
     await this.get();
+
+    window.addEventListener('scroll', this.initLazyLoading);
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.initLazyLoading);
   }
 });
 </script>
