@@ -13,7 +13,7 @@
                     :users="users" />
 
           <div v-else
-               class="text-center">
+               class="d-flex justify-content-center align-items-center fw-bold vh-92">
             Users not found. Please, wait when new users is registered.
           </div>
         </div>
@@ -47,7 +47,3 @@ export default Vue.extend({
   }
 });
 </script>
-
-<style scoped>
-
-</style>

@@ -17,7 +17,7 @@
                   @onAddView="handleAddView"></Post>
           </template>
           <div v-else
-               class="text-center">
+               class="d-flex justify-content-center align-items-center fw-bold vh-92">
             Posts not found. Please, add friends.
           </div>
         </div>

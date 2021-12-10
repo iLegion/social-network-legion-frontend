@@ -17,7 +17,8 @@
             </router-link>
           </h5>
           <div class="card-text">
-            <ul class="list-group list-group-horizontal mb-3">
+            <ul v-if="user.isMyFriend || user.privacySettings.profileDisplayMode"
+                class="list-group list-group-horizontal mb-3">
               <li class="list-group-item text-center">
                 <div class="badge rounded-pill bg-light text-dark">{{ user.postsCount }}</div>
                 <div>Posts</div>
@@ -29,12 +30,13 @@
             </ul>
 
             <div class="d-flex">
-              <button v-if="!user.isMyFriend"
+              <button v-if="!user.isMyFriend && user.privacySettings.addFriendsMode"
                       type="button"
                       class="btn btn-outline-dark me-2">
                 Add to friends
               </button>
-              <button type="button"
+              <button v-if="user.isMyFriend || user.privacySettings.messageWritingMode"
+                      type="button"
                       class="btn btn-outline-dark">
                 Write message
               </button>
