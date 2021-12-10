@@ -1,10 +1,10 @@
 <template>
   <div id="posts-page">
     <div class="container">
-      <div class="row">
-        <div class="col-12 offset-xxl-7 col-xxl-3 d-flex justify-content-end mt-2 mb-2">
-          <PostFilter v-show="posts.length"
-                      @onGetPosts="handleGetPosts" />
+      <div v-show="posts.length"
+           class="row">
+        <div class="col-12 col-xxl-3 offset-xxl-7 d-flex justify-content-end mt-2 mb-2">
+          <PostFilter @onGetPosts="handleGetPosts" />
         </div>
       </div>
       <div class="row">
