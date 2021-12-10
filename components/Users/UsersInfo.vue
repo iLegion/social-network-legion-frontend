@@ -12,9 +12,28 @@
               <span class="email fs-6 text-secondary">{{ user.email }}</span>
             </div>
 
+            <ul class="list-group list-group-horizontal mb-3">
+              <li class="list-group-item text-center">
+                <div class="badge rounded-pill bg-light text-dark">{{ user.postsCount }}</div>
+                <div>Posts</div>
+              </li>
+              <li class="list-group-item text-center">
+                <div class="badge rounded-pill bg-light text-dark">{{ user.friendsCount }}</div>
+                <div>Friends</div>
+              </li>
+            </ul>
+
             <div class="d-flex">
-              <button type="button" class="btn btn-outline-dark me-2">Add to friends</button>
-              <button type="button" class="btn btn-outline-dark">Write message</button>
+              <button v-if="!user.isMyFriend"
+                      type="button"
+                      class="btn btn-outline-dark me-2"
+                      @click="handleAddFriend">
+                Add to friends
+              </button>
+              <button type="button"
+                      class="btn btn-outline-dark">
+                Write message
+              </button>
             </div>
           </div>
         </div>
@@ -25,11 +44,29 @@
 
 <script lang="ts">
 import Vue from "vue";
+
 import UserModel from "~/classes/Models/User/UserModel";
 
 export default Vue.extend({
   props: {
-    user: UserModel
+    user: {
+      type: Object as () => UserModel,
+      required: true
+    }
+  },
+  methods: {
+    handleAddFriend(): void {
+      this.addFriend(this.user.id);
+    },
+
+    async addFriend(id: number): Promise<void> {
+      try {
+        await this.$api.friend.store(id);
+
+        this.$toasted.success('Friend added successfully.');
+        this.$emit('onAddFriend');
+      } catch (e) {}
+    }
   }
 });
 </script>

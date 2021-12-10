@@ -17,7 +17,7 @@
             </router-link>
           </h5>
           <div class="card-text">
-            <ul class="list-group list-group-horizontal">
+            <ul class="list-group list-group-horizontal mb-3">
               <li class="list-group-item text-center">
                 <div class="badge rounded-pill bg-light text-dark">{{ user.postsCount }}</div>
                 <div>Posts</div>
@@ -27,6 +27,18 @@
                 <div>Friends</div>
               </li>
             </ul>
+
+            <div class="d-flex">
+              <button v-if="!user.isMyFriend"
+                      type="button"
+                      class="btn btn-outline-dark me-2">
+                Add to friends
+              </button>
+              <button type="button"
+                      class="btn btn-outline-dark">
+                Write message
+              </button>
+            </div>
           </div>
         </div>
       </div>
