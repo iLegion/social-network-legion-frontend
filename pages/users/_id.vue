@@ -9,7 +9,7 @@
     </div>
         <div class="row justify-content-center">
       <div class="col">
-        <UserPosts v-if="user"
+        <UserPosts v-if="user && (user.isMyFriend || user.privacySettings.profileDisplayMode)"
                    :user="user" />
       </div>
     </div>

@@ -12,7 +12,8 @@
               <span class="email fs-6 text-secondary">{{ user.email }}</span>
             </div>
 
-            <ul class="list-group list-group-horizontal mb-3">
+            <ul v-if="user.isMyFriend || user.privacySettings.profileDisplayMode"
+                class="list-group list-group-horizontal mb-3">
               <li class="list-group-item text-center">
                 <div class="badge rounded-pill bg-light text-dark">{{ user.postsCount }}</div>
                 <div>Posts</div>
