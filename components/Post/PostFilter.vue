@@ -58,11 +58,11 @@ export default Vue.extend({
       const formData: { byLikes?: number, byViews?: number } = {};
 
       if (this.filters.byLikes) {
-        formData.byLikes = 1
+        formData.byLikes = 1;
       }
 
       if (this.filters.byViews) {
-        formData.byViews = 1
+        formData.byViews = 1;
       }
 
       return formData;

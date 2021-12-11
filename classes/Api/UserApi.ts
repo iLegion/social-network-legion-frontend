@@ -2,7 +2,7 @@ import BaseApi from "~/classes/BaseApi";
 import {
   UserResponseInterface,
   UsersGetPayloadInterface,
-  UsersResponseInterface
+  UsersResponseInterface, UserUpdatePayloadInterface
 } from "~/interfaces/classes/Api/UserApiInterface";
 
 export default class UserApi extends BaseApi{
@@ -18,5 +18,9 @@ export default class UserApi extends BaseApi{
 
   public async byId(id: number): Promise<UserResponseInterface> {
     return await this.callToApi('get', `${this.uri}/${id}`);
+  }
+
+  public async update(id: number, payload: UserUpdatePayloadInterface): Promise<UserResponseInterface> {
+    return await this.callToApi('put', `${this.uri}/${id}`, {}, payload);
   }
 }

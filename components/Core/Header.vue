@@ -43,7 +43,7 @@
 
               <template v-slot:dropdown-list-content>
                 <li>
-                  <span class="dropdown-item disabled">{{ user.name }}</span>
+                  <span class="dropdown-item disabled">{{ shortUserName }}</span>
                 </li>
                 <li>
                   <router-link class="dropdown-item" to="/profile">Profile</router-link>
@@ -95,7 +95,10 @@ export default Vue.extend({
     },
     faPlusSquare() {
       return faPlusSquare;
-    }
+    },
+    shortUserName(): string {
+      return this.user.name.slice(0, 15) + "...";
+    },
   }
 })
 </script>

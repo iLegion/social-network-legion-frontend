@@ -10,3 +10,9 @@ export interface UsersResponseInterface {
 }
 
 export interface UsersGetPayloadInterface {}
+
+export interface UserUpdatePayloadInterface {
+  name?: string;
+  email?: string;
+  password?: string;
+}

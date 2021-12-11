@@ -13,7 +13,8 @@
                  :class="{ 'is-invalid': errors && errors.name }"
                  id="name"
                  placeholder="Type your name"
-                 v-model="form.name">
+                 v-model="form.name"
+                 @input="handleInput('name')">
           <div v-if="errors && errors.name"
                class="invalid-feedback">
             {{ errors.name[0] }}
@@ -31,7 +32,8 @@
                  :class="{ 'is-invalid': errors && errors.email }"
                  id="email"
                  placeholder="Type your email"
-                 v-model="form.email">
+                 v-model="form.email"
+                 @input="handleInput('email')">
           <div v-if="errors && errors.email"
                class="invalid-feedback">
             {{ errors.email[0] }}
@@ -49,7 +51,8 @@
                  :class="{ 'is-invalid': errors && errors.password }"
                  id="password"
                  placeholder="Type your password"
-                 v-model="form.password">
+                 v-model="form.password"
+                 @input="handleInput('password')">
           <div v-if="errors && errors.password"
                class="invalid-feedback">
             {{ errors.password[0] }}
