@@ -10,6 +10,7 @@ import DialogMessageApi from "~/classes/Api/Dialog/DialogMessageApi";
 import LikeApi from "~/classes/Api/LikeApi";
 import ViewApi from "~/classes/Api/ViewApi";
 import FriendApi from "~/classes/Api/FriendApi";
+import PrivacySettingApi from "~/classes/Api/PrivacySettingApi";
 
 export interface Context {
   app: {
@@ -28,4 +29,5 @@ export interface Api {
   like: LikeApi;
   view: ViewApi;
   friend: FriendApi;
+  privacySetting: PrivacySettingApi;
 }
