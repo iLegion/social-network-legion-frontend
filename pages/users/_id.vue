@@ -4,7 +4,8 @@
       <div class="col-6">
         <UsersInfo v-if="user"
                    :user="user"
-                   @onAddFriend="handleAddFriend" />
+                   @onAddFriend="handleAddFriend"
+                   @onCreateDialog="handleCreateDialog" />
       </div>
     </div>
         <div class="row justify-content-center">
@@ -25,6 +26,7 @@ import UsersInfo from "~/components/Users/UsersInfo.vue";
 import UserPosts from "~/components/Users/UserPosts.vue";
 
 export default Vue.extend({
+  middleware: ['authenticated'],
   components: {
     UsersInfo,
     UserPosts
@@ -45,6 +47,15 @@ export default Vue.extend({
 
       if (user) {
         user.isMyFriend = true;
+
+        this.user = user;
+      }
+    },
+    handleCreateDialog(): void {
+      const user = this.user;
+
+      if (user) {
+        user.hasDialogWithMe = true;
 
         this.user = user;
       }

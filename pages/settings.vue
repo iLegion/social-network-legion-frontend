@@ -47,6 +47,7 @@ import Main from "~/components/Settings/Main.vue";
 import Privacy from "~/components/Settings/Privacy.vue";
 
 export default Vue.extend({
+  middleware: ['authenticated'],
   components: {
     Main,
     Privacy

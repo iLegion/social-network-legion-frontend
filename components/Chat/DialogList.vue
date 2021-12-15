@@ -12,7 +12,10 @@
             {{ dialog.lastMessage }}
           </div>
         </div>
-        <span class="badge bg-primary rounded-pill">{{ dialog.unreadCount }}</span>
+        <span v-if="dialog.unreadCount"
+              class="badge bg-primary rounded-pill">
+          {{ dialog.unreadCount }}
+        </span>
       </li>
     </ul>
   </div>

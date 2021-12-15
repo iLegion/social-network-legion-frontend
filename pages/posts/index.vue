@@ -35,6 +35,7 @@ import PostFilter from "~/components/Post/PostFilter.vue";
 import Post from "~/components/Post/Post.vue";
 
 export default Vue.extend({
+  middleware: ['authenticated'],
   components: {
     PostFilter,
     Post

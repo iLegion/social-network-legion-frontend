@@ -28,8 +28,10 @@
     <Modal v-if="isSimple"
            :id="modalId">
       <template v-slot:content>
-        <Post :post="post" :is-simple="false"></Post>
-        <Comment></Comment>
+        <Post :post="post"
+              :is-simple="false" class="mb-4"/>
+        <Comment v-if="isLoadedComments"
+                 :post="post" />
       </template>
     </Modal>
   </div>
@@ -69,18 +71,21 @@ export default Vue.extend({
   computed: {
     ...mapGetters('auth', ['user']),
 
+    faComments() {
+      return faComments;
+    },
     shortDescription(): string {
-      return this.post.text.slice(0, 300) + "...";
+      const value = this.post.text;
+
+      return value.length > 300 ? value.slice(0, 300) + "..." : value;
     },
     modalId(): string {
       return 'modal-post-' + this.post.id;
-    },
-    faComments() {
-      return faComments;
     }
   },
-  data: (): { modalInstance: BootstrapModal | null} => ({
-    modalInstance: null
+  data: (): { modalInstance: BootstrapModal | null, isLoadedComments: boolean } => ({
+    modalInstance: null,
+    isLoadedComments: false
   }),
   methods: {
     initModal(): void {
@@ -98,6 +103,7 @@ export default Vue.extend({
       this.$emit('onAddView', id);
     },
     handleOpenModal(): void {
+      this.isLoadedComments = true;
       this.modalInstance?.show();
     },
     handleDelete(id: number): void {

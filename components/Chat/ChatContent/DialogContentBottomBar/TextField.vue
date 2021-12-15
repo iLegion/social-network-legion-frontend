@@ -20,7 +20,7 @@ export default Vue.extend({
   props: {
     dialog: {
       type: Object as () => DialogModel,
-      default: () => {}
+      required: true
     }
   },
   data: (): { form: { text: string } } => {

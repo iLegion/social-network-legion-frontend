@@ -1,26 +1,27 @@
 <template>
   <div>
-    <Header></Header>
-    <Nuxt></Nuxt>
-    <BotMan />
+    <Header />
+    <Nuxt />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 import LocalStorageService from "~/services/LocalStorageService";
 import Header from "~/components/Core/Header.vue";
-import BotMan from "~/components/BotMan/BotMan.vue";
 
 export default Vue.extend({
+  loading: false,
   components: {
-    Header,
-    BotMan
+    Header
+  },
+  computed: {
+    ...mapGetters('auth', ['isAuth'])
   },
   methods: {
-    ...mapActions('auth', ['setUser']),
+    ...mapActions('auth', ['updateLoadingStatus', 'setUser']),
 
     setToken(): boolean {
       const token = LocalStorageService.getToken();
@@ -36,6 +37,7 @@ export default Vue.extend({
       try {
         const response = await this.$api.user.me();
 
+        this.updateLoadingStatus(false)
         this.setUser(response.data)
       } catch (e) {}
     }

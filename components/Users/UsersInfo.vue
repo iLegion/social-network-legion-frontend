@@ -31,9 +31,11 @@
                       @click="handleAddFriend">
                 Add to friends
               </button>
-              <button type="button"
-                      class="btn btn-outline-dark">
-                Write message
+              <button v-if="!user.hasDialogWithMe"
+                      type="button"
+                      class="btn btn-outline-dark"
+                      @click="handleCreateDialog">
+                Create dialog
               </button>
             </div>
           </div>
@@ -47,6 +49,7 @@
 import Vue from "vue";
 
 import UserModel from "~/classes/Models/User/UserModel";
+import { DialogStorePayloadInterface } from "~/interfaces/classes/Api/Dialog/DialogApiInterface";
 
 export default Vue.extend({
   props: {
@@ -59,6 +62,11 @@ export default Vue.extend({
     handleAddFriend(): void {
       this.addFriend(this.user.id);
     },
+    handleCreateDialog(): void {
+      const user = this.user;
+
+      this.createDialog({ title: user.name, users: [user.id] });
+    },
 
     async addFriend(id: number): Promise<void> {
       try {
@@ -66,6 +74,14 @@ export default Vue.extend({
 
         this.$toasted.success('Friend added successfully.');
         this.$emit('onAddFriend');
+      } catch (e) {}
+    },
+    async createDialog(payload: DialogStorePayloadInterface): Promise<void> {
+      try {
+        await this.$api.dialog.store(payload);
+
+        this.$toasted.success('Dialog created successfully.');
+        this.$emit('onCreateDialog');
       } catch (e) {}
     }
   }
