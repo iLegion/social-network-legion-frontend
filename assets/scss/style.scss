@@ -1,2 +1,12 @@
 @import "~bootstrap";
 @import "utilities";
+
+#botmanWidgetRoot {
+  div {
+    &:first-child {
+      div {
+        color: #fff !important;
+      }
+    }
+  }
+}

@@ -1,6 +1,5 @@
 import BaseModel from "~/classes/BaseModel";
 import UserModel from "~/classes/Models/User/UserModel";
-import { UserResponseInterface } from "~/interfaces/classes/Api/UserApiInterface";
 import { PostInterface } from "~/interfaces/classes/Models/PostModelInterface";
 
 export default class PostModel extends BaseModel {

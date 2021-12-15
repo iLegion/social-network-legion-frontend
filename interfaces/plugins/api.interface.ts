@@ -11,6 +11,7 @@ import LikeApi from "~/classes/Api/LikeApi";
 import ViewApi from "~/classes/Api/ViewApi";
 import FriendApi from "~/classes/Api/FriendApi";
 import PrivacySettingApi from "~/classes/Api/PrivacySettingApi";
+import CommentApi from "~/classes/Api/CommentApi";
 
 export interface Context {
   app: {
@@ -30,4 +31,5 @@ export interface Api {
   view: ViewApi;
   friend: FriendApi;
   privacySetting: PrivacySettingApi;
+  comment: CommentApi;
 }

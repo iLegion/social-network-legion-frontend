@@ -36,10 +36,11 @@
                       @click="handleAddFriend">
                 Add to friends
               </button>
-              <button v-if="user.isMyFriend || user.privacySettings.messageWritingMode"
+              <button v-if="(user.isMyFriend || user.privacySettings.messageWritingMode) && !user.hasDialogWithMe"
                       type="button"
-                      class="btn btn-outline-dark">
-                Write message
+                      class="btn btn-outline-dark"
+                      @click="handleCreateDialog">
+                Create dialog
               </button>
             </div>
           </div>
@@ -63,7 +64,10 @@ export default Vue.extend({
   },
   methods: {
     handleAddFriend(): void {
-      this.$emit('onAddFriend', this.user.id);
+      this.$emit('onAddFriend', this.user);
+    },
+    handleCreateDialog(): void {
+      this.$emit('onCreateDialog', this.user);
     }
   }
 });

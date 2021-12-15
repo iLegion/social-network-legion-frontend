@@ -20,6 +20,7 @@ import PostsForm from "~/components/Post/PostsForm.vue";
 import { PostCreatePayloadInterface } from "~/interfaces/classes/Api/PostApiInterface";
 
 export default Vue.extend({
+  middleware: ['authenticated'],
   components: {
     PostsForm
   },

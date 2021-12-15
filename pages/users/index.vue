@@ -12,7 +12,8 @@
         <div class="col-12 col-xxl-8 offset-xxl-2">
           <UserList v-if="users.length"
                     :users="users"
-                    @onAddFriend="handleAddFriend" />
+                    @onAddFriend="handleAddFriend"
+                    @onCreateDialog="handleCreateDialog" />
 
           <div v-else
                class="d-flex justify-content-center align-items-center fw-bold vh-92">
@@ -32,6 +33,7 @@ import UserFilter from '~/components/Users/Filter/Index.vue'
 import UserList from '~/components/Users/List/Index.vue';
 
 export default Vue.extend({
+  middleware: ['authenticated'],
   components: {
     UserFilter,
     UserList
@@ -53,6 +55,14 @@ export default Vue.extend({
       const user = this.users[userIndex];
 
       user.isMyFriend = true;
+
+      this.users.splice(userIndex, 1, user)
+    },
+    handleCreateDialog(id: number): void {
+      const userIndex = this.users.findIndex(i => i.id === id);
+      const user = this.users[userIndex];
+
+      user.hasDialogWithMe = true;
 
       this.users.splice(userIndex, 1, user)
     }

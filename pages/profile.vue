@@ -7,7 +7,8 @@
     </div>
     <div class="row justify-content-center">
       <div class="col">
-        <UserPosts :user="user" />
+        <UserPosts v-if="isAuth"
+                   :user="user" />
       </div>
     </div>
   </div>
@@ -21,12 +22,13 @@ import ProfileInfo from "~/components/Profile/ProfileInfo/ProfileInfo.vue";
 import UserPosts from "~/components/Users/UserPosts.vue";
 
 export default Vue.extend({
+  middleware: ['authenticated'],
   components: {
     ProfileInfo,
     UserPosts
   },
   computed: {
-    ...mapGetters('auth', ['user'])
+    ...mapGetters('auth', ['isAuth', 'user'])
   }
 });
 </script>

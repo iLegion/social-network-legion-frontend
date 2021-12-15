@@ -22,6 +22,7 @@ import { PostUpdatePayloadInterface } from "~/interfaces/classes/Api/PostApiInte
 import ValidationError from "~/classes/Errors/ValidationError";
 
 export default Vue.extend({
+  middleware: ['authenticated'],
   components: {
     PostsForm
   },

@@ -3,7 +3,8 @@
     <Item v-for="user in users"
           :key="'users-list-' + user.id"
           :user="user"
-          @onAddFriend="handleAddFriend" />
+          @onAddFriend="handleAddFriend"
+          @onCreateDialog="handleCreateDialog" />
   </div>
 </template>
 
@@ -12,6 +13,7 @@ import Vue from "vue";
 
 import UserModel from "~/classes/Models/User/UserModel";
 import Item from '~/components/Users/List/Item.vue';
+import {DialogStorePayloadInterface} from "~/interfaces/classes/Api/Dialog/DialogApiInterface";
 
 export default Vue.extend({
   components: {
@@ -24,8 +26,11 @@ export default Vue.extend({
     }
   },
   methods: {
-    handleAddFriend(id: number): void {
-      this.addFriend(id);
+    handleAddFriend(user: UserModel): void {
+      this.addFriend(user.id);
+    },
+    handleCreateDialog(user: UserModel): void {
+      this.createDialog(user, { title: user.name, users: [user.id]});
     },
 
     async addFriend(id: number): Promise<void> {
@@ -34,6 +39,14 @@ export default Vue.extend({
 
         this.$toasted.success('Friend added successfully.');
         this.$emit('onAddFriend', id);
+      } catch (e) {}
+    },
+    async createDialog(user: UserModel, payload: DialogStorePayloadInterface): Promise<void> {
+      try {
+        await this.$api.dialog.store(payload);
+
+        this.$toasted.success('Dialog created successfully.');
+        this.$emit('onCreateDialog', user.id);
       } catch (e) {}
     }
   }

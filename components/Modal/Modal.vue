@@ -3,7 +3,8 @@
     class="modal fade"
     :id="id"
     tabindex="-1">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog"
+         :class="modalSize">
       <div class="modal-content">
         <div class="modal-body">
           <slot name="content"></slot>
@@ -21,6 +22,19 @@ export default Vue.extend({
     id: {
       type: String,
       required: true
+    },
+    size: {
+      type: String,
+      required: false,
+      default: 'xl'
+    }
+  },
+  computed: {
+    modalSize(): string {
+      const availableValues = ['lg', 'xl'];
+      const size = this.size;
+
+      return availableValues.includes(size) ? `modal-${size}` : 'modal-xl';
     }
   }
 })

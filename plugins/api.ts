@@ -9,6 +9,7 @@ import LikeApi from "~/classes/Api/LikeApi";
 import ViewApi from "~/classes/Api/ViewApi";
 import FriendApi from "~/classes/Api/FriendApi";
 import PrivacySettingApi from "~/classes/Api/PrivacySettingApi";
+import CommentApi from "~/classes/Api/CommentApi";
 import { Api, Context } from "~/interfaces/plugins/api.interface";
 
 declare module 'vue/types/vue' {
@@ -32,5 +33,6 @@ export default ({ app }: Context, inject: Function) => {
     view: new ViewApi(axios),
     friend: new FriendApi(axios),
     privacySetting: new PrivacySettingApi(axios),
+    comment: new CommentApi(axios)
   })
 }

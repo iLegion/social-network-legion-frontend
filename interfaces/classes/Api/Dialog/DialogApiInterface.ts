@@ -10,3 +10,8 @@ export interface DialogResponseInterface {
     total: number;
   }
 }
+
+export interface DialogStorePayloadInterface {
+  title: string;
+  users: number[];
+}
