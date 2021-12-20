@@ -6,11 +6,14 @@ export default class DateService {
   public getFormattedDate(value: Date, format = 'd-m-Y'): string {
     const day = value.getDate();
     const month = value.getMonth() + 1;
+    const hours = value.getHours();
+    const minutes = value.getMinutes();
+    const seconds = value.getSeconds();
 
     if (format === 'h:m:s d-m-Y') {
-      return value.getHours()
-        + ':' + value.getMinutes()
-        + ':' + value.getSeconds()
+      return (hours < 10 ? '0' + hours : hours)
+        + ':' + (minutes < 10 ? '0' + minutes : minutes)
+        + ':' + (seconds < 10 ? '0' + seconds : seconds)
         + ' '
         + (day < 10 ? '0' + day : day)
         + '-' + (month < 10 ? '0' + month : month)

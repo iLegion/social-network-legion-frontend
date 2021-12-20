@@ -4,15 +4,15 @@
 
     <form @submit.prevent="send">
       <div class="form-group mb-4">
-        <label for="email" class="form-label">Email</label>
+        <label for="login-email" class="form-label">Email</label>
         <div class="input-group">
           <div class="input-group-text">
             <font-awesome-icon :icon="faEnvelope" fixed-width />
           </div>
           <input type="text"
                  class="form-control"
-                 :class="{ 'is-invalid': errors.password }"
-                 id="email"
+                 :class="{ 'is-invalid': errors.email }"
+                 id="login-email"
                  placeholder="Type your email"
                  v-model="form.email"
                  @input="handleInput('email')">
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="form-group mb-4">
-        <label for="password" class="form-label">Password</label>
+        <label for="login-password" class="form-label">Password</label>
         <div class="input-group">
           <div class="input-group-text">
             <font-awesome-icon :icon="faLock" fixed-width />
@@ -30,7 +30,7 @@
           <input type="password"
                  class="form-control"
                  :class="{ 'is-invalid': errors.password }"
-                 id="password"
+                 id="login-password"
                  placeholder="Type your password"
                  v-model="form.password"
                  @input="handleInput('password')">
@@ -69,10 +69,8 @@ export default Vue.extend({
   data: () => {
     return {
       form: {
-        // email: '', TODO: Need to fix.
-        // password: '',
-        email: 'admin@admin.admin',
-        password: '12345678'
+        email: '',
+        password: ''
       },
       errors: {
         email: '',

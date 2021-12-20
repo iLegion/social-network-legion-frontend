@@ -97,7 +97,9 @@ export default Vue.extend({
       return faPlusSquare;
     },
     shortUserName(): string {
-      return this.user.name.slice(0, 15) + "...";
+      const value = this.user.name;
+
+      return value && value.length > 15 ? value.slice(0, 15) + "..." : value;
     },
   }
 })

@@ -9,14 +9,12 @@
         <span>{{ post.likesCount }}</span>
       </div>
       <div class="me-3">
-        <font-awesome-icon class="icon"
-                           :icon="faComments"
+        <font-awesome-icon :icon="faComments"
                            fixed-width />
         <span>{{ post.commentsCount }}</span>
       </div>
       <div>
-        <font-awesome-icon class="pe-none"
-                           :icon="faEye"
+        <font-awesome-icon :icon="faEye"
                            fixed-width />
         <span>{{ post.viewsCount }}</span>
       </div>
@@ -88,28 +86,7 @@ export default Vue.extend({
   },
   methods: {
     handleLike() {
-      this.like('post', this.post.id);
-    },
-    handleView() {
-      this.view('post', this.post.id);
-    },
-
-    async like(type: string, id: number): Promise<void> {
-      try {
-        await this.$api.like.store({ type, id });
-
-        this.$emit('onAddLike', id);
-        this.$toasted.success('Like added successfully.');
-
-        this.handleView();
-      } catch (e) {}
-    },
-    async view(type: string, id: number): Promise<void> {
-      try {
-        await this.$api.view.store({ type, id });
-
-        this.$emit('onAddView', id);
-      } catch (e) {}
+      this.$emit('onAddLike', this.post.id);
     }
   }
 });

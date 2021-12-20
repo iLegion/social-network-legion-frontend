@@ -49,6 +49,7 @@ export default Vue.extend({
       try {
         const response = await this.$api.comment.store(payload);
 
+        this.form.text = '';
         this.$emit('onAddComment', new CommentModel(response.data))
       } catch (e) {}
     },

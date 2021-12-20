@@ -29,8 +29,7 @@ export default Vue.extend({
     },
     pagination: {
       type: Object,
-      required: false,
-      default: null
+      required: true
     }
   },
   data: (): { filters: { byLikes: number, byViews: number }, isEnabledQuery: boolean, needReset: boolean } => {
