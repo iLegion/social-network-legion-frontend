@@ -26,13 +26,13 @@
             </ul>
 
             <div class="d-flex">
-              <button v-if="!user.isMyFriend"
+              <button v-if="!user.isMyFriend && user.privacySettings.addFriendsMode"
                       type="button"
                       class="btn btn-outline-dark me-2"
                       @click="handleAddFriend">
                 Add to friends
               </button>
-              <button v-if="!user.hasDialogWithMe"
+              <button v-if="(user.isMyFriend || user.privacySettings.messageWritingMode) && !user.hasDialogWithMe"
                       type="button"
                       class="btn btn-outline-dark"
                       @click="handleCreateDialog">
