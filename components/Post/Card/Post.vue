@@ -1,14 +1,21 @@
 <template>
   <div class="card mb-3 shadow">
-    <!--    <img src="..." class="card-img-top" alt="...">-->
+<!--    <img src="..." class="card-img-top" alt="...">-->
     <div class="card-body">
       <div class="d-flex justify-content-between align-items-end">
-      <h5 class="card-title">{{ post.title }}</h5>
+        <h5 class="card-title pe-cursor"
+            @click="handleOpenModal">
+          {{ post.title }}
+        </h5>
+
         <PostHeaderDropdown v-if="post.author.id === user.id"
                             :post="post"
                             @onDelete="handleDelete" />
       </div>
-      <p class="card-text mt-2">{{ isSimple ? shortDescription : post.text }}</p>
+      <p class="card-text mt-2">
+        {{ isSimple ? shortDescription : post.text }}
+      </p>
+
       <div class="d-flex justify-content-end">
         <button v-if="isSimple"
                 type="button"
@@ -21,8 +28,7 @@
     <div class="card-footer">
       <PostFooter ref="PostFooter"
                   :post="post"
-                  @onAddLike="handleAddLike"
-                  @onAddView="handleAddView"/>
+                  @onAddLike="handleAddLike" />
     </div>
 
     <Modal v-if="isSimple"
@@ -44,8 +50,8 @@ import { Modal as BootstrapModal } from 'bootstrap';
 import { faComments } from "@fortawesome/free-regular-svg-icons/faComments";
 
 import PostModel from "~/classes/Models/PostModel";
-import PostHeaderDropdown from "~/components/Post/PostHeaderDropdown.vue";
-import PostFooter from "~/components/Post/PostFooter.vue";
+import PostHeaderDropdown from "~/components/Post/Card/PostHeaderDropdown.vue";
+import PostFooter from "~/components/Post/Card/PostFooter.vue";
 import Modal from "~/components/Modal/Modal.vue";
 import Comment from "~/components/Comment/Comment.vue";
 
@@ -105,6 +111,7 @@ export default Vue.extend({
     handleOpenModal(): void {
       this.isLoadedComments = true;
       this.modalInstance?.show();
+      this.$emit('onAddView', this.post.id);
     },
     handleDelete(id: number): void {
       this.$emit('onDelete', id);

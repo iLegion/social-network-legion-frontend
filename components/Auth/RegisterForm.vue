@@ -3,7 +3,7 @@
     <div class="fs-2 mt-4 fw-bold text-center mb-3">Registration</div>
     <form @submit.prevent="send">
       <div class="form-group mb-4">
-        <label for="name" class="form-label">Name</label>
+        <label for="register-name" class="form-label">Name</label>
         <div class="input-group">
           <div class="input-group-text">
             <font-awesome-icon :icon="faUser" fixed-width />
@@ -11,7 +11,7 @@
           <input type="text"
                  class="form-control"
                  :class="{ 'is-invalid': errors && errors.name }"
-                 id="name"
+                 id="register-name"
                  placeholder="Type your name"
                  v-model="form.name"
                  @input="handleInput('name')">
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="form-group mb-4">
-        <label for="email" class="form-label">Email</label>
+        <label for="register-email" class="form-label">Email</label>
         <div class="input-group">
           <div class="input-group-text">
             <font-awesome-icon :icon="faEnvelope" fixed-width />
@@ -30,7 +30,7 @@
           <input type="text"
                  class="form-control"
                  :class="{ 'is-invalid': errors && errors.email }"
-                 id="email"
+                 id="register-email"
                  placeholder="Type your email"
                  v-model="form.email"
                  @input="handleInput('email')">
@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="form-group mb-4">
-        <label for="password" class="form-label">Password</label>
+        <label for="register-password" class="form-label">Password</label>
         <div class="input-group">
           <div class="input-group-text">
             <font-awesome-icon :icon="faLock" fixed-width />
@@ -49,7 +49,7 @@
           <input type="password"
                  class="form-control"
                  :class="{ 'is-invalid': errors && errors.password }"
-                 id="password"
+                 id="register-password"
                  placeholder="Type your password"
                  v-model="form.password"
                  @input="handleInput('password')">

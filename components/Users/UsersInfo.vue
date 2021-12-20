@@ -2,11 +2,12 @@
   <div class="users-info">
     <div class="card mt-3 mb-3 p-3">
       <div class="row g-0">
-        <div class="col-md-4 d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
           <img :src="user.avatar" class="img-fluid rounded-start" alt="...">
         </div>
-        <div class="col-md-8">
-          <div class="card-body">
+        <div class="col-12 col-md-8">
+          <!-- TODO: Need to fix styles. -->
+          <div class="card-body d-flex d-md-block flex-column justify-content-center align-items-center">
             <div class="mb-2">
               <h5 class="card-title d-inline-block me-2">{{ user.name }}</h5>
               <span class="email fs-6 text-secondary">{{ user.email }}</span>

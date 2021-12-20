@@ -1,8 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-12 col-md-4">
-        <!-- <LoginForm /> -->
+      <div class="col-12 col-md-6 col-xxl-4">
         <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <button class="nav-link active"
@@ -18,9 +17,9 @@
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link"
-                    id="registr-tab"
+                    id="register-tab"
                     data-bs-toggle="tab"
-                    data-bs-target="#registr"
+                    data-bs-target="#register"
                     type="button"
                     role="tab"
                     aria-controls="profile"
@@ -30,7 +29,6 @@
           </li>
         </ul>
 
-        <!-- Tab panes -->
         <div class="tab-content">
           <div class="tab-pane active"
                id="login"
@@ -39,9 +37,9 @@
             <LoginForm />
           </div>
           <div class="tab-pane"
-               id="registr"
+               id="register"
                role="tabpanel"
-               aria-labelledby="registr-tab">
+               aria-labelledby="register-tab">
             <RegisterForm />
           </div>
         </div>
@@ -71,6 +69,23 @@ export default Vue.extend({
         this.$router.push('/');
       }
     }
+  },
+  methods: {
+    toggleChatBot(): void {
+      const el = document.getElementById('botmanWidgetRoot');
+
+      if (el) {
+        el.style.display === 'none' ? el.style.display = 'block' : el.style.display = 'none';
+      }
+    },
+  },
+  mounted() {
+    setTimeout(() => {
+      this.toggleChatBot();
+    }, 300);
+  },
+  beforeDestroy() {
+    this.toggleChatBot();
   }
 })
 

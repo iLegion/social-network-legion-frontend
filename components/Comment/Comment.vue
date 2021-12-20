@@ -2,7 +2,8 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 mb-3">
-        <CommentForm :post="post" />
+        <CommentForm :post="post"
+                     @onAddComment="handleAddComment" />
       </div>
     </div>
     <div class="row">
@@ -44,7 +45,7 @@ export default Vue.extend({
   }),
   methods: {
     handleAddComment(payload: CommentModel): void {
-      this.comments.push(payload);
+      this.comments.unshift(payload);
     },
 
     async get(payload: CommentGetPayloadInterface): Promise<void> {
