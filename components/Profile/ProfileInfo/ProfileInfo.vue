@@ -23,6 +23,21 @@
                 <div>Friends</div>
               </li>
             </ul>
+
+            <div class="d-flex" v-if="mode === 0">
+              <button v-if="!user.isMyFriend && user.privacySettings.addFriendsMode"
+                      type="button"
+                      class="btn btn-outline-dark me-2"
+                      @click="handleAddFriend">
+                Add to friends
+              </button>
+              <button v-if="(user.isMyFriend || user.privacySettings.messageWritingMode) && !user.hasDialogWithMe"
+                      type="button"
+                      class="btn btn-outline-dark"
+                      @click="handleCreateDialog">
+                Create dialog
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -32,11 +47,49 @@
 
 <script lang="ts">
 import Vue from "vue";
+
 import UserModel from "~/classes/Models/User/UserModel";
+import { DialogStorePayloadInterface } from "~/interfaces/classes/Api/Dialog/DialogApiInterface";
+
 
 export default Vue.extend({
+  data() {
+    return {
+      mode: 1,
+    }
+  },
   props: {
-    user: UserModel
+    user: {
+      type: Object as () => UserModel,
+      required: true
+    }
+  },
+  methods: {
+    handleAddFriend(): void {
+      this.addFriend(this.user.id);
+    },
+    handleCreateDialog(): void {
+      const user = this.user;
+
+      this.createDialog({ title: user.name, users: [user.id] });
+    },
+
+    async addFriend(id: number): Promise<void> {
+      try {
+        await this.$api.friend.store(id);
+
+        this.$toasted.success('Friend added successfully.');
+        this.$emit('onAddFriend');
+      } catch (e) {}
+    },
+    async createDialog(payload: DialogStorePayloadInterface): Promise<void> {
+      try {
+        await this.$api.dialog.store(payload);
+
+        this.$toasted.success('Dialog created successfully.');
+        this.$emit('onCreateDialog');
+      } catch (e) {}
+    }
   }
 });
 </script>
