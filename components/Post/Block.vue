@@ -20,9 +20,9 @@
                   @onDelete="handleDelete" />
           </div>
           <div v-else
-               class="text-center fw-bold">
+               class="d-flex justify-content-center align-items-center fw-bold vh-92">
             <template v-if="isProfile">
-              <div class="text-center fw-bold mb-2">
+              <div>
                 Posts not found. Please, add new posts.
               </div>
               <router-link to="/posts/create"
@@ -32,9 +32,10 @@
             </template>
 
             <template v-else>
-              <div class="text-center fw-bold mb-2">
-                Posts not found.
-              </div>
+              <div>
+                <img src="@/assets/img/error-404.png" alt="404">
+                <div class="text-center">Posts not found.</div>
+                </div>
             </template>
           </div>
         </div>
