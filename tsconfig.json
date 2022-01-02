@@ -27,7 +27,8 @@
       "@nuxt/types",
       "@types/node",
       "@types/bootstrap",
-      "@nuxtjs/axios"
+      "@nuxtjs/axios",
+      "@nuxtjs/toast"
     ]
   },
   "exclude": [

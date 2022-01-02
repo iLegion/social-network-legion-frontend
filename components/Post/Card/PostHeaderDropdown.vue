@@ -42,7 +42,7 @@ export default Vue.extend({
       try {
         await this.$api.post.delete(id);
 
-        this.$toasted.success('Post is deleted successfully.');
+        this.$toast.success('Post is deleted successfully.');
         this.$emit('onDelete', id);
 
       } catch (e) {}
