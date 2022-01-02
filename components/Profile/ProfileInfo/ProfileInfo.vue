@@ -19,7 +19,7 @@
                 <div>Posts</div>
               </li>
               <li class="list-group-item text-center">
-                <div class="badge rounded-pill bg-light text-dark">{{ user.friendsCount }}</div>
+                <router-link to="/users/friends" class="badge rounded-pill bg-light text-dark">{{ user.friendsCount }}</router-link>
                 <div>Friends</div>
               </li>
             </ul>
