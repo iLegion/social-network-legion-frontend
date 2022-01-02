@@ -117,7 +117,7 @@ export default Vue.extend({
       try {
         await this.$api.like.store({ type, id });
 
-        this.$toasted.success('Like added successfully.');
+        this.$toast.success('Like added successfully.');
         this.updateCounts('like', id);
 
         await this.view(type, id);
