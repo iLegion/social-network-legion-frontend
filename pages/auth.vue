@@ -69,23 +69,6 @@ export default Vue.extend({
         this.$router.push('/');
       }
     }
-  },
-  methods: {
-    toggleChatBot(): void {
-      const el = document.getElementById('botmanWidgetRoot');
-
-      if (el) {
-        el.style.display === 'none' ? el.style.display = 'block' : el.style.display = 'none';
-      }
-    },
-  },
-  mounted() {
-    setTimeout(() => {
-      this.toggleChatBot();
-    }, 300);
-  },
-  beforeDestroy() {
-    this.toggleChatBot();
   }
 })
 

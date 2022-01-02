@@ -20,10 +20,7 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     ],
-    script: [
-      { src: 'https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js', body: true },
-      { src: '/js/botMan.js', body: true }
-    ]
+    script: []
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
