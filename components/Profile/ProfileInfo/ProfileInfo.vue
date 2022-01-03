@@ -13,16 +13,31 @@
               <span class="email fs-6 text-secondary">{{ user.email }}</span>
             </div>
 
-            <ul class="list-group list-group-horizontal">
+            <ul class="list-group list-group-horizontal mb-3">
               <li class="list-group-item text-center">
                 <div class="badge rounded-pill bg-light text-dark">{{ user.postsCount }}</div>
                 <div>Posts</div>
               </li>
               <li class="list-group-item text-center">
-                <router-link to="/users/friends" class="badge rounded-pill bg-light text-dark">{{ user.friendsCount }}</router-link>
+                <router-link :to="'/users/' + user.id + '/friends'" class="badge rounded-pill bg-light text-dark text-decoration-none">{{ user.friendsCount }}</router-link>
                 <div>Friends</div>
               </li>
             </ul>
+
+            <div class="d-flex">
+              <button v-if="!user.isMyFriend && user.privacySettings.addFriendsMode"
+                      type="button"
+                      class="btn btn-outline-dark me-2"
+                      @click="handleAddFriend">
+                Add to friends
+              </button>
+              <button v-if="(user.isMyFriend || user.privacySettings.messageWritingMode) && !user.hasDialogWithMe"
+                      type="button"
+                      class="btn btn-outline-dark"
+                      @click="handleCreateDialog">
+                Create dialog
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -33,10 +48,46 @@
 <script lang="ts">
 import Vue from "vue";
 import UserModel from "~/classes/Models/User/UserModel";
+import { DialogStorePayloadInterface } from "~/interfaces/classes/Api/Dialog/DialogApiInterface";
 
 export default Vue.extend({
   props: {
-    user: UserModel
+    user: {
+      type: Object as () => UserModel,
+      required: true
+    }
+  },
+  data: (): { user: UserModel | null } => {
+    return {
+      user: null
+    }
+  },
+  methods: {
+    handleAddFriend(): void {
+      this.addFriend(this.user.id);
+    },
+    handleCreateDialog(): void {
+      const user = this.user;
+
+      this.createDialog({ title: user.name, users: [user.id] });
+    },
+
+    async addFriend(id: number): Promise<void> {
+      try {
+        await this.$api.friend.store(id);
+
+        this.$toasted.success('Friend added successfully.');
+        this.$emit('onAddFriend');
+      } catch (e) {}
+    },
+    async createDialog(payload: DialogStorePayloadInterface): Promise<void> {
+      try {
+        await this.$api.dialog.store(payload);
+
+        this.$toasted.success('Dialog created successfully.');
+        this.$emit('onCreateDialog');
+      } catch (e) {}
+    },
   }
 });
 </script>
