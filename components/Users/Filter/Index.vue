@@ -10,10 +10,19 @@ import { UsersGetPayloadInterface } from "~/interfaces/classes/Api/UserApiInterf
 
 export default Vue.extend({
   props: {
+    mode: {
+      type: String,
+      required: false,
+      default: 'users'
+    },
     pagination: {
       type: Object,
       required: false,
       default: null
+    },
+    userID: {
+      type: Number,
+      required: false
     }
   },
   data: (): { filters: {}, isEnabledQuery: boolean } => ({
@@ -36,19 +45,27 @@ export default Vue.extend({
       this.isEnabledQuery = true;
 
       try {
-        const response = await this.$api.user.getAll({ page }, payload);
+        let response;
+
+        if (this.mode === 'users') {
+          response = await this.$api.user.getAll({ page }, payload);
+        } else if (this.mode === 'friends') {
+          response = await this.$api.friend.get(this.userID, { page }, payload);
+        }
 
         this.isEnabledQuery = false;
 
-        this.$emit(
+        if (response) {
+          this.$emit(
             'onGetUsers',
             response.data.map((i) => {
               return new UserModel(i);
             }),
             response.pagination
-        )
+          )
+        }
       } catch (e) {}
-    },
+    }
   },
   async fetch(): Promise<void> {
     await this.get();

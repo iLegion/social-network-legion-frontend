@@ -13,13 +13,13 @@
               <span class="email fs-6 text-secondary">{{ user.email }}</span>
             </div>
 
-            <ul class="list-group list-group-horizontal">
+            <ul class="list-group list-group-horizontal mb-3">
               <li class="list-group-item text-center">
                 <div class="badge rounded-pill bg-light text-dark">{{ user.postsCount }}</div>
                 <div>Posts</div>
               </li>
               <li class="list-group-item text-center">
-                <router-link to="/users/friends" class="badge rounded-pill bg-light text-dark">{{ user.friendsCount }}</router-link>
+                <router-link :to="'/users/' + user.id + '/friends'" class="badge rounded-pill bg-light text-dark text-decoration-none">{{ user.friendsCount }}</router-link>
                 <div>Friends</div>
               </li>
             </ul>
