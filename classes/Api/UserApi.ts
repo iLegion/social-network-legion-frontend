@@ -2,10 +2,11 @@ import BaseApi from "~/classes/BaseApi";
 import {
   UserResponseInterface,
   UsersGetPayloadInterface,
-  UsersResponseInterface, UserUpdatePayloadInterface
+  UsersResponseInterface,
+  UserUpdatePayloadInterface
 } from "~/interfaces/classes/Api/UserApiInterface";
 
-export default class UserApi extends BaseApi{
+export default class UserApi extends BaseApi {
   protected uri = 'users';
 
   public async getAll(params: { page?: number } = {}, payload: UsersGetPayloadInterface): Promise<UsersResponseInterface> {

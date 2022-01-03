@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-12 col-xl-8 col-xxl-6">
-        <UsersInfo v-if="user"
+        <ProfileInfo v-if="user"
                    :user="user"
                    @onAddFriend="handleAddFriend"
                    @onCreateDialog="handleCreateDialog" />
@@ -22,13 +22,13 @@ import Vue from "vue";
 import { mapGetters } from "vuex";
 
 import UserModel from "~/classes/Models/User/UserModel";
-import UsersInfo from "~/components/Users/UsersInfo.vue";
+import ProfileInfo from "~/components/Profile/ProfileInfo/ProfileInfo.vue";
 import Posts from "~/components/Post/Block.vue";
 
 export default Vue.extend({
   middleware: ['authenticated'],
   components: {
-    UsersInfo,
+    ProfileInfo,
     Posts
   },
   computed: {
