@@ -69,14 +69,6 @@ export default Vue.extend({
     }
   },
   methods: {
-    toggleChatBot(): void {
-      const el = document.getElementById('botmanWidgetRoot');
-
-      if (el) {
-        el.style.display === 'none' ? el.style.display = 'block' : el.style.display = 'none';
-      }
-    },
-
     handleSelectDialog(id: number): void {
       const dialogIndex = this.dialogs.findIndex(i => i.id === id);
 
@@ -116,14 +108,6 @@ export default Vue.extend({
         this.pagination = response.pagination;
       } catch (e) {}
     }
-  },
-  mounted() {
-    setTimeout(() => {
-      this.toggleChatBot();
-    }, 300);
-  },
-  beforeDestroy() {
-    this.toggleChatBot();
   },
   async fetch(): Promise<void> {
     await this.get();

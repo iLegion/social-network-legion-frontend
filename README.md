@@ -1,5 +1,9 @@
 # social-network-legion-frontend
 
+## Installation Setup
+1. Create .env based on .env.local in root folder.
+2. Run `npm i` command.
+
 ## Build Setup
 
 ```bash

@@ -45,7 +45,7 @@ export default Vue.extend({
       try {
         await this.$api.post.create(payload);
 
-        this.$toasted.success('Post is created successfully.');
+        this.$toast.success('Post is created successfully.');
         setTimeout(() => {
           this.$router.push('/profile');
         }, 2000);

@@ -59,7 +59,7 @@ export default Vue.extend({
       try {
         await this.$api.post.update(id, payload);
 
-        this.$toasted.success('Post is updated successfully.');
+        this.$toast.success('Post is updated successfully.');
         setTimeout(() => {
           this.$router.push('/profile');
         }, 2000);

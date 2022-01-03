@@ -140,7 +140,7 @@ export default Vue.extend({
         const response = await this.$api.privacySetting.update(id, payload);
 
         this.setUser(response.data);
-        this.$toasted.success('Private settings is updated successfully.')
+        this.$toast.success('Private settings is updated successfully.')
       } catch (e) {}
     }
   },

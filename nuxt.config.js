@@ -20,10 +20,7 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     ],
-    script: [
-      { src: 'https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js', body: true },
-      { src: '/js/botMan.js', body: true }
-    ]
+    script: []
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -35,8 +32,7 @@ export default {
   plugins: [
     { src: '~/plugins/axios.ts' },
     { src: '~/plugins/api.ts' },
-    { src: '~/plugins/font-awesome.ts' },
-    { src: '~/plugins/notification.ts' },
+    { src: '~/plugins/font-awesome.ts' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -50,7 +46,8 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/toast'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -66,4 +63,10 @@ export default {
   },
 
   loading: '~/components/LoadingBar.vue',
+
+  toast: {
+    position: 'top-center',
+    duration: 1500,
+    theme: 'bubble'
+  }
 }

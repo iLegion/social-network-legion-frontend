@@ -125,7 +125,7 @@ export default Vue.extend({
         const response = await this.$api.user.update(id, payload);
 
         this.setUser(response.data);
-        this.$toasted.success('Profile is updated successfully.')
+        this.$toast.success('Profile is updated successfully.')
       } catch (e) {
         if (e instanceof ValidationError) {
           this.errors = e.errors;
