@@ -76,7 +76,7 @@ export default Vue.extend({
       try {
         await this.$api.friend.store(id);
 
-        this.$toasted.success('Friend added successfully.');
+        this.$toast.success('Friend added successfully.');
         this.$emit('onAddFriend');
       } catch (e) {}
     },
@@ -84,7 +84,7 @@ export default Vue.extend({
       try {
         await this.$api.dialog.store(payload);
 
-        this.$toasted.success('Dialog created successfully.');
+        this.$toast.success('Dialog created successfully.');
         this.$emit('onCreateDialog');
       } catch (e) {}
     },
