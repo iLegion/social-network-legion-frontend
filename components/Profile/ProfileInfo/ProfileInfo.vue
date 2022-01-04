@@ -24,7 +24,7 @@
               </li>
             </ul>
 
-            <div class="d-flex">
+            <div v-if="user.id != isAuth" class="d-flex">
               <button v-if="!user.isMyFriend && user.privacySettings.addFriendsMode"
                       type="button"
                       class="btn btn-outline-dark me-2"
@@ -47,9 +47,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-// import { mapGetters } from 'vuex';
-
 import UserModel from "~/classes/Models/User/UserModel";
+import { mapGetters } from "vuex";
 import { DialogStorePayloadInterface } from "~/interfaces/classes/Api/Dialog/DialogApiInterface";
 
 
@@ -59,6 +58,9 @@ export default Vue.extend({
       type: Object as () => UserModel,
       required: true
     }
+  },
+  computed: {
+    ...mapGetters('auth', ['isAuth', 'user'])
   },
   methods: {
     handleAddFriend(): void {
@@ -86,10 +88,7 @@ export default Vue.extend({
         this.$emit('onCreateDialog');
       } catch (e) {}
     }
-  },
-  // computed: {
-  //   ...mapGetters('auth', ['user']),
-  // }
+  }
 });
 </script>
 
