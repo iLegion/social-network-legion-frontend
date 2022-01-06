@@ -1,12 +1,13 @@
 import BaseModel from "~/classes/BaseModel";
 import UserModel from "~/classes/Models/User/UserModel";
 import { PostInterface } from "~/interfaces/classes/Models/PostModelInterface";
+import {OutputBlockData} from "@editorjs/editorjs/types/data-formats/output-data";
 
 export default class PostModel extends BaseModel {
   private _createdAt: string = '';
   private _id: number = 0;
   private _likesCount: number = 0;
-  private _text: string = '';
+  private _text: OutputBlockData[] | null = null;
   private _title: string = '';
   private _author: UserModel | null = null;
   private _updatedAt: string = '';
@@ -37,11 +38,11 @@ export default class PostModel extends BaseModel {
     this._likesCount = value;
   }
 
-  get text(): string {
+  get text(): OutputBlockData[] | null {
     return this._text;
   }
 
-  set text(value: string) {
+  set text(value: OutputBlockData[] | null) {
     this._text = value;
   }
 

@@ -29,13 +29,15 @@ export default Vue.extend({
   }),
   methods: {
     handleInput(type: string): void {
-      const errors = this.errors;
+      const errors = Object.assign({}, this.errors);
 
       if (errors) {
         if (type === 'title' || type === 'text') {
           delete errors[type];
         }
       }
+
+      this.errors = errors;
     },
     handleSend(payload: PostCreatePayloadInterface): void {
       this.create(payload);

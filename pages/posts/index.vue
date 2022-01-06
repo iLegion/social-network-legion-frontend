@@ -13,7 +13,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import PostFilter from "~/components/Post/Card/PostFilter.vue";
+import PostFilter from "~/components/Post/PostFilter.vue";
 import Posts from "~/components/Post/Block.vue";
 
 export default Vue.extend({

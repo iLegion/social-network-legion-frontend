@@ -3,7 +3,8 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <PostsForm :post="post"
+          <PostsForm v-if="post"
+                     :post="post"
                      :errors="errors"
                      @onInput="handleInput"
                      @onSend="handleSend" />

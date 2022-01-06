@@ -12,9 +12,13 @@
                             :post="post"
                             @onDelete="handleDelete" />
       </div>
-      <p class="card-text mt-2">
-        {{ isSimple ? shortDescription : post.text }}
-      </p>
+      <div class="card-text my-2">
+<!--        {{ isSimple ? shortDescription : post.text }}-->
+
+        <Editor :id="(isSimple ? 'simple-' : '') + 'editorjs-post-' + post.id"
+                :value="contentForEditor"
+                read-only />
+      </div>
 
       <div class="d-flex justify-content-end">
         <button v-if="isSimple"
@@ -54,6 +58,8 @@ import PostHeaderDropdown from "~/components/Post/Card/PostHeaderDropdown.vue";
 import PostFooter from "~/components/Post/Card/PostFooter.vue";
 import Modal from "~/components/Modal/Modal.vue";
 import Comment from "~/components/Comment/Comment.vue";
+import Editor from "~/components/Editor/Editor.vue";
+import {OutputData} from "@editorjs/editorjs/types/data-formats";
 
 export default Vue.extend({
   name: 'Post',
@@ -61,7 +67,8 @@ export default Vue.extend({
     PostHeaderDropdown,
     PostFooter,
     Modal,
-    Comment
+    Comment,
+    Editor
   },
   props: {
     post: {
@@ -80,13 +87,11 @@ export default Vue.extend({
     faComments() {
       return faComments;
     },
-    shortDescription(): string {
-      const value = this.post.text;
-
-      return value.length > 300 ? value.slice(0, 300) + "..." : value;
-    },
     modalId(): string {
       return 'modal-post-' + this.post.id;
+    },
+    contentForEditor(): OutputData | null {
+      return this.post?.text ? { blocks: this.post.text } : null;
     }
   },
   data: (): { modalInstance: BootstrapModal | null, isLoadedComments: boolean } => ({
