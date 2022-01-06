@@ -50,7 +50,7 @@ import { faPlusSquare } from "@fortawesome/free-regular-svg-icons";
 
 import PostModel from "~/classes/Models/PostModel";
 import UserModel from "~/classes/Models/User/UserModel";
-import PostFilter from "~/components/Post/Card/PostFilter.vue";
+import PostFilter from "~/components/Post/PostFilter.vue";
 import Post from "~/components/Post/Card/Post.vue";
 
 export default Vue.extend({
