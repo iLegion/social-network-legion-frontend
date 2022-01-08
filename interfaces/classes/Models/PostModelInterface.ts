@@ -5,6 +5,7 @@ import { UserInterface } from "~/interfaces/classes/Models/User/UserModelInterfa
 export interface PostInterface {
   createdAt: string;
   id: number;
+  image: string;
   likesCount: number;
   text: OutputBlockData[];
   author: UserInterface;

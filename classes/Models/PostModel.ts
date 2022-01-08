@@ -1,11 +1,12 @@
 import BaseModel from "~/classes/BaseModel";
 import UserModel from "~/classes/Models/User/UserModel";
 import { PostInterface } from "~/interfaces/classes/Models/PostModelInterface";
-import {OutputBlockData} from "@editorjs/editorjs/types/data-formats/output-data";
+import { OutputBlockData } from "@editorjs/editorjs/types/data-formats/output-data";
 
 export default class PostModel extends BaseModel {
   private _createdAt: string = '';
   private _id: number = 0;
+  private _image: string = '';
   private _likesCount: number = 0;
   private _text: OutputBlockData[] | null = null;
   private _title: string = '';
@@ -28,6 +29,14 @@ export default class PostModel extends BaseModel {
 
   set id(value: number) {
     this._id = value;
+  }
+
+  get image(): string {
+    return this._image;
+  }
+
+  set image(value: string) {
+    this._image = value;
   }
 
   get likesCount(): number {
@@ -95,6 +104,7 @@ export default class PostModel extends BaseModel {
   protected fillData(data: PostInterface): void {
     this.createdAt = data.createdAt;
     this.id = data.id;
+    this.image = data.image;
     this.likesCount = data.likesCount;
     this.text = data.text;
     this.author = data.author ? new UserModel(data.author) : null;
