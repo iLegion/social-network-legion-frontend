@@ -13,7 +13,6 @@ import LocalStorageService from "~/services/LocalStorageService";
 import Header from "~/components/Core/Header.vue";
 
 export default Vue.extend({
-  loading: false,
   components: {
     Header
   },

@@ -1,6 +1,5 @@
 <template>
   <div class="card mb-3 shadow">
-<!--    <img src="..." class="card-img-top" alt="...">-->
     <div class="card-body">
       <div class="d-flex justify-content-between align-items-end">
         <h5 class="card-title pe-cursor"
@@ -12,9 +11,8 @@
                             :post="post"
                             @onDelete="handleDelete" />
       </div>
+      <img :src="post.image" class="card-img-top" alt="...">
       <div class="card-text my-2">
-<!--        {{ isSimple ? shortDescription : post.text }}-->
-
         <Editor :id="(isSimple ? 'simple-' : '') + 'editorjs-post-' + post.id"
                 :value="contentForEditor"
                 read-only />

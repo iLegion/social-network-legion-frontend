@@ -38,6 +38,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapGetters } from "vuex";
 
 import DialogModel from "~/classes/Models/Dialog/DialogModel";
 import DialogMessageModel from "~/classes/Models/Dialog/DialogMessageModel";
@@ -55,6 +56,8 @@ export default Vue.extend({
     DialogContentBottomBar
   },
   computed: {
+    ...mapGetters('auth', ['user']),
+
     getSelectedDialog(): DialogModel | null {
       const dialog = this.dialogs.find(i => i.id === this.selectedDialogId);
 
@@ -69,6 +72,12 @@ export default Vue.extend({
     }
   },
   methods: {
+    initListenDialogChannel(): void {
+      this.$echo
+        .private(`dialog.users.${this.user.id}`)
+        .listen('Dialog\\MessageCame', this.handleListenDialogChannel);
+    },
+
     handleSelectDialog(id: number): void {
       const dialogIndex = this.dialogs.findIndex(i => i.id === id);
 
@@ -82,6 +91,9 @@ export default Vue.extend({
       const dialogIndex = this.dialogs.findIndex(i => i.id === id);
 
       this.dialogs[dialogIndex].messages.push(payload);
+    },
+    handleListenDialogChannel(data: any): void {
+      console.log(data);
     },
 
     async get(): Promise<void> {
@@ -111,6 +123,8 @@ export default Vue.extend({
   },
   async fetch(): Promise<void> {
     await this.get();
+
+    this.initListenDialogChannel();
   }
 })
 </script>

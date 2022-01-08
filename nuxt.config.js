@@ -32,7 +32,8 @@ export default {
   plugins: [
     { src: '~/plugins/axios.ts' },
     { src: '~/plugins/api.ts' },
-    { src: '~/plugins/font-awesome.ts' }
+    { src: '~/plugins/font-awesome.ts' },
+    { src: '~/plugins/echo.ts' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
