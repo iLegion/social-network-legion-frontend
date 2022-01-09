@@ -4,8 +4,7 @@
       <div v-show="users.length"
            class="row">
         <div class="col-12 col-xxl-3 offset-xxl-7 d-flex justify-content-end mt-2 mb-2">
-          <UserFilter mode="friends"
-                      :pagination="pagination"
+          <UserFilter :pagination="pagination"
                       :userID="Number($route.params.id)"
                       @onGetUsers="handleGetUsers" />
         </div>
