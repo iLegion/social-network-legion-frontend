@@ -1,10 +1,12 @@
+import { OutputBlockData } from "@editorjs/editorjs/types/data-formats/output-data";
+
 import { UserInterface } from "~/interfaces/classes/Models/User/UserModelInterface";
 
 export interface PostInterface {
   createdAt: string;
   id: number;
   likesCount: number;
-  text: string;
+  text: OutputBlockData[];
   author: UserInterface;
   title: string;
   updatedAt: string;
