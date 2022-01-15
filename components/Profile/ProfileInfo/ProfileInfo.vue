@@ -51,7 +51,6 @@ import UserModel from "~/classes/Models/User/UserModel";
 import { mapGetters } from "vuex";
 import { DialogStorePayloadInterface } from "~/interfaces/classes/Api/Dialog/DialogApiInterface";
 
-
 export default Vue.extend({
   props: {
     user: {

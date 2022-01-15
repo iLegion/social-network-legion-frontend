@@ -43,7 +43,8 @@
 
               <template v-slot:dropdown-list-content>
                 <li>
-                  <span class="dropdown-item disabled">{{ shortUserName }}</span>
+                  <span class="dropdown-item disabled mt-2 text-center">{{ shortUserName }}</span>
+                  <hr/>
                 </li>
                 <li>
                   <router-link class="dropdown-item" to="/profile">Profile</router-link>
@@ -108,5 +109,9 @@ export default Vue.extend({
 <style lang="scss">
   .navbar {
       height: 8vh;
+  }
+  .dropdown-item:active {
+    background-color: #e9ecef;
+    color: #000
   }
 </style>
