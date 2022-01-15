@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header />
-    <Nuxt />
+    <Nuxt v-if="!isLoading" />
   </div>
 </template>
 
@@ -13,11 +13,12 @@ import LocalStorageService from "~/services/LocalStorageService";
 import Header from "~/components/Core/Header.vue";
 
 export default Vue.extend({
+  middleware: ['authenticated'],
   components: {
     Header
   },
   computed: {
-    ...mapGetters('auth', ['isAuth'])
+    ...mapGetters('auth', ['isLoading'])
   },
   methods: {
     ...mapActions('auth', ['updateLoadingStatus', 'setUser']),
@@ -36,9 +37,10 @@ export default Vue.extend({
       try {
         const response = await this.$api.user.me();
 
-        this.updateLoadingStatus(false)
         this.setUser(response.data)
-      } catch (e) {}
+      } catch (e) {} finally {
+        this.updateLoadingStatus(false);
+      }
     }
   },
   async fetch(): Promise<void> {

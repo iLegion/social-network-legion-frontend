@@ -5,8 +5,10 @@ import { DialogInterface } from "~/interfaces/classes/Models/Dialog/DialogModelI
 export default class DialogModel extends BaseModel {
   private _createdAt: string = '';
   private _id: number = 0;
-  private _title: string = '';
   private _lastMessage: string = '';
+  private _lastMessageCreatedAt: string = '';
+  private _lastMessageUpdatedAt: string = '';
+  private _title: string = '';
   private _updatedAt: string = '';
   private _unreadCount: number = 0;
   private _messages: DialogMessageModel[] = [];
@@ -27,20 +29,36 @@ export default class DialogModel extends BaseModel {
     this._id = value;
   }
 
-  get title(): string {
-    return this._title;
-  }
-
-  set title(value: string) {
-    this._title = value;
-  }
-
   get lastMessage(): string {
     return this._lastMessage;
   }
 
   set lastMessage(value: string) {
     this._lastMessage = value;
+  }
+
+  get lastMessageCreatedAt(): string {
+    return this._lastMessageCreatedAt;
+  }
+
+  set lastMessageCreatedAt(value: string) {
+    this._lastMessageCreatedAt = value;
+  }
+
+  get lastMessageUpdatedAt(): string {
+    return this._lastMessageUpdatedAt;
+  }
+
+  set lastMessageUpdatedAt(value: string) {
+    this._lastMessageUpdatedAt = value;
+  }
+
+  get title(): string {
+    return this._title;
+  }
+
+  set title(value: string) {
+    this._title = value;
   }
 
   get updatedAt(): string {
@@ -67,17 +85,21 @@ export default class DialogModel extends BaseModel {
     this._messages = value;
   }
 
-  constructor(data: DialogInterface) {
+  constructor(data?: DialogInterface) {
     super();
 
-    this.fillData(data);
+    if (data) {
+      this.fillData(data);
+    }
   }
 
   protected fillData(data: DialogInterface): void {
     this.createdAt = data.createdAt;
     this.id = data.id;
-    this.title = data.title;
     this.lastMessage = data.lastMessage;
+    this.lastMessageCreatedAt = data.lastMessageCreatedAt;
+    this.lastMessageUpdatedAt = data.lastMessageUpdatedAt;
+    this.title = data.title;
     this.updatedAt = data.updatedAt;
     this.unreadCount = data.unreadCount;
   }
