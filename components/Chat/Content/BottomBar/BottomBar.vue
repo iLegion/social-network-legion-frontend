@@ -16,7 +16,7 @@ import Vue from "vue";
 
 import DialogModel from "~/classes/Models/Dialog/DialogModel";
 import DialogMessageModel from "~/classes/Models/Dialog/DialogMessageModel";
-import TextField from "~/components/Chat/ChatContent/DialogContentBottomBar/TextField.vue";
+import TextField from "~/components/Chat/Content/BottomBar/TextField.vue";
 
 export default Vue.extend({
   components: {
@@ -25,12 +25,12 @@ export default Vue.extend({
   props: {
     dialog: {
       type: Object as () => DialogModel,
-      default: () => {}
+      required: true
     }
   },
   methods: {
     handleSentMessage(id: number, payload: DialogMessageModel): void {
-      this.$emit('sentMessage', id, payload);
+      this.$emit('onSentMessage', id, payload);
     }
   }
 });

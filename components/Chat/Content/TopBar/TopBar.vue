@@ -20,8 +20,8 @@ import DialogModel from "~/classes/Models/Dialog/DialogModel";
 export default Vue.extend({
   props: {
     dialog: {
-      type: Object as () => DialogModel,
-      default: () => {}
+      type: Object as () => DialogModel | null,
+      required: true
     }
   }
 });

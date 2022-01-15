@@ -1,136 +1,20 @@
 <template>
   <div class="chat-page p-2">
     <div class="container-fluid">
-      <div v-if="dialogs.length"
-           class="row">
-        <div class="col-4">
-          <DialogList :dialogs="dialogs"
-                      :selected-dialog="getSelectedDialog"
-                      @onSelect="handleSelectDialog" />
-        </div>
-
-        <div class="col-8">
-          <div v-if="selectedDialogId"
-               class="dialog border rounded shadow">
-            <DialogContentTopBar :dialog="getSelectedDialog" />
-            <DialogContentMiddleSide :dialog="getSelectedDialog" />
-            <DialogContentBottomBar :dialog="getSelectedDialog"
-                                    @sentMessage="handleSentMessage" />
-          </div>
-          <div v-else
-               class="empty d-flex justify-content-center align-items-center vh-90">
-            Please, select a chat.
-          </div>
-        </div>
-      </div>
-
-      <div v-else
-           class="row">
-        <div class="col-12">
-          <div class="d-flex justify-content-center align-items-center vh-90">
-            You don`t have message :(
-          </div>
-        </div>
-      </div>
+      <Chat />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapGetters } from "vuex";
 
-import DialogModel from "~/classes/Models/Dialog/DialogModel";
-import DialogMessageModel from "~/classes/Models/Dialog/DialogMessageModel";
-import DialogList from "~/components/Chat/DialogList.vue";
-import DialogContentTopBar from "~/components/Chat/ChatContent/DialogContentTopBar/DialogContentTopBar.vue";
-import DialogContentMiddleSide from "~/components/Chat/ChatContent/DialogContentMiddleSide/DialogContentMiddleSide.vue";
-import DialogContentBottomBar from "~/components/Chat/ChatContent/DialogContentBottomBar/DialogContentBottomBar.vue";
+import Chat from "~/components/Chat/Chat.vue";
 
 export default Vue.extend({
   middleware: ['authenticated'],
   components: {
-    DialogList,
-    DialogContentTopBar,
-    DialogContentMiddleSide,
-    DialogContentBottomBar
-  },
-  computed: {
-    ...mapGetters('auth', ['user']),
-
-    getSelectedDialog(): DialogModel | null {
-      const dialog = this.dialogs.find(i => i.id === this.selectedDialogId);
-
-      return dialog ?? null;
-    },
-  },
-  data: (): { dialogs: DialogModel[], pagination: Object, selectedDialogId: number } => {
-    return {
-      dialogs: [],
-      pagination: {},
-      selectedDialogId: 0
-    }
-  },
-  methods: {
-    initListenDialogChannel(): void {
-      this.$echo
-        .private(`dialog.users.${this.user.id}`)
-        .listen('Dialog\\MessageCame', this.handleListenDialogChannel);
-    },
-
-    handleSelectDialog(id: number): void {
-      const dialogIndex = this.dialogs.findIndex(i => i.id === id);
-
-      this.selectedDialogId = id;
-
-      if (!this.dialogs[dialogIndex].messages.length) {
-        this.getMessages(id, dialogIndex);
-      }
-    },
-    handleSentMessage(id: number, payload: DialogMessageModel): void {
-      const dialogIndex = this.dialogs.findIndex(i => i.id === id);
-
-      this.dialogs[dialogIndex].messages.push(payload);
-    },
-    handleListenDialogChannel(data: any): void {
-      console.log(data);
-    },
-
-    async get(): Promise<void> {
-      try {
-        const response = await this.$api.dialog.getMyDialogs();
-
-        this.dialogs.push(
-            ...response.data.map((i) => {
-              return new DialogModel(i);
-            })
-        );
-        this.pagination = response.pagination;
-      } catch (e) {}
-    },
-    async getMessages(id: number, dialogIndex: number): Promise<void> {
-      try {
-        const response = await this.$api.dialogMessage.getDialogMessage(id);
-
-        this.dialogs[dialogIndex].messages.push(
-            ...response.data.map((i) => {
-              return new DialogMessageModel(i);
-            })
-        );
-        this.pagination = response.pagination;
-      } catch (e) {}
-    }
-  },
-  async fetch(): Promise<void> {
-    await this.get();
-
-    this.initListenDialogChannel();
+    Chat
   }
 })
 </script>
-
-<style lang="scss">
-.dialog {
-  height: 90vh;
-}
-</style>

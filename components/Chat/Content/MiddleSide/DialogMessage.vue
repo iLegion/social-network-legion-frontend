@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-body">
       <p class="card-text">{{ message.text }}</p>
-      <div class="text-end text-muted">{{ formattedTime }}</div>
+      <div class="text-end text-muted">{{ formattedLastMessageAt }}</div>
     </div>
   </div>
 </template>
@@ -17,14 +17,12 @@ export default Vue.extend({
   props: {
     message: {
       type: Object as () => DialogMessageModel,
-      default: () => {}
+      required: true
     }
   },
   computed: {
-    formattedTime(): string {
-      return this.message?.updatedAt
-          ? (new DateService()).getFormattedDate(new Date(this.message?.updatedAt), 'h:m:s d-m-Y')
-          : '';
+    formattedLastMessageAt(): string {
+      return (new DateService()).getTodayTimeOrDate(new Date(this.message.createdAt));
     }
   }
 })

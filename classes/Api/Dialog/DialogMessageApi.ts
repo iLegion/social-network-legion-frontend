@@ -7,8 +7,10 @@ import {
 export default class DialogMessageApi extends BaseApi {
   protected uri = 'dialogs';
 
-  public async getDialogMessage(id: number): Promise<DialogMessagesResponseInterface> {
-    return await this.callToApi('get', `${this.uri}/${id}/messages`);
+  public async getDialogMessage(id: number, page: number = 1): Promise<DialogMessagesResponseInterface> {
+    return await this.callToApi('get', `${this.uri}/${id}/messages`, {
+      page
+    });
   }
 
   public async store(id: number, payload: DialogMessageStorePayloadInterface): Promise<DialogMessageResponseInterface> {

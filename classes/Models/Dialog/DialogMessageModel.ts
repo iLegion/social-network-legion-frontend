@@ -3,9 +3,12 @@ import { DialogMessageInterface } from "~/interfaces/classes/Models/Dialog/Dialo
 
 export default class DialogMessageModel extends BaseModel {
   private _createdAt: string = '';
+  private _dialogId: number = 0;
   private _id: number = 0;
+  private _readAt: string | null = null;
   private _text: string = '';
   private _updatedAt: string = '';
+  private _userName: string = '';
 
   get createdAt(): string {
     return this._createdAt;
@@ -15,12 +18,28 @@ export default class DialogMessageModel extends BaseModel {
     this._createdAt = value;
   }
 
+  get dialogId(): number {
+    return this._dialogId;
+  }
+
+  set dialogId(value: number) {
+    this._dialogId = value;
+  }
+
   get id(): number {
     return this._id;
   }
 
   set id(value: number) {
     this._id = value;
+  }
+
+  get readAt(): string | null {
+    return this._readAt;
+  }
+
+  set readAt(value: string | null) {
+    this._readAt = value;
   }
 
   get text(): string {
@@ -39,6 +58,14 @@ export default class DialogMessageModel extends BaseModel {
     this._updatedAt = value;
   }
 
+  get userName(): string {
+    return this._userName;
+  }
+
+  set userName(value: string) {
+    this._userName = value;
+  }
+
   constructor(data: DialogMessageInterface) {
     super();
 
@@ -47,8 +74,11 @@ export default class DialogMessageModel extends BaseModel {
 
   protected fillData(data: DialogMessageInterface): void {
     this.createdAt = data.createdAt;
+    this.dialogId = data.dialogId;
     this.id = data.id;
+    this.readAt = data.readAt;
     this.text = data.text;
     this.updatedAt = data.updatedAt;
+    this.userName = data.userName;
   }
 }
