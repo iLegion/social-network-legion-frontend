@@ -27,32 +27,11 @@ export default Vue.extend({
   },
   methods: {
     handleAddFriend(user: UserModel): void {
-      this.addFriend(user.id);
+      this.$emit('onAddFriend', user.id);
     },
     handleCreateDialog(user: UserModel): void {
-      this.createDialog(user, { title: user.name, userID: user.id });
-    },
-
-    async addFriend(id: number): Promise<void> {
-      try {
-        await this.$api.friend.store(id);
-
-        this.$toast.success('Friend added successfully.');
-        this.$emit('onAddFriend', id);
-      } catch (e) {}
-    },
-    async createDialog(user: UserModel, payload: DialogStorePayloadInterface): Promise<void> {
-      try {
-        await this.$api.dialog.store(payload);
-
-        this.$toast.success('Dialog created successfully.');
-        this.$emit('onCreateDialog', user.id);
-      } catch (e) {}
+      this.$emit('onCreateDialog', user.id);
     }
   }
 });
 </script>
-
-<style scoped>
-
-</style>

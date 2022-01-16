@@ -30,20 +30,11 @@
               </li>
             </ul>
 
-            <div class="d-flex d-md-block flex-column justify-content-center">
-              <button v-if="!user.isMyFriend && user.privacySettings.addFriendsMode"
-                      type="button"
-                      class="btn btn-outline-dark mb-1 mb-md-0 me-md-2"
-                      @click="handleAddFriend">
-                Add to friends
-              </button>
-              <button v-if="(user.isMyFriend || user.privacySettings.messageWritingMode) && !user.hasDialogWithMe"
-                      type="button"
-                      class="btn btn-outline-dark"
-                      @click="handleCreateDialog">
-                Create dialog
-              </button>
-            </div>
+            <FriendDialogButtons v-if="authUser.id !== user.id"
+                                 class="d-md-block flex-column justify-content-center"
+                                 :user="user"
+                                 @onAddFriend="handleAddFriend"
+                                 @onCreateDialog="handleCreateDialog" />
           </div>
         </div>
       </div>
@@ -53,15 +44,25 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapGetters } from "vuex";
 
 import UserModel from "~/classes/Models/User/UserModel";
+import FriendDialogButtons from "~/components/Profile/ProfileInfo/FriendDialogButtons.vue";
 
 export default Vue.extend({
+  components: {
+    FriendDialogButtons
+  },
   props: {
     user: {
       type: Object as () => UserModel,
       required: true
     }
+  },
+  computed: {
+    ...mapGetters('auth', {
+      authUser: 'user'
+    })
   },
   methods: {
     handleAddFriend(): void {

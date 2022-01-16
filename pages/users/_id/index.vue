@@ -3,9 +3,9 @@
     <div class="row justify-content-center">
       <div class="col-12 col-xl-8 col-xxl-6">
         <ProfileInfo v-if="user"
-                   :user="user"
-                   @onAddFriend="handleAddFriend"
-                   @onCreateDialog="handleCreateDialog" />
+                     :user="user"
+                     @onAddFriend="handleAddFriend"
+                     @onCreateDialog="handleCreateDialog" />
       </div>
     </div>
     <div class="row justify-content-center">
@@ -43,7 +43,7 @@ export default Vue.extend({
   },
   methods: {
     handleAddFriend(): void {
-      const user = this.user;
+      const user = Object.assign({}, this.user);
 
       if (user) {
         user.isMyFriend = true;
@@ -52,7 +52,7 @@ export default Vue.extend({
       }
     },
     handleCreateDialog(): void {
-      const user = this.user;
+      const user = Object.assign({}, this.user);
 
       if (user) {
         user.hasDialogWithMe = true;
