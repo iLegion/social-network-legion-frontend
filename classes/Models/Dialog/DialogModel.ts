@@ -5,9 +5,9 @@ import { DialogInterface } from "~/interfaces/classes/Models/Dialog/DialogModelI
 export default class DialogModel extends BaseModel {
   private _createdAt: string = '';
   private _id: number = 0;
-  private _lastMessage: string = '';
-  private _lastMessageCreatedAt: string = '';
-  private _lastMessageUpdatedAt: string = '';
+  private _lastMessage: string | null = null;
+  private _lastMessageCreatedAt: string | null = null;
+  private _lastMessageUpdatedAt: string | null = null;
   private _title: string = '';
   private _updatedAt: string = '';
   private _unreadCount: number = 0;
@@ -29,27 +29,27 @@ export default class DialogModel extends BaseModel {
     this._id = value;
   }
 
-  get lastMessage(): string {
+  get lastMessage(): string | null {
     return this._lastMessage;
   }
 
-  set lastMessage(value: string) {
+  set lastMessage(value: string | null) {
     this._lastMessage = value;
   }
 
-  get lastMessageCreatedAt(): string {
+  get lastMessageCreatedAt(): string | null {
     return this._lastMessageCreatedAt;
   }
 
-  set lastMessageCreatedAt(value: string) {
+  set lastMessageCreatedAt(value: string | null) {
     this._lastMessageCreatedAt = value;
   }
 
-  get lastMessageUpdatedAt(): string {
+  get lastMessageUpdatedAt(): string | null {
     return this._lastMessageUpdatedAt;
   }
 
-  set lastMessageUpdatedAt(value: string) {
+  set lastMessageUpdatedAt(value: string | null) {
     this._lastMessageUpdatedAt = value;
   }
 

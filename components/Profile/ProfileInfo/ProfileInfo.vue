@@ -69,7 +69,7 @@ export default Vue.extend({
     handleCreateDialog(): void {
       const user = this.user;
 
-      this.createDialog({ title: user.name, users: [user.id] });
+      this.createDialog({ title: user.name, userID: user.id });
     },
 
     async addFriend(id: number): Promise<void> {

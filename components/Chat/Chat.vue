@@ -149,9 +149,6 @@ export default Vue.extend({
           }));
         }
 
-        this.dialogs.splice(dialogIndex, 1);
-        this.dialogs.unshift(dialog)
-
         this.pagination = response.pagination;
       } catch (e) {} finally {
         this.isEnabledGetMessageQuery = false;
