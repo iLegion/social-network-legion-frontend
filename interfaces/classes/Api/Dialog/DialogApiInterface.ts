@@ -13,5 +13,5 @@ export interface DialogResponseInterface {
 
 export interface DialogStorePayloadInterface {
   title: string;
-  users: number[];
+  userID: number;
 }

@@ -4,7 +4,7 @@
       @click="handleClick(dialog.id)">
     <div class="ms-2 me-auto">
       <div class="fw-bold">{{ dialog.title }}</div>
-      <div class="message text-muted">{{ dialog.lastMessage }}</div>
+      <div class="message text-muted">{{ message }}</div>
     </div>
     <div class="text-end">
       <div v-if="dialog.unreadCount"
@@ -40,7 +40,13 @@ export default Vue.extend({
       return this.selectedDialog?.id === this.dialog.id;
     },
     formattedLastMessageAt(): string {
-      return (new DateService()).getTodayTimeOrDate(new Date(this.dialog.lastMessageCreatedAt));
+      const dialog = this.dialog;
+      const value = dialog.lastMessageCreatedAt ?? dialog.createdAt;
+
+      return (new DateService()).getTodayTimeOrDate(new Date(value));
+    },
+    message(): string {
+      return this.dialog.lastMessage ?? 'Messages not exists.';
     }
   },
   methods: {
@@ -51,7 +57,8 @@ export default Vue.extend({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss"
+       scoped>
 .chat-sidebar-list-item {
   border-left: 0;
   border-right: 0;
