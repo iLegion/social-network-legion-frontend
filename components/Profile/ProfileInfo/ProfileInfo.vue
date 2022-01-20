@@ -18,13 +18,13 @@
                 <div class="badge rounded-pill bg-light text-dark">{{ user.postsCount }}</div>
                 <div>Posts</div>
               </li>
-              <li class="list-group-item text-center">
-                <router-link :to="'/users/' + user.id + '/friends'"
-                             class="badge rounded-pill bg-light text-dark text-decoration-none">
+              <router-link class="friends-count-link list-group-item text-center text-dark"
+                           :to="'/users/' + user.id + '/friends'">
+                <span class="badge rounded-pill bg-light text-dark text-decoration-none">
                   {{ user.friendsCount }}
-                </router-link>
+                </span>
                 <div>Friends</div>
-              </li>
+              </router-link>
             </ul>
 
             <FriendDialogButtons v-if="authUser.id !== user.id"
@@ -74,6 +74,12 @@ export default Vue.extend({
     img {
       width: 100px;
       height: 100px;
+    }
+
+    .friends-count-link {
+      &:hover {
+        background-color: #f8f9fa;
+      }
     }
   }
 </style>

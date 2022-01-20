@@ -106,12 +106,15 @@ export default Vue.extend({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .navbar {
-      height: 8vh;
-  }
-  .dropdown-item:active {
-    background-color: #e9ecef;
-    color: #000
+    height: 8vh;
+
+    .dropdown-item {
+      &:focus {
+        color: #1e2125;
+        background-color: #e9ecef;
+      }
+    }
   }
 </style>

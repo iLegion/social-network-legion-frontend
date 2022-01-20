@@ -1,17 +1,16 @@
 <template>
-  <Dropdown :id="'post-dropdown-' + post.id">
+  <Dropdown :id="'post-dropdown-' + post.id"
+            class="post-dropdown">
     <template v-slot:dropdown-list-content>
       <li>
-        <div class="dropdown-item">
-          <router-link class="dropdown-item"
-                       :to="'/posts/' + post.id + '/update'">Update</router-link>
-        </div>
+        <router-link class="dropdown-item"
+                     :to="'/posts/' + post.id + '/update'">
+          Update
+        </router-link>
       </li>
       <li>
-        <div class="dropdown-item">
-          <button class="btn text-start w-100"
-                  @click="handleDelete">Delete</button>
-        </div>
+        <button class="dropdown-item btn rounded-0"
+                @click="handleDelete">Delete</button>
       </li>
     </template>
   </Dropdown>
@@ -51,6 +50,15 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.post-dropdown {
+  .dropdown-item {
+    &:focus {
+      color: #1e2125;
+      background-color: #e9ecef;
+    }
 
+    box-shadow: none;
+  }
+}
 </style>
