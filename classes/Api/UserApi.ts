@@ -3,7 +3,7 @@ import {
   UserResponseInterface,
   UsersGetPayloadInterface,
   UsersResponseInterface,
-  UserUpdatePayloadInterface
+  UserUpdatePayloadInterface,
 } from "~/interfaces/classes/Api/UserApiInterface";
 
 export default class UserApi extends BaseApi {
@@ -23,5 +23,9 @@ export default class UserApi extends BaseApi {
 
   public async update(id: number, payload: UserUpdatePayloadInterface): Promise<UserResponseInterface> {
     return await this.callToApi('put', `${this.uri}/${id}`, {}, payload);
+  }
+
+  public async avatar(id: number, payload: FormData): Promise<UserResponseInterface> {
+    return await this.callToApi('post', `${this.uri}/${id}/avatar`, {}, payload);
   }
 }
