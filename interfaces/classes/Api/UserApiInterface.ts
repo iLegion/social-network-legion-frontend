@@ -9,10 +9,14 @@ export interface UsersResponseInterface {
   pagination: Object;
 }
 
-export interface UsersGetPayloadInterface {}
+export interface UsersGetPayloadInterface { }
 
 export interface UserUpdatePayloadInterface {
   name?: string;
   email?: string;
   password?: string;
 }
+
+// export interface UserAvatarUpdatePayloadInterface {
+//   file: any;
+// }

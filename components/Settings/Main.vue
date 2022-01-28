@@ -6,10 +6,18 @@
           <form class="mt-3"
                 autocomplete="off"
                 @submit.prevent="handleSend">
-<!--      <div class="mb-3">-->
-<!--        <label for="exampleInputEmail1" class="form-label">Avatar</label>-->
-<!--        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">-->
-<!--      </div>-->
+            <div class="mb-3">
+              <label for="avatar" class="form-label">Avatar</label>
+              <input type="file"
+                    class="form-control"
+                    :class="{ 'is-invalid': errorsAvatar && errorsAvatar.file }"
+                    id="avatar"
+                    @change="handleChangeAvatar" >
+              <div v-if="errorsAvatar && errorsAvatar.file"
+                   class="invalid-feedback">
+                {{ errorsAvatar.file[0] }}
+              </div>
+            </div>
             <div class="mb-3">
               <label for="name" class="form-label">Name</label>
               <input type="text"
@@ -76,14 +84,16 @@ export default Vue.extend({
   },
   data: (): {
     form: { name: string, email: string, password: string },
-    errors: { name: string[], email: string[], password: string[] } | null
+    errors: { name: string[], email: string[], password: string[] } | null,
+    errorsAvatar: { avatar: string[] } | null
   } => ({
     form: {
       name: '',
       email: '',
       password: '',
     },
-    errors: null
+    errors: null,
+    errorsAvatar: null
   }),
   methods: {
     ...mapActions('auth', ['setUser']),
@@ -119,7 +129,11 @@ export default Vue.extend({
         }
       }
     },
-
+    handleChangeAvatar(e: any): void {
+      const data = new FormData();
+      data.append('file', e.target.files[0]); 
+      this.avatar(this.user.id, data);
+    },
     async save(id: number, payload: UserUpdatePayloadInterface): Promise<void> {
       try {
         const response = await this.$api.user.update(id, payload);
@@ -131,7 +145,19 @@ export default Vue.extend({
           this.errors = e.errors;
         }
       }
-    }
+    },
+    async avatar(id: number, payload: FormData): Promise<void> {
+      try {
+        const response = await this.$api.user.avatar(id, payload);
+
+        this.setUser(response.data);
+        this.$toast.success('Avatar is updated successfully.')
+      } catch (e) {
+        if (e instanceof ValidationError) {
+          this.errorsAvatar = e.errors;
+        }
+      }
+    },
   }
 })
 </script>
