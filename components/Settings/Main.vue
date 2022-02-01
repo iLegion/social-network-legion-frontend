@@ -131,7 +131,9 @@ export default Vue.extend({
     },
     handleChangeAvatar(e: any): void {
       const data = new FormData();
-      data.append('file', e.target.files[0]); 
+
+      this.errorsAvatar = null;
+      data.append('file', e.target.files[0]);
       this.avatar(this.user.id, data);
     },
     async save(id: number, payload: UserUpdatePayloadInterface): Promise<void> {
