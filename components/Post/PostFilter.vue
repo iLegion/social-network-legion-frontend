@@ -22,6 +22,10 @@ import { PostsGetPayloadInterface } from "~/interfaces/classes/Api/PostApiInterf
 
 export default Vue.extend({
   props: {
+    isLoadingPosts: {
+      type: Boolean,
+      required: true
+    },
     user: {
       type: UserModel,
       required: false,
@@ -32,23 +36,22 @@ export default Vue.extend({
       required: true
     }
   },
-  data: (): { filters: { byLikes: number, byViews: number }, isEnabledQuery: boolean, needReset: boolean } => {
+  data: (): { filters: { byLikes: number, byViews: number }, needReset: boolean } => {
     return {
       filters: {
         byLikes: 0,
         byViews: 0
       },
-      isEnabledQuery: false,
       needReset: false
     }
   },
   methods: {
     initLazyLoading(): any {
       const pagination = this.pagination;
-      const isEnabledQuery = this.isEnabledQuery;
+      const isLoadingPosts = this.isLoadingPosts;
 
       if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-        if (!isEnabledQuery && pagination && (pagination.currentPage < pagination.lastPage)) {
+        if (!isLoadingPosts && pagination && (pagination.currentPage < pagination.lastPage)) {
           this.get(this.getFilters(), pagination.currentPage + 1)
         }
       }
@@ -82,7 +85,7 @@ export default Vue.extend({
     },
 
     async get(payload: PostsGetPayloadInterface = {}, page: number = 1): Promise<void> {
-      this.isEnabledQuery = true;
+      this.$emit('onLoadingPosts', true);
 
       if (this.user) {
         payload.userId = this.user.id;
@@ -91,8 +94,7 @@ export default Vue.extend({
       try {
         const response = await this.$api.post.getAll(Object.assign(payload, { page }));
 
-        this.isEnabledQuery = false;
-
+        this.$emit('onLoadingPosts', false);
         this.$emit(
             'onGetPosts',
             response.data.map((i) => {
