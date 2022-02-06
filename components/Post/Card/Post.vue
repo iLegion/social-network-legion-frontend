@@ -11,7 +11,7 @@
                             :post="post"
                             @onDelete="handleDelete" />
       </div>
-      <img :src="post.image" class="card-img-top" alt="...">
+      <img :src="post.image" class="card-img-top" alt="Image not loaded.">
       <div class="card-text my-2">
         <Editor :id="(isSimple ? 'simple-' : '') + 'editorjs-post-' + post.id"
                 :value="contentForEditor"
@@ -32,40 +32,25 @@
                   :post="post"
                   @onAddLike="handleAddLike" />
     </div>
-
-    <Modal v-if="isSimple"
-           :id="modalId">
-      <template v-slot:content>
-        <Post :post="post"
-              :is-simple="false" class="mb-4"/>
-        <Comment v-if="isLoadedComments"
-                 :post="post" />
-      </template>
-    </Modal>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { mapGetters } from "vuex";
-import { Modal as BootstrapModal } from 'bootstrap';
 import { faComments } from "@fortawesome/free-regular-svg-icons/faComments";
+import { OutputData } from "@editorjs/editorjs/types/data-formats";
 
 import PostModel from "~/classes/Models/PostModel";
 import PostHeaderDropdown from "~/components/Post/Card/PostHeaderDropdown.vue";
 import PostFooter from "~/components/Post/Card/PostFooter.vue";
-import Modal from "~/components/Modal/Modal.vue";
-import Comment from "~/components/Comment/Comment.vue";
 import Editor from "~/components/Editor/Editor.vue";
-import {OutputData} from "@editorjs/editorjs/types/data-formats";
 
 export default Vue.extend({
   name: 'Post',
   components: {
     PostHeaderDropdown,
     PostFooter,
-    Modal,
-    Comment,
     Editor
   },
   props: {
@@ -85,26 +70,11 @@ export default Vue.extend({
     faComments() {
       return faComments;
     },
-    modalId(): string {
-      return 'modal-post-' + this.post.id;
-    },
     contentForEditor(): OutputData | null {
       return this.post?.text ? { blocks: this.post.text } : null;
     }
   },
-  data: (): { modalInstance: BootstrapModal | null, isLoadedComments: boolean } => ({
-    modalInstance: null,
-    isLoadedComments: false
-  }),
   methods: {
-    initModal(): void {
-      const el = document.getElementById((this.modalId as string));
-
-      if (el) {
-        this.modalInstance = new BootstrapModal(el)
-      }
-    },
-
     handleAddLike(id: number): void {
       this.$emit('onAddLike', id);
     },
@@ -112,16 +82,11 @@ export default Vue.extend({
       this.$emit('onAddView', id);
     },
     handleOpenModal(): void {
-      this.isLoadedComments = true;
-      this.modalInstance?.show();
-      this.$emit('onAddView', this.post.id);
+      this.$emit('onOpenModal', this.post.id);
     },
     handleDelete(id: number): void {
       this.$emit('onDelete', id);
     }
-  },
-  mounted() {
-    this.initModal();
   }
 })
 </script>

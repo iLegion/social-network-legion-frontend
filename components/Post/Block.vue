@@ -4,8 +4,10 @@
       <div class="row">
         <div class="col-12 d-flex justify-content-end mt-2 mb-2">
           <PostFilter v-show="posts.length"
+                      :isLoadingPosts="isLoadingPosts"
                       :user="user"
                       :pagination="pagination"
+                      @onLoadongPosts="handleLoadingPosts"
                       @onGetPosts="handleGetPosts" />
         </div>
       </div>
@@ -17,46 +19,54 @@
                   :post="post"
                   @onAddLike="handleLike"
                   @onAddView="handleAddView"
-                  @onDelete="handleDelete" />
+                  @onDelete="handleDelete"
+                  @onOpenModal="handleOpenModal" />
+          </div>
+          <div v-else-if="isLoadingPosts" class="pt-5">
+            <Loader />
           </div>
           <div v-else
-               class="d-flex justify-content-center align-items-center fw-bold vh-92">
-            <template v-if="isProfile">
-              <div>
-                Posts not found. Please, add new posts.
-              </div>
-              <router-link to="/posts/create"
-                           class="btn btn-dark text-center">
-                <font-awesome-icon :icon="faPlusSquare" fixed-width />
-              </router-link>
-            </template>
-
-            <template v-else>
-              <div>
-                <img src="@/assets/img/error-404.png" alt="404">
-                <div class="text-center">Posts not found.</div>
-                </div>
-            </template>
+               class="d-flex justify-content-center align-items-center fw-bold">
+            <div>
+              <img src="@/assets/img/error-404.png" alt="404">
+              <div class="text-center">Posts not found.</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <Modal :id="modalID">
+      <template v-if="selectedPost"
+                v-slot:content>
+        <Post :post="selectedPost"
+              :is-simple="false"
+              class="mb-4"/>
+        <Comment :post="selectedPost" />
+      </template>
+    </Modal>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { faPlusSquare } from "@fortawesome/free-regular-svg-icons";
+import { Modal as BootstrapModal } from 'bootstrap';
 
 import PostModel from "~/classes/Models/PostModel";
 import UserModel from "~/classes/Models/User/UserModel";
 import PostFilter from "~/components/Post/PostFilter.vue";
 import Post from "~/components/Post/Card/Post.vue";
+import Modal from "~/components/Modal/Modal.vue";
+import Comment from "~/components/Comment/Comment.vue";
+import Loader from "~/components/Core/Loader.vue";
 
 export default Vue.extend({
   components: {
     PostFilter,
-    Post
+    Post,
+    Modal,
+    Comment,
+    Loader
   },
   props: {
     user: {
@@ -65,20 +75,35 @@ export default Vue.extend({
     }
   },
   computed: {
-    faPlusSquare() {
-      return faPlusSquare;
-    },
-    isProfile(): boolean {
-      return this.$router.currentRoute.name === 'profile';
+    selectedPost(): PostModel | undefined {
+      return this.posts.find(i => i.id === this.selectedPostID);
     }
   },
-  data: (): { posts: PostModel[], pagination: Object } => {
+  data: (): {
+    isLoadingPosts: boolean,
+    posts: PostModel[],
+    pagination: Object,
+    modalInstance: BootstrapModal | null,
+    modalID: string,
+    selectedPostID: number | null
+  } => {
     return {
+      isLoadingPosts: true,
       posts: [],
-      pagination: {}
+      pagination: {},
+      modalInstance: null,
+      modalID: 'posts-modal-' + Math.floor(Math.random() * 1000),
+      selectedPostID: null
     }
   },
   methods: {
+    initModal(): void {
+      const el = document.getElementById(this.modalID);
+
+      if (el) {
+        this.modalInstance = new BootstrapModal(el)
+      }
+    },
     updateCounts(type: string, id: number): void {
       const postIndex = this.posts.findIndex(i => i.id === id);
 
@@ -91,6 +116,9 @@ export default Vue.extend({
       }
     },
 
+    handleLoadingPosts(value: boolean): void {
+      this.isLoadingPosts = value;
+    },
     handleGetPosts(posts: PostModel[], pagination: Object, reset: boolean = false): void {
       if (reset) {
         this.posts.splice(0, this.posts.length, ...posts);
@@ -113,6 +141,12 @@ export default Vue.extend({
         this.posts.splice(postIndex, 1);
       }
     },
+    handleOpenModal(id: number): void {
+      this.selectedPostID = id;
+
+      this.modalInstance?.show();
+      this.handleAddView(id);
+    },
 
     async like(type: string, id: number): Promise<void> {
       try {
@@ -130,6 +164,9 @@ export default Vue.extend({
         this.updateCounts('view', id);
       } catch (e) {}
     }
+  },
+  mounted() {
+    this.initModal();
   }
 });
 </script>
