@@ -7,7 +7,7 @@
           {{ post.title }}
         </h5>
 
-        <PostHeaderDropdown v-if="post.author.id === user.id"
+        <PostHeaderDropdown v-if="post.author.id === $auth.user.id"
                             :post="post"
                             @onDelete="handleDelete" />
       </div>
@@ -37,7 +37,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapGetters } from "vuex";
 import { faComments } from "@fortawesome/free-regular-svg-icons/faComments";
 import { OutputData } from "@editorjs/editorjs/types/data-formats";
 
@@ -65,8 +64,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapGetters('auth', ['user']),
-
     faComments() {
       return faComments;
     },

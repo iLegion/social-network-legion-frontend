@@ -50,7 +50,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapGetters } from "vuex";
 
 import LoginForm from "~/components/Auth/LoginForm.vue";
 import RegisterForm from "~/components/Auth/RegisterForm.vue";
@@ -60,14 +59,9 @@ export default Vue.extend({
     LoginForm,
     RegisterForm
   },
-  computed: {
-    ...mapGetters('auth', ['isAuth'])
-  },
-  watch: {
-    isAuth(value: boolean) {
-      if (value) {
-        this.$router.push('/');
-      }
+  mounted() {
+    if (this.$auth.loggedIn) {
+      this.$router.push('/');
     }
   }
 })

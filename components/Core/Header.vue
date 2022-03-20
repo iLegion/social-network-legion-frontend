@@ -12,7 +12,7 @@
                 aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div v-if="isAuth"
+        <div v-if="$auth.loggedIn"
              class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
@@ -23,18 +23,18 @@
             </li>
           </ul>
           <div class="d-flex align-items-center">
-            <router-link v-if="isAuth"
+            <router-link v-if="$auth.loggedIn"
                          to="/posts/create"
                          class="btn btn-dark text-center me-2">
               <font-awesome-icon :icon="faPlusSquare" fixed-width />
             </router-link>
-            <router-link v-if="isAuth"
+            <router-link v-if="$auth.loggedIn"
                          to="/chat"
                          class="btn btn-dark text-center me-2">
                 <font-awesome-icon :icon="faComments" fixed-width />
               </router-link>
 
-            <Dropdown v-if="isAuth"
+            <Dropdown v-if="$auth.loggedIn"
                       id="header-auth-dropdown"
                       theme="dark">
               <template v-slot:dropdown-button-content>
@@ -72,7 +72,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapGetters } from 'vuex';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faComments } from '@fortawesome/free-regular-svg-icons';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
@@ -86,8 +85,6 @@ export default Vue.extend({
     Logout
   },
   computed: {
-    ...mapGetters('auth', ['isAuth', 'user']),
-
     faUser() {
       return faUser;
     },
@@ -98,7 +95,7 @@ export default Vue.extend({
       return faPlusSquare;
     },
     shortUserName(): string {
-      const value = this.user.name;
+      const value = this.$auth.user.name;
 
       return value && value.length > 15 ? value.slice(0, 15) + "..." : value;
     },

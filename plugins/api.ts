@@ -1,6 +1,4 @@
 import RegisterApi from "~/classes/Api/Auth/RegisterApi";
-import LoginApi from "~/classes/Api/Auth/LoginApi";
-import LogoutApi from "~/classes/Api/Auth/LogoutApi";
 import UserApi from "~/classes/Api/UserApi";
 import PostApi from "~/classes/Api/PostApi";
 import DialogApi from "~/classes/Api/Dialog/DialogApi";
@@ -23,8 +21,6 @@ export default ({ app }: Context, inject: Function) => {
 
   inject('api', {
     register: new RegisterApi(axios),
-    login: new LoginApi(axios),
-    logout: new LogoutApi(axios),
     user: new UserApi(axios),
     post: new PostApi(axios),
     dialog: new DialogApi(axios),

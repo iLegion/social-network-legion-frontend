@@ -23,13 +23,12 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapGetters } from "vuex";
 
 import DialogModel from "~/classes/Models/Dialog/DialogModel";
 import DialogMessageModel from "~/classes/Models/Dialog/DialogMessageModel";
+import { DialogMessageInterface } from "~/interfaces/classes/Models/Dialog/DialogMessageModelInterface";
 import Sidebar from "~/components/Chat/Sidebar/Sidebar.vue";
 import Content from "~/components/Chat/Content/Content.vue";
-import { DialogMessageInterface } from "~/interfaces/classes/Models/Dialog/DialogMessageModelInterface";
 
 export default Vue.extend({
   components: {
@@ -37,8 +36,6 @@ export default Vue.extend({
     Content
   },
   computed: {
-    ...mapGetters('auth', ['user']),
-
     selectedDialog(): DialogModel | null {
       const dialog = this.dialogs.find(i => i.id === this.selectedDialogId);
 
@@ -61,12 +58,12 @@ export default Vue.extend({
   methods: {
     initListenDialogChannel(): void {
       this.$echo
-        .private(`dialog.users.${this.user.id}`)
+        .private(`dialog.users.${this.$auth.user.id}`)
         .listen('Dialog\\MessageCame', this.handleListenDialogChannel);
     },
     destroyListenDialogChannel(): void {
       this.$echo
-        .private(`dialog.users.${this.user.id}`)
+        .private(`dialog.users.${this.$auth.user.id}`)
         .stopListening('Dialog\\MessageCame', this.handleListenDialogChannel);
     },
 

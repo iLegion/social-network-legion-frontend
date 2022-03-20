@@ -16,7 +16,7 @@ import Vue from 'vue'
 import Posts from "~/components/Post/Block.vue";
 
 export default Vue.extend({
-  middleware: ['authenticated'],
+  middleware: ['auth'],
   components: {
     Posts
   }

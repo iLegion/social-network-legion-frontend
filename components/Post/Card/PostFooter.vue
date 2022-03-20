@@ -39,7 +39,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapGetters } from "vuex";
 import { faHeart } from "@fortawesome/free-regular-svg-icons/faHeart";
 import { faComments } from "@fortawesome/free-regular-svg-icons/faComments";
 import { faEye } from "@fortawesome/free-regular-svg-icons/faEye";
@@ -57,8 +56,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapGetters('auth', ['user']),
-
     faHeart() {
       return faHeart;
     },
@@ -74,7 +71,7 @@ export default Vue.extend({
     author(): UserModel | null {
       const author = this.post.author;
 
-      return author && this.user.id !== author?.id ? author : null;
+      return author && this.$auth.user.id !== author?.id ? author : null;
     },
     getFormattedDate(): string {
       const dateService = new DateService();

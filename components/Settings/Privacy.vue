@@ -97,7 +97,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapActions } from "vuex";
 
 import UserModel from "~/classes/Models/User/UserModel";
 import { PrivacySettingUpdatePayloadInterface } from "~/interfaces/classes/Api/PrivacySettingApiInterface";
@@ -117,8 +116,6 @@ export default Vue.extend({
     }
   }),
   methods: {
-    ...mapActions('auth', ['setUser']),
-
     setForm(user: UserModel): void {
       if (user.privacySettings) {
         this.form = {
@@ -139,7 +136,7 @@ export default Vue.extend({
       try {
         const response = await this.$api.privacySetting.update(id, payload);
 
-        this.setUser(response.data);
+        this.$auth.setUser(new UserModel(response.data));
         this.$toast.success('Private settings is updated successfully.')
       } catch (e) {}
     }
