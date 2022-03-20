@@ -19,22 +19,16 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapGetters } from "vuex";
 
 import UserModel from "~/classes/Models/User/UserModel";
 import ProfileInfo from "~/components/Profile/ProfileInfo/ProfileInfo.vue";
 import Posts from "~/components/Post/Block.vue";
 
 export default Vue.extend({
-  middleware: ['authenticated'],
+  middleware: ['auth'],
   components: {
     ProfileInfo,
     Posts
-  },
-  computed: {
-    ...mapGetters('auth', {
-      authUser: 'user'
-    })
   },
   data: (): { user: UserModel | null } => {
     return {
@@ -72,7 +66,7 @@ export default Vue.extend({
   async fetch(): Promise<void> {
     const userId = Number(this.$route.params.id);
 
-    if (this.authUser.id === userId) {
+    if (this.$auth.user.id === userId) {
       await this.$router.push('/profile');
     } else {
       await this.get(userId);

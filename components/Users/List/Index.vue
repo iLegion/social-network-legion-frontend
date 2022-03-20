@@ -13,7 +13,6 @@ import Vue from "vue";
 
 import UserModel from "~/classes/Models/User/UserModel";
 import Item from '~/components/Users/List/Item.vue';
-import {DialogStorePayloadInterface} from "~/interfaces/classes/Api/Dialog/DialogApiInterface";
 
 export default Vue.extend({
   components: {

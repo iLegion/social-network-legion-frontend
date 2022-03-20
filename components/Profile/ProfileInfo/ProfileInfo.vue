@@ -27,7 +27,7 @@
               </router-link>
             </ul>
 
-            <FriendDialogButtons v-if="authUser.id !== user.id"
+            <FriendDialogButtons v-if="$auth.user.id !== user.id"
                                  :user="user" />
           </div>
         </div>
@@ -38,7 +38,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapGetters } from "vuex";
 
 import UserModel from "~/classes/Models/User/UserModel";
 import FriendDialogButtons from "~/components/Profile/ProfileInfo/FriendDialogButtons.vue";
@@ -52,11 +51,6 @@ export default Vue.extend({
       type: Object as () => UserModel,
       required: true
     }
-  },
-  computed: {
-    ...mapGetters('auth', {
-      authUser: 'user'
-    })
   },
   methods: {
     handleAddFriend(): void {

@@ -35,7 +35,7 @@ import UserFilter from '~/components/Users/Filter/Index.vue'
 import UserList from '~/components/Users/List/Index.vue';
 
 export default Vue.extend({
-  middleware: ['authenticated'],
+  middleware: ['auth'],
   components: {
     UserFilter,
     UserList

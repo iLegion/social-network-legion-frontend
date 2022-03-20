@@ -69,11 +69,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapActions } from "vuex";
 
+import UserModel from "~/classes/Models/User/UserModel";
 import ValidationError from "~/classes/Errors/ValidationError";
 import { UserUpdatePayloadInterface } from "~/interfaces/classes/Api/UserApiInterface";
-import UserModel from "~/classes/Models/User/UserModel";
 
 export default Vue.extend({
   props: {
@@ -96,8 +95,6 @@ export default Vue.extend({
     errorsAvatar: null
   }),
   methods: {
-    ...mapActions('auth', ['setUser']),
-
     getFormData(): UserUpdatePayloadInterface {
       const form = this.form;
       const formData: UserUpdatePayloadInterface = {};
@@ -140,7 +137,7 @@ export default Vue.extend({
       try {
         const response = await this.$api.user.update(id, payload);
 
-        this.setUser(response.data);
+        this.$auth.setUser(new UserModel(response.data));
         this.$toast.success('Profile is updated successfully.')
       } catch (e) {
         if (e instanceof ValidationError) {
@@ -152,7 +149,7 @@ export default Vue.extend({
       try {
         const response = await this.$api.user.avatar(id, payload);
 
-        this.setUser(response.data);
+        this.$auth.setUser(new UserModel(response.data));
         this.$toast.success('Avatar is updated successfully.')
       } catch (e) {
         if (e instanceof ValidationError) {

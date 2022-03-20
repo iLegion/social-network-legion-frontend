@@ -7,7 +7,7 @@
                       :isLoadingPosts="isLoadingPosts"
                       :user="user"
                       :pagination="pagination"
-                      @onLoadongPosts="handleLoadingPosts"
+                      @onLoadingPosts="handleLoadingPosts"
                       @onGetPosts="handleGetPosts" />
         </div>
       </div>

@@ -12,7 +12,7 @@ import Vue from 'vue';
 import Chat from "~/components/Chat/Chat.vue";
 
 export default Vue.extend({
-  middleware: ['authenticated'],
+  middleware: ['auth'],
   components: {
     Chat
   }

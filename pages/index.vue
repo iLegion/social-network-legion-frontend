@@ -10,6 +10,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
+  middleware: ['auth'],
   methods: {
     redirectToPosts(): void {
       this.$router.push('/posts');

@@ -18,9 +18,9 @@ export default ({ app, $config }: Context, inject: Function) => {
     broadcaster: 'pusher',
     key: 'b089a5a7575fd7587b6f',
     cluster: 'eu',
-    client: new Pusher('b089a5a7575fd7587b6f', {
-      cluster: 'eu',
-      authEndpoint: 'http://sn-legion.test/broadcasting/auth',
+    client: new Pusher($config.echo.key, {
+      cluster: $config.echo.cluster,
+      authEndpoint: $config.echo.endpoint,
       auth: {
         headers: {
           Authorization: LocalStorageService.getToken()

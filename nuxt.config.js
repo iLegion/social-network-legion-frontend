@@ -48,7 +48,9 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/toast'
+    '@nuxtjs/toast',
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -60,7 +62,12 @@ export default {
   },
 
   publicRuntimeConfig: {
-    apiUrl: process.env.API_URL
+    apiUrl: process.env.API_URL,
+    echo: {
+      key: process.env.ECHO_KEY,
+      cluster: process.env.ECHO_CLUSTER,
+      endpoint: process.env.ECHO_ENDPOINT
+    }
   },
 
   loading: '~/components/LoadingBar.vue',
@@ -69,5 +76,33 @@ export default {
     position: 'top-center',
     duration: 1500,
     theme: 'bubble'
+  },
+
+  /**
+   * @url https://auth.nuxtjs.org/
+   */
+  auth: {
+    redirect: {
+      login: '/auth',
+      logout: '/auth',
+      callback: '/auth',
+      home: '/'
+    },
+    strategies: {
+      default: {
+        scheme: '~/schemes/DefaultScheme',
+        endpoints: {
+          login: { url: '/auth/login', method: 'post' },
+          logout: { url: '/auth/logout', method: 'post' },
+          user: { url: '/users/me', method: 'get' },
+        },
+        token: {
+          property: 'token'
+        },
+        user: {
+          property: 'data'
+        }
+      }
+    }
   }
 }

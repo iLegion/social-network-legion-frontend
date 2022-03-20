@@ -69,12 +69,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapActions } from "vuex";
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 
-import LocalStorageService from "~/services/LocalStorageService";
 import ValidationError from "~/classes/Errors/ValidationError";
 
 export default Vue.extend({
@@ -102,8 +100,6 @@ export default Vue.extend({
     }
   }),
   methods: {
-    ...mapActions("auth", ["setUser"]),
-
     handleInput(type: string): void {
       const errors = this.errors;
 
@@ -115,27 +111,21 @@ export default Vue.extend({
     },
 
     async send(): Promise<void> {
+      const form = this.form;
+
       try {
-        const response = await this.$api.register.register(this.form);
-        const token = response.data.type + ' ' + response.data.token;
-
-        LocalStorageService.setToken(token);
-        this.$axios.setToken(token);
-
-        await this.getUser();
-        await this.$router.push('/profile');
+        await this.$api.register.register(form);
+        await this.$auth.loginWith('default', {
+          data: {
+            email: form.email,
+            password: form.password
+          }
+        })
       } catch (e) {
         if (e instanceof ValidationError) {
           this.errors = e.errors;
         }
       }
-    },
-    async getUser(): Promise<void> {
-      try {
-        const response = await this.$api.user.me();
-
-        this.setUser(response.data)
-      } catch (e) {}
     }
   }
 })
