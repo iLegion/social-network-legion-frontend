@@ -10,11 +10,17 @@
             @click="handleFilterByType('byViews')">
       by views
     </button>
+    <button type="button"
+            class="button_hola"
+            @click="handleFilterByType('default')">
+      <font-awesome-icon :icon="faTimes" fixed-width />
+    </button>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 
 import PostModel from "~/classes/Models/PostModel";
 import UserModel from "~/classes/Models/User/UserModel";
@@ -34,6 +40,11 @@ export default Vue.extend({
     pagination: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    faTimes() {
+      return faTimes;
     }
   },
   data: (): { filters: { byLikes: number, byViews: number }, needReset: boolean } => {
@@ -71,17 +82,35 @@ export default Vue.extend({
     },
 
     handleFilterByType(type: string): void {
+      let needCall = false;
+
       if (type === 'byLikes') {
-        this.filters.byLikes = 1;
-        this.filters.byViews = 0;
+        if (!this.filters.byLikes) {
+          needCall = true;
+          this.filters.byLikes = 1;
+          this.filters.byViews = 0;
+        }
+
       } else if (type === 'byViews') {
-        this.filters.byLikes = 0;
-        this.filters.byViews = 1;
+        if (!this.filters.byViews) {
+          needCall = true;
+          this.filters.byLikes = 0;
+          this.filters.byViews = 1;
+        }
+
+      } else if (type === 'default') {
+        if (this.filters.byLikes || this.filters.byViews) {
+          needCall = true;
+          this.filters.byLikes = 0;
+          this.filters.byViews = 0;
+        }
       }
 
-      this.needReset = true;
+      if (needCall) {
+        this.needReset = true;
 
-      this.get(this.getFilters());
+        this.get(this.getFilters());
+      }
     },
 
     async get(payload: PostsGetPayloadInterface = {}, page: number = 1): Promise<void> {
@@ -119,18 +148,17 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped>
+<style lang="scss">
 .button_hola,
 .button_hola::before,
 .button_hola::after,
 .button_hola span,
 .button_hola span::before,
-.button_hola span::after
-{
+.button_hola span::after {
   transition: all ease .5s;
 }
 
-.button_hola{
+.button_hola {
   position: relative;
   display: inline-block;
   margin: 1em;
@@ -138,44 +166,37 @@ export default Vue.extend({
   text-transform: uppercase;
   cursor: pointer;
   background-color: #fff;
-}
 
-.button_hola:hover
-{
-  box-shadow: 0 0 5em .5em rgba(50,50,150,0.5);
-}
+  &:hover {
+    span {
+      color: #112;
+      background-color: #fff;
+    }
+  }
 
-.button_hola span
-{
-  display: inline-block;
-  width: 100%;
-  padding: 0.6em 2em;
-}
-
-.button_hola:hover span
-{
-  background-color: #fff;
-  color: #112;
+  span {
+    display: inline-block;
+    width: 100%;
+    padding: 0.6em 2em;
+  }
 }
 
 .button_hola::before,
 .button_hola::after,
 .button_hola span::before,
-.button_hola span::after
-{
+.button_hola span::after {
   content: '';
   position: absolute;
   border: 1px;
 }
 
 .button_hola::before,
-.button_hola span::before
-{
+.button_hola span::before {
   border-style: solid none;
 }
 
 .button_hola::before,
-.button_hola span::after{
+.button_hola span::after {
   left: 0;
   top: -0.4em;
   width: 100%;
@@ -183,14 +204,12 @@ export default Vue.extend({
 }
 
 .button_hola::after,
-.button_hola span::after
-{
+.button_hola span::after {
   border-style: none solid;
 }
 
 .button_hola::after,
-.button_hola span::before
-{
+.button_hola span::before {
   top: 0;
   left: -0.4em;
   height: 100%;
@@ -198,20 +217,17 @@ export default Vue.extend({
 }
 
 .button_hola:hover::after,
-.button_hola:hover span::after
-{
+.button_hola:hover span::after {
   transform: scaleY(0);
 }
 
 .button_hola:hover::before,
-.button_hola:hover span::before
-{
+.button_hola:hover span::before {
   transform: scaleX(0);
 }
 
 .button_hola:hover span::after,
-.button_hola:hover span::before
-{
+.button_hola:hover span::before {
   opacity: 0;
 }
 </style>
