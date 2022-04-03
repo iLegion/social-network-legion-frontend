@@ -3,8 +3,7 @@
     <Item v-for="user in users"
           :key="'users-list-' + user.id"
           :user="user"
-          @onAddFriend="handleAddFriend"
-          @onCreateDialog="handleCreateDialog" />
+          @onAddFriend="handleAddFriend" />
   </div>
 </template>
 
@@ -27,9 +26,6 @@ export default Vue.extend({
   methods: {
     handleAddFriend(user: UserModel): void {
       this.$emit('onAddFriend', user.id);
-    },
-    handleCreateDialog(user: UserModel): void {
-      this.$emit('onCreateDialog', user.id);
     }
   }
 });

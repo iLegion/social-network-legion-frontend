@@ -14,8 +14,7 @@
         <div class="col-12 col-xxl-8 offset-xxl-2">
           <UserList v-if="users.length"
                     :users="users"
-                    @onAddFriend="handleAddFriend"
-                    @onCreateDialog="handleCreateDialog" />
+                    @onAddFriend="handleAddFriend" />
 
           <div v-else
                class="d-flex justify-content-center align-items-center fw-bold vh-92">
@@ -60,14 +59,14 @@ export default Vue.extend({
 
       this.users.splice(userIndex, 1, user)
     },
-    handleCreateDialog(id: number): void {
-      const userIndex = this.users.findIndex(i => i.id === id);
-      const user = this.users[userIndex];
-
-      user.hasDialogWithMe = true;
-
-      this.users.splice(userIndex, 1, user)
-    }
+    // handleCreateDialog(id: number): void {
+    //   const userIndex = this.users.findIndex(i => i.id === id);
+    //   const user = this.users[userIndex];
+    //
+    //   user.hasDialogWithMe = true;
+    //
+    //   this.users.splice(userIndex, 1, user)
+    // }
   }
 });
 </script>
