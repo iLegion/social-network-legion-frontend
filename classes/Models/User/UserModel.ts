@@ -8,7 +8,6 @@ export default class UserModel extends BaseModel {
   private _createdAt: string = '';
   private _email: string = '';
   private _friendsCount: number = 0;
-  private _hasDialogWithMe: boolean = false;
   private _id: number = 0;
   private _isMyFriend: boolean = false;
   private _name: string = '';
@@ -47,14 +46,6 @@ export default class UserModel extends BaseModel {
 
   set friendsCount(value: number) {
     this._friendsCount = value;
-  }
-
-  get hasDialogWithMe(): boolean {
-    return this._hasDialogWithMe;
-  }
-
-  set hasDialogWithMe(value: boolean) {
-    this._hasDialogWithMe = value;
   }
 
   get id(): number {
@@ -126,7 +117,6 @@ export default class UserModel extends BaseModel {
     this.createdAt = data.createdAt;
     this.email = data.email;
     this.friendsCount = data.friendsCount;
-    this.hasDialogWithMe = data.hasDialogWithMe;
     this.id = data.id;
     this.isMyFriend = data.isMyFriend;
     this.name = data.name;

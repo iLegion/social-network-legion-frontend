@@ -33,8 +33,7 @@
             <FriendDialogButtons v-if="$auth.user.id !== user.id"
                                  class="d-md-block flex-column justify-content-center"
                                  :user="user"
-                                 @onAddFriend="handleAddFriend"
-                                 @onCreateDialog="handleCreateDialog" />
+                                 @onAddFriend="handleAddFriend" />
           </div>
         </div>
       </div>
@@ -61,9 +60,6 @@ export default Vue.extend({
   methods: {
     handleAddFriend(): void {
       this.$emit('onAddFriend', this.user);
-    },
-    handleCreateDialog(): void {
-      this.$emit('onCreateDialog', this.user);
     }
   }
 });

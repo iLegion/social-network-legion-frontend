@@ -6,7 +6,6 @@ export interface UserInterface {
   createdAt: string;
   email: string;
   friendsCount: number;
-  hasDialogWithMe: boolean;
   id: number;
   isMyFriend: boolean;
   name: string;
