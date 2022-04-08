@@ -14,13 +14,19 @@
       <div class="row">
         <div class="col-12">
           <div v-if="posts.length">
-            <Post v-for="post in posts"
+            <Post v-show="posts.length === readyPostsEditors.length"
+                  v-for="post in posts"
                   :key="'post-' + post.id"
                   :post="post"
                   @onAddLike="handleLike"
                   @onAddView="handleAddView"
                   @onDelete="handleDelete"
-                  @onOpenModal="handleOpenModal" />
+                  @onOpenModal="handleOpenModal"
+                  @onReadyEditor="handleOnReadyEditor" />
+
+            <div v-if="posts.length !== readyPostsEditors.length" class="pt-5">
+              <Loader />
+            </div>
           </div>
           <div v-else-if="isLoading" class="pt-5">
             <Loader />
@@ -85,7 +91,8 @@ export default Vue.extend({
     pagination: Object,
     modalInstance: BootstrapModal | null,
     modalID: string,
-    selectedPostID: number | null
+    selectedPostID: number | null,
+    readyPostsEditors: number[]
   } => {
     return {
       isLoading: true,
@@ -93,7 +100,8 @@ export default Vue.extend({
       pagination: {},
       modalInstance: null,
       modalID: 'posts-modal-' + Math.floor(Math.random() * 1000),
-      selectedPostID: null
+      selectedPostID: null,
+      readyPostsEditors: []
     }
   },
   methods: {
@@ -121,6 +129,7 @@ export default Vue.extend({
     },
     handleGetPosts(posts: PostModel[], pagination: Object, reset: boolean = false): void {
       if (reset) {
+        this.readyPostsEditors.splice(0);
         this.posts.splice(0, this.posts.length, ...posts);
       } else {
         this.posts.push(...posts);
@@ -146,6 +155,9 @@ export default Vue.extend({
 
       this.modalInstance?.show();
       this.handleAddView(id);
+    },
+    handleOnReadyEditor(id: number): void {
+      this.readyPostsEditors.push(id);
     },
 
     async like(type: string, id: number): Promise<void> {

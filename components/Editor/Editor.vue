@@ -49,12 +49,19 @@ export default Vue.extend({
         onChange: () => {
           this.handleChange();
         },
+        onReady: () => {
+          this.handleReady();
+        }
       });
     },
+
     handleChange(): void {
       this.editor?.save().then((res) => {
         this.$emit('onChange', res.blocks)
       })
+    },
+    handleReady(): void {
+      this.$emit('onReady')
     }
   },
   mounted() {

@@ -15,6 +15,7 @@
       <div class="card-text my-2">
         <Editor :id="(isSimple ? 'simple-' : '') + 'editorjs-post-' + post.id"
                 :value="contentForEditor"
+                @onReady="handleOnReadyEditor"
                 read-only />
       </div>
 
@@ -83,6 +84,9 @@ export default Vue.extend({
     },
     handleDelete(id: number): void {
       this.$emit('onDelete', id);
+    },
+    handleOnReadyEditor(): void {
+      this.$emit('onReadyEditor', this.post.id);
     }
   }
 })
