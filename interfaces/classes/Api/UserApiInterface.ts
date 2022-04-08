@@ -9,7 +9,11 @@ export interface UsersResponseInterface {
   pagination: Object;
 }
 
-export interface UsersGetPayloadInterface { }
+export interface UsersGetPayloadInterface {
+  page?: number;
+  byPostsCount?: number;
+  byFriendsCount?: number;
+}
 
 export interface UserUpdatePayloadInterface {
   name?: string;

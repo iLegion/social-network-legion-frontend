@@ -11,7 +11,7 @@ export default class FriendApi extends BaseApi {
     return await this.callToApi('post', `${this.uri}/${id}`);
   }
 
-  public async get(id: number, params: { page?: number } = {}, payload: UsersGetPayloadInterface): Promise<UsersResponseInterface> {
-    return await this.callToApi('get', `${this.uri}/${id}`, params, payload);
+  public async get(id: number, params: UsersGetPayloadInterface = {}): Promise<UsersResponseInterface> {
+    return await this.callToApi('get', `${this.uri}/${id}`, params);
   }
 }

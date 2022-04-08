@@ -28,7 +28,7 @@ import { PostsGetPayloadInterface } from "~/interfaces/classes/Api/PostApiInterf
 
 export default Vue.extend({
   props: {
-    isLoadingPosts: {
+    isLoading: {
       type: Boolean,
       required: true
     },
@@ -59,10 +59,10 @@ export default Vue.extend({
   methods: {
     initLazyLoading(): any {
       const pagination = this.pagination;
-      const isLoadingPosts = this.isLoadingPosts;
+      const isLoading = this.isLoading;
 
       if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-        if (!isLoadingPosts && pagination && (pagination.currentPage < pagination.lastPage)) {
+        if (!isLoading && pagination && (pagination.currentPage < pagination.lastPage)) {
           this.get(this.getFilters(), pagination.currentPage + 1)
         }
       }
@@ -114,7 +114,7 @@ export default Vue.extend({
     },
 
     async get(payload: PostsGetPayloadInterface = {}, page: number = 1): Promise<void> {
-      this.$emit('onLoadingPosts', true);
+      this.$emit('onLoading', true);
 
       if (this.user) {
         payload.userId = this.user.id;
@@ -123,7 +123,7 @@ export default Vue.extend({
       try {
         const response = await this.$api.post.getAll(Object.assign(payload, { page }));
 
-        this.$emit('onLoadingPosts', false);
+        this.$emit('onLoading', false);
         this.$emit(
             'onGetPosts',
             response.data.map((i) => {

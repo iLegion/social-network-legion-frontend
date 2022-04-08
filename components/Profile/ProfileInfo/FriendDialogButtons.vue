@@ -4,7 +4,7 @@
             type="button"
             class="btn btn-outline-dark me-2"
             @click="handleAddFriend">
-      Add to friends
+      <i class="bi bi-person-plus"></i>
     </button>
   </div>
 </template>
