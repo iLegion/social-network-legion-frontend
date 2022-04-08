@@ -3,8 +3,10 @@
     <div class="container">
       <div v-show="users.length"
            class="row">
-        <div class="col-12 col-xxl-3 offset-xxl-7 d-flex justify-content-end mt-2 mb-2">
-          <UserFilter :pagination="pagination"
+        <div class="col-12 col-xxl-5 offset-xxl-5 d-flex justify-content-end mt-2 mb-2">
+          <UserFilter :isLoading="isLoading"
+                      :pagination="pagination"
+                      @onLoading="handleLoadingUsers"
                       @onGetUsers="handleGetUsers" />
         </div>
       </div>
@@ -13,7 +15,9 @@
           <UserList v-if="users.length"
                     :users="users"
                     @onAddFriend="handleAddFriend" />
-
+          <div v-else-if="isLoading" class="pt-5">
+            <Loader />
+          </div>
           <div v-else
                class="d-flex justify-content-center align-items-center fw-bold vh-92">
             Users not found. Please, wait when new users is registered.
@@ -30,22 +34,32 @@ import Vue from "vue";
 import UserModel from "~/classes/Models/User/UserModel";
 import UserFilter from '~/components/Users/Filter/Index.vue'
 import UserList from '~/components/Users/List/Index.vue';
+import Loader from "~/components/Core/Loader.vue";
 
 export default Vue.extend({
   middleware: ['auth'],
   components: {
     UserFilter,
-    UserList
+    UserList,
+    Loader
   },
-  data: (): { users: UserModel[], pagination: Object } => {
+  data: (): { isLoading: boolean, users: UserModel[], pagination: Object } => {
     return {
+      isLoading: true,
       users: [],
       pagination: {}
     }
   },
   methods: {
-    handleGetUsers(posts: UserModel[], pagination: Object): void {
-      this.users.push(...posts);
+    handleLoadingUsers(value: boolean): void {
+      this.isLoading = value;
+    },
+    handleGetUsers(collection: UserModel[], pagination: Object, reset: boolean = false): void {
+      if (reset) {
+        this.users.splice(0, this.users.length, ...collection);
+      } else {
+        this.users.push(...collection);
+      }
 
       this.pagination = pagination;
     },

@@ -1,13 +1,13 @@
 <template>
   <div class="posts-block">
     <div class="container">
-      <div class="row">
+      <div v-show="posts.length"
+           class="row">
         <div class="col-12 d-flex justify-content-end mt-2 mb-2">
-          <PostFilter v-show="posts.length"
-                      :isLoadingPosts="isLoadingPosts"
+          <PostFilter :isLoading="isLoading"
                       :user="user"
                       :pagination="pagination"
-                      @onLoadingPosts="handleLoadingPosts"
+                      @onLoading="handleLoadingPosts"
                       @onGetPosts="handleGetPosts" />
         </div>
       </div>
@@ -22,7 +22,7 @@
                   @onDelete="handleDelete"
                   @onOpenModal="handleOpenModal" />
           </div>
-          <div v-else-if="isLoadingPosts" class="pt-5">
+          <div v-else-if="isLoading" class="pt-5">
             <Loader />
           </div>
           <div v-else
@@ -80,7 +80,7 @@ export default Vue.extend({
     }
   },
   data: (): {
-    isLoadingPosts: boolean,
+    isLoading: boolean,
     posts: PostModel[],
     pagination: Object,
     modalInstance: BootstrapModal | null,
@@ -88,7 +88,7 @@ export default Vue.extend({
     selectedPostID: number | null
   } => {
     return {
-      isLoadingPosts: true,
+      isLoading: true,
       posts: [],
       pagination: {},
       modalInstance: null,
@@ -117,7 +117,7 @@ export default Vue.extend({
     },
 
     handleLoadingPosts(value: boolean): void {
-      this.isLoadingPosts = value;
+      this.isLoading = value;
     },
     handleGetPosts(posts: PostModel[], pagination: Object, reset: boolean = false): void {
       if (reset) {
