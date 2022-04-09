@@ -1,5 +1,6 @@
 <template>
-  <div class="card mb-3 shadow">
+  <div v-show="isReadyEditor"
+       class="card mb-3 shadow">
     <div class="card-body">
       <div class="d-flex justify-content-between align-items-end">
         <h5 class="card-title pe-cursor"
@@ -72,6 +73,11 @@ export default Vue.extend({
       return this.post?.text ? { blocks: this.post.text } : null;
     }
   },
+  data: (): { isReadyEditor: boolean } => {
+    return {
+      isReadyEditor: false
+    }
+  },
   methods: {
     handleAddLike(id: number): void {
       this.$emit('onAddLike', id);
@@ -86,7 +92,7 @@ export default Vue.extend({
       this.$emit('onDelete', id);
     },
     handleOnReadyEditor(): void {
-      this.$emit('onReadyEditor', this.post.id);
+      this.isReadyEditor = true;
     }
   }
 })

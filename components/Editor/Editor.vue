@@ -66,6 +66,9 @@ export default Vue.extend({
   },
   mounted() {
     this.init();
+  },
+  beforeDestroy() {
+    this.editor?.destroy();
   }
 })
 </script>
