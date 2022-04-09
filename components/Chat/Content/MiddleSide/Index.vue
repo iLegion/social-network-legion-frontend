@@ -17,7 +17,6 @@ import Vue from "vue";
 
 import DialogModel from "~/classes/Models/Dialog/DialogModel";
 import DialogMessage from "~/components/Chat/Content/MiddleSide/DialogMessage.vue";
-import DialogMessageModel from "~/classes/Models/Dialog/DialogMessageModel";
 
 export default Vue.extend({
   components: {

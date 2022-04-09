@@ -3,11 +3,11 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <PostsForm v-if="post"
-                     :post="post"
-                     :errors="errors"
-                     @onInput="handleInput"
-                     @onSend="handleSend" />
+          <Form v-if="post"
+                :post="post"
+                :errors="errors"
+                @onInput="handleInput"
+                @onSend="handleSend" />
         </div>
       </div>
     </div>
@@ -18,14 +18,14 @@
 import Vue from 'vue';
 
 import PostModel from "~/classes/Models/PostModel";
-import PostsForm from "~/components/Post/PostsForm.vue";
-import { PostUpdatePayloadInterface } from "~/interfaces/classes/Api/PostApiInterface";
 import ValidationError from "~/classes/Errors/ValidationError";
+import { PostUpdatePayloadInterface } from "~/interfaces/classes/Api/PostApiInterface";
+import Form from "~/components/Posts/Form.vue";
 
 export default Vue.extend({
   middleware: ['auth'],
   components: {
-    PostsForm
+    Form
   },
   data: (): { post: PostModel | null, errors: { title?: string[], text?: string[] } | null } => {
     return {

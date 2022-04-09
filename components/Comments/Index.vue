@@ -2,14 +2,14 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 mb-3">
-        <CommentForm :post="post"
-                     @onAddComment="handleAddComment" />
+        <Form :post="post"
+              @onAddComment="handleAddComment" />
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-        <CommentList :post="post"
-                     :comments="comments" />
+        <List :post="post"
+              :comments="comments" />
       </div>
     </div>
   </div>
@@ -20,16 +20,14 @@ import Vue from "vue";
 
 import CommentModel from "~/classes/Models/CommentModel";
 import PostModel from "~/classes/Models/PostModel";
-import {
-  CommentGetPayloadInterface,
-} from "~/interfaces/classes/Api/CommentApiInterface";
-import CommentForm from "~/components/Comment/CommentForm.vue";
-import CommentList from "~/components/Comment/List/CommentList.vue";
+import { CommentGetPayloadInterface } from "~/interfaces/classes/Api/CommentApiInterface";
+import Form from "~/components/Comments/Form.vue";
+import List from "~/components/Comments/List/Index.vue";
 
 export default Vue.extend({
   components: {
-    CommentForm,
-    CommentList
+    Form,
+    List
   },
   props: {
     post: {

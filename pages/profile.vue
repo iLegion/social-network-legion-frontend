@@ -17,8 +17,8 @@
 <script lang="ts">
 import Vue from "vue";
 
-import ProfileInfo from "~/components/Profile/ProfileInfo/ProfileInfo.vue";
-import Posts from "~/components/Post/Block.vue";
+import ProfileInfo from "~/components/Profile/ProfileInfo/Index.vue";
+import Posts from "~/components/Posts/Index.vue";
 
 export default Vue.extend({
   middleware: ['auth'],

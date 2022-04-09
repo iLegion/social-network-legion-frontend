@@ -27,8 +27,8 @@ import Vue from "vue";
 import DialogModel from "~/classes/Models/Dialog/DialogModel";
 import DialogMessageModel from "~/classes/Models/Dialog/DialogMessageModel";
 import { DialogMessageInterface } from "~/interfaces/classes/Models/Dialog/DialogMessageModelInterface";
-import Sidebar from "~/components/Chat/Sidebar/Sidebar.vue";
-import Content from "~/components/Chat/Content/Content.vue";
+import Sidebar from "~/components/Chat/Sidebar/Index.vue";
+import Content from "~/components/Chat/Content/Index.vue";
 
 export default Vue.extend({
   components: {

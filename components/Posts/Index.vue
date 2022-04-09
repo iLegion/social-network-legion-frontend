@@ -4,7 +4,7 @@
       <div v-show="posts.length"
            class="row">
         <div class="col-12 d-flex justify-content-end mt-2 mb-2">
-          <PostFilter :isLoading="isLoading"
+          <PostsFilter :isLoading="isLoading"
                       :user="user"
                       :pagination="pagination"
                       @onLoading="handleLoadingPosts"
@@ -42,7 +42,7 @@
         <Post :post="selectedPost"
               :is-simple="false"
               class="mb-4"/>
-        <Comment :post="selectedPost" />
+        <Comments :post="selectedPost" />
       </template>
     </Modal>
   </div>
@@ -54,18 +54,18 @@ import { Modal as BootstrapModal } from 'bootstrap';
 
 import PostModel from "~/classes/Models/PostModel";
 import UserModel from "~/classes/Models/User/UserModel";
-import PostFilter from "~/components/Post/PostFilter.vue";
-import Post from "~/components/Post/Card/Post.vue";
+import PostsFilter from "~/components/Posts/Filter.vue";
+import Post from "~/components/Posts/Post/Index.vue";
 import Modal from "~/components/Modal/Modal.vue";
-import Comment from "~/components/Comment/Comment.vue";
+import Comments from "~/components/Comments/Index.vue";
 import Loader from "~/components/Core/Loader.vue";
 
 export default Vue.extend({
   components: {
-    PostFilter,
+    PostsFilter,
     Post,
     Modal,
-    Comment,
+    Comments,
     Loader
   },
   props: {
