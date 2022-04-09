@@ -2,13 +2,23 @@
   <div class="post-filter-component">
     <button type="button"
             class="button_hola"
-            @click="handleFilterByType('byLikes')">
-      by likes
+            @click="handleFilterByType('byLikesCount')">
+      by likes count
+
+      <template v-if="filters.byLikesCount !== null">
+        <i v-if="filters.byLikesCount" class="bi bi-arrow-down-short"></i>
+        <i v-else class="bi bi-arrow-up-short"></i>
+      </template>
     </button>
     <button type="button"
             class="button_hola"
-            @click="handleFilterByType('byViews')">
-      by views
+            @click="handleFilterByType('byViewsCount')">
+      by views count
+
+      <template v-if="filters.byViewsCount !== null">
+        <i v-if="filters.byViewsCount" class="bi bi-arrow-down-short"></i>
+        <i v-else class="bi bi-arrow-up-short"></i>
+      </template>
     </button>
     <button type="button"
             class="button_hola"
@@ -47,11 +57,11 @@ export default Vue.extend({
       return faTimes;
     }
   },
-  data: (): { filters: { byLikes: number, byViews: number }, needReset: boolean } => {
+  data: (): { filters: { byLikesCount: boolean | null, byViewsCount: boolean | null }, needReset: boolean } => {
     return {
       filters: {
-        byLikes: 0,
-        byViews: 0
+        byLikesCount: null,
+        byViewsCount: null
       },
       needReset: false
     }
@@ -67,15 +77,16 @@ export default Vue.extend({
         }
       }
     },
-    getFilters(): { byLikes?: number, byViews?: number } {
-      const formData: { byLikes?: number, byViews?: number } = {};
 
-      if (this.filters.byLikes) {
-        formData.byLikes = 1;
+    getFilters(): { byLikesCount?: number, byViewsCount?: number } {
+      const formData: { byLikesCount?: number, byViewsCount?: number } = {};
+
+      if (this.filters.byLikesCount !== null) {
+        formData.byLikesCount = Number(this.filters.byLikesCount);
       }
 
-      if (this.filters.byViews) {
-        formData.byViews = 1;
+      if (this.filters.byViewsCount !== null) {
+        formData.byViewsCount = Number(this.filters.byViewsCount)
       }
 
       return formData;
@@ -84,26 +95,20 @@ export default Vue.extend({
     handleFilterByType(type: string): void {
       let needCall = false;
 
-      if (type === 'byLikes') {
-        if (!this.filters.byLikes) {
-          needCall = true;
-          this.filters.byLikes = 1;
-          this.filters.byViews = 0;
-        }
+      if (type === 'byLikesCount') {
+        needCall = true;
+        this.filters.byLikesCount = !this.filters.byLikesCount;
+      }
 
-      } else if (type === 'byViews') {
-        if (!this.filters.byViews) {
-          needCall = true;
-          this.filters.byLikes = 0;
-          this.filters.byViews = 1;
-        }
+      if (type === 'byViewsCount') {
+        needCall = true;
+        this.filters.byViewsCount = !this.filters.byViewsCount;
+      }
 
-      } else if (type === 'default') {
-        if (this.filters.byLikes || this.filters.byViews) {
-          needCall = true;
-          this.filters.byLikes = 0;
-          this.filters.byViews = 0;
-        }
+      if (type === 'default' && (this.filters.byLikesCount !== null || this.filters.byViewsCount !== null)) {
+        needCall = true;
+        this.filters.byLikesCount = null;
+        this.filters.byViewsCount = null;
       }
 
       if (needCall) {

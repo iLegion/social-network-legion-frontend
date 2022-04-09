@@ -83,7 +83,7 @@ export default Vue.extend({
 
       if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
         if (!isLoading && pagination && (pagination.currentPage < pagination.lastPage)) {
-          this.get({}, pagination.currentPage + 1)
+          this.get(this.getFilters(), pagination.currentPage + 1)
         }
       }
     },
