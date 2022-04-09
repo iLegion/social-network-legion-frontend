@@ -51,7 +51,7 @@
 import Vue from 'vue';
 
 import PostModel from "~/classes/Models/PostModel";
-import Editor from "~/components/Editor/Editor.vue";
+import Editor from "~/components/Editor/Index.vue";
 import {OutputData} from "@editorjs/editorjs/types/data-formats";
 
 export default Vue.extend({

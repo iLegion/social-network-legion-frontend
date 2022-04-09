@@ -24,9 +24,10 @@
 
 <script lang="ts">
 import Vue from "vue";
+
 import CommentModel from "~/classes/Models/CommentModel";
-import { CommentStorePayloadInterface } from "~/interfaces/classes/Api/CommentApiInterface";
 import PostModel from "~/classes/Models/PostModel";
+import { CommentStorePayloadInterface } from "~/interfaces/classes/Api/CommentApiInterface";
 
 export default Vue.extend({
   props: {

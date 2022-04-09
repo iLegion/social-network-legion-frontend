@@ -8,7 +8,7 @@
           {{ post.title }}
         </h5>
 
-        <PostHeaderDropdown v-if="post.author.id === $auth.user.id"
+        <HeaderDropdown v-if="post.author.id === $auth.user.id"
                             :post="post"
                             @onDelete="handleDelete" />
       </div>
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="card-footer">
-      <PostFooter ref="PostFooter"
+      <Footer ref="PostFooter"
                   :post="post"
                   @onAddLike="handleAddLike" />
     </div>
@@ -43,15 +43,15 @@ import { faComments } from "@fortawesome/free-regular-svg-icons/faComments";
 import { OutputData } from "@editorjs/editorjs/types/data-formats";
 
 import PostModel from "~/classes/Models/PostModel";
-import PostHeaderDropdown from "~/components/Post/Card/PostHeaderDropdown.vue";
-import PostFooter from "~/components/Post/Card/PostFooter.vue";
-import Editor from "~/components/Editor/Editor.vue";
+import HeaderDropdown from "~/components/Posts/Post/HeaderDropdown.vue";
+import Footer from "~/components/Posts/Post/Footer.vue";
+import Editor from "~/components/Editor/Index.vue";
 
 export default Vue.extend({
   name: 'Post',
   components: {
-    PostHeaderDropdown,
-    PostFooter,
+    HeaderDropdown,
+    Footer,
     Editor
   },
   props: {

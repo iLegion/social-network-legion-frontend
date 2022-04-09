@@ -17,9 +17,9 @@ import Vue from 'vue';
 
 import DialogModel from "~/classes/Models/Dialog/DialogModel";
 import DialogMessageModel from "~/classes/Models/Dialog/DialogMessageModel";
-import TopBar from "~/components/Chat/Content/TopBar/TopBar.vue";
-import MiddleSide from "~/components/Chat/Content/MiddleSide/MiddleSide.vue";
-import BottomBar from "~/components/Chat/Content/BottomBar/BottomBar.vue";
+import TopBar from "~/components/Chat/Content/TopBar/Index.vue";
+import MiddleSide from "~/components/Chat/Content/MiddleSide/Index.vue";
+import BottomBar from "~/components/Chat/Content/BottomBar/Index.vue";
 
 export default Vue.extend({
   components: {

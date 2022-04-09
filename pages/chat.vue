@@ -9,7 +9,7 @@
 <script lang="ts">
 import Vue from 'vue';
 
-import Chat from "~/components/Chat/Chat.vue";
+import Chat from "~/components/Chat/Index.vue";
 
 export default Vue.extend({
   middleware: ['auth'],

@@ -10,7 +10,7 @@
 import Vue from 'vue';
 
 import DialogModel from "~/classes/Models/Dialog/DialogModel";
-import List from "~/components/Chat/Sidebar/List/List.vue";
+import List from "~/components/Chat/Sidebar/List/Index.vue";
 
 export default Vue.extend({
   components: { List },

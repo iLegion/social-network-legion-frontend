@@ -68,7 +68,9 @@ export default Vue.extend({
     this.init();
   },
   beforeDestroy() {
-    this.editor?.destroy();
+    if (this.editor && this.editor.destroy) {
+      this.editor.destroy();
+    }
   }
 })
 </script>
