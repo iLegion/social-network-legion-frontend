@@ -15,6 +15,18 @@ export default Vue.extend({
   middleware: ['auth'],
   components: {
     Chat
+  },
+  head() {
+    return {
+      title: 'Chat',
+      meta: [
+        {
+          hid: 'chat-page',
+          name: 'chat',
+          content: 'Chat page'
+        }
+      ]
+    }
   }
 })
 </script>

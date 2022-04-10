@@ -23,14 +23,13 @@
     <button type="button"
             class="button_hola"
             @click="handleFilterByType('default')">
-      <font-awesome-icon :icon="faTimes" fixed-width />
+      <i class="bi bi-x"></i>
     </button>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 
 import UserModel from "~/classes/Models/User/UserModel";
 import { UsersGetPayloadInterface } from "~/interfaces/classes/Api/UserApiInterface";
@@ -54,11 +53,6 @@ export default Vue.extend({
     userID: {
       type: Number,
       required: false
-    }
-  },
-  computed: {
-    faTimes() {
-      return faTimes;
     }
   },
   data: (): {

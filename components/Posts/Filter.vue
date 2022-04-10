@@ -23,14 +23,13 @@
     <button type="button"
             class="button_hola"
             @click="handleFilterByType('default')">
-      <font-awesome-icon :icon="faTimes" fixed-width />
+      <i class="bi bi-x"></i>
     </button>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 
 import PostModel from "~/classes/Models/PostModel";
 import UserModel from "~/classes/Models/User/UserModel";
@@ -50,11 +49,6 @@ export default Vue.extend({
     pagination: {
       type: Object,
       required: true
-    }
-  },
-  computed: {
-    faTimes() {
-      return faTimes;
     }
   },
   data: (): { filters: { byLikesCount: boolean | null, byViewsCount: boolean | null }, needReset: boolean } => {

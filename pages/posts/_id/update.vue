@@ -33,6 +33,18 @@ export default Vue.extend({
       errors: null
     }
   },
+  head() {
+    return {
+      title: 'Update post',
+      meta: [
+        {
+          hid: 'update-post-page',
+          name: 'update-post',
+          content: 'Update post page'
+        }
+      ]
+    }
+  },
   methods: {
     handleInput(type: string): void {
       const errors = this.errors;

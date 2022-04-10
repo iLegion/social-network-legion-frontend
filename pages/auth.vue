@@ -59,6 +59,18 @@ export default Vue.extend({
     LoginForm,
     RegisterForm
   },
+  head() {
+    return {
+      title: 'Auth',
+      meta: [
+        {
+          hid: 'auth-page',
+          name: 'auth',
+          content: 'Auth page'
+        }
+      ]
+    }
+  },
   mounted() {
     if (this.$auth.loggedIn) {
       this.$router.push('/');
