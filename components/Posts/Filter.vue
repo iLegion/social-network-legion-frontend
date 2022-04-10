@@ -3,7 +3,7 @@
     <button type="button"
             class="button_hola"
             @click="handleFilterByType('byLikesCount')">
-      by likes count
+      by likes
 
       <template v-if="filters.byLikesCount !== null">
         <i v-if="filters.byLikesCount" class="bi bi-arrow-down-short"></i>
@@ -13,7 +13,7 @@
     <button type="button"
             class="button_hola"
             @click="handleFilterByType('byViewsCount')">
-      by views count
+      by views
 
       <template v-if="filters.byViewsCount !== null">
         <i v-if="filters.byViewsCount" class="bi bi-arrow-down-short"></i>

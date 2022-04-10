@@ -1,14 +1,15 @@
 <template>
   <div class="posts-block">
-    <div class="container">
+    <div class="container-md container-fluid">
       <div v-show="posts.length"
            class="row">
-        <div class="col-12 d-flex justify-content-end mt-2 mb-2">
-          <PostsFilter :isLoading="isLoading"
-                      :user="user"
-                      :pagination="pagination"
-                      @onLoading="handleLoadingPosts"
-                      @onGetPosts="handleGetPosts" />
+        <div class="col-12 d-md-flex justify-content-end mt-2 mb-2">
+          <PostsFilter class="d-none d-md-block"
+                       :isLoading="isLoading"
+                       :user="user"
+                       :pagination="pagination"
+                       @onLoading="handleLoadingPosts"
+                       @onGetPosts="handleGetPosts" />
         </div>
       </div>
       <div class="row">
