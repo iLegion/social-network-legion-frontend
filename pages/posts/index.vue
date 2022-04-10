@@ -19,6 +19,18 @@ export default Vue.extend({
   middleware: ['auth'],
   components: {
     Posts
+  },
+  head() {
+    return {
+      title: 'Posts',
+      meta: [
+        {
+          hid: 'posts-page',
+          name: 'posts',
+          content: 'Posts page'
+        }
+      ]
+    }
   }
 })
 </script>

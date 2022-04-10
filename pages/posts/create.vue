@@ -27,6 +27,18 @@ export default Vue.extend({
   data: (): { errors: { title?: string[], text?: string[] } | null } => ({
     errors: null
   }),
+  head() {
+    return {
+      title: 'Create post',
+      meta: [
+        {
+          hid: 'creat-posts-page',
+          name: 'create-post',
+          content: 'Create post page'
+        }
+      ]
+    }
+  },
   methods: {
     handleInput(type: string): void {
       const errors = Object.assign({}, this.errors);

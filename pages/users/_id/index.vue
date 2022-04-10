@@ -34,6 +34,18 @@ export default Vue.extend({
       user: null
     }
   },
+  head() {
+    return {
+      title: this.user ? `${this.user.name} - Profile` : 'User - Profile',
+      meta: [
+        {
+          hid: 'user-page',
+          name: 'user',
+          content: 'User page'
+        }
+      ]
+    }
+  },
   methods: {
     handleAddFriend(): void {
       const user = Object.assign({}, this.user);

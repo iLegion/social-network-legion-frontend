@@ -52,6 +52,17 @@ export default Vue.extend({
     Main,
     Privacy
   },
-  computed: {}
+  head() {
+    return {
+      title: 'Settings',
+      meta: [
+        {
+          hid: 'settings-page',
+          name: 'settings',
+          content: 'Settings page'
+        }
+      ]
+    }
+  }
 })
 </script>

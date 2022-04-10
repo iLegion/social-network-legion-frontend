@@ -25,6 +25,18 @@ export default Vue.extend({
   components: {
     ProfileInfo,
     Posts
-  }
+  },
+  head() {
+    return {
+      title: 'Profile',
+      meta: [
+        {
+          hid: 'profile-page',
+          name: 'profile',
+          content: 'Profile page'
+        }
+      ]
+    }
+  },
 });
 </script>

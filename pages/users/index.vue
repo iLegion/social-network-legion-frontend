@@ -50,6 +50,18 @@ export default Vue.extend({
       pagination: {}
     }
   },
+  head() {
+    return {
+      title: 'Users',
+      meta: [
+        {
+          hid: 'users-page',
+          name: 'users',
+          content: 'Users page'
+        }
+      ]
+    }
+  },
   methods: {
     handleLoadingUsers(value: boolean): void {
       this.isLoading = value;
