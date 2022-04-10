@@ -6,8 +6,9 @@
       <div class="form-group mb-4">
         <label for="login-email" class="form-label">Email</label>
         <div class="input-group">
-          <div class="input-group-text">
-            <font-awesome-icon :icon="faEnvelope" fixed-width />
+          <div class="input-group-text"
+               :class="{ 'is-invalid': errors.email }">
+            <i class="bi bi-envelope"></i>
           </div>
           <input type="text"
                  class="form-control"
@@ -24,8 +25,9 @@
       <div class="form-group mb-4">
         <label for="login-password" class="form-label">Password</label>
         <div class="input-group">
-          <div class="input-group-text">
-            <font-awesome-icon :icon="faLock" fixed-width />
+          <div class="input-group-text"
+               :class="{ 'is-invalid': errors.password }">
+            <i class="bi bi-shield-lock"></i>
           </div>
           <input type="password"
                  class="form-control"
@@ -50,20 +52,11 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import { faLock } from '@fortawesome/free-solid-svg-icons'
 
 import ValidationError from "~/classes/Errors/ValidationError";
+import { AxiosError } from "axios";
 
 export default Vue.extend({
-  computed: {
-    faEnvelope() {
-      return faEnvelope;
-    },
-    faLock() {
-      return faLock;
-    }
-  },
   data: () => {
     return {
       form: {
@@ -111,10 +104,12 @@ export default Vue.extend({
       try {
         await this.$auth.loginWith('default', {
           data: { email, password }
-        });
-      } catch (e) {
-        if (e instanceof ValidationError) {
-          this.setErrors(e.errors);
+        })
+      } catch (e: AxiosError | any) {
+        if (e.response?.status === 422) {
+          const error = new ValidationError(e.response);
+
+          this.setErrors(error.errors);
         }
       }
     }
@@ -128,12 +123,24 @@ export default Vue.extend({
       .form-group {
         .input-group {
           .input-group-text {
+            &.is-invalid {
+              border-bottom: 2px solid #dc3545;
+
+              i {
+                color: #dc3545;
+              }
+            }
+
             background-color: transparent;
             border: none;
             border-bottom: 2px solid #d9d9d9;
           }
 
           input {
+            &.is-invalid {
+              border-bottom: 2px solid #dc3545;
+            }
+
             border: none;
             outline: none;
             box-shadow: none;
