@@ -27,7 +27,7 @@
         <font-awesome-icon class="icon text-muted"
                            :icon="faUser"
                            fixed-width />
-        <span>{{ author.name }}</span>
+        <span>{{ truncatedAuthorName }}</span>
       </router-link>
     </div>
     <div class="text-muted fst-italic">
@@ -72,6 +72,9 @@ export default Vue.extend({
       const author = this.post.author;
 
       return author && this.$auth.user.id !== author?.id ? author : null;
+    },
+    truncatedAuthorName(): string | undefined {
+      return this.author?.name.substr(0, 30);
     },
     getFormattedDate(): string {
       const dateService = new DateService();
