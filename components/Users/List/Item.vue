@@ -14,7 +14,7 @@
           <h5 class="card-title">
             <router-link :to="'/users/' + user.id"
                          class="text-decoration-none text-reset">
-              {{ user.name }}
+              {{ truncatedName }}
             </router-link>
           </h5>
           <div class="card-text">
@@ -55,6 +55,13 @@ export default Vue.extend({
     user: {
       type: Object as () => UserModel,
       required: true
+    }
+  },
+  computed: {
+    truncatedName(): string {
+      const value = this.user.name;
+
+      return value.substring(0, 50) + (value.length > 50 ? '...' : '');
     }
   },
   methods: {
