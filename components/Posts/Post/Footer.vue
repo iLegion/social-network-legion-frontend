@@ -74,7 +74,9 @@ export default Vue.extend({
       return author && this.$auth.user.id !== author?.id ? author : null;
     },
     truncatedAuthorName(): string | undefined {
-      return this.author?.name.substr(0, 30);
+      const value = this.author?.name;
+
+      return value ? value.substring(0, 50) + (value.length > 50 ? '...' : '') : '';
     },
     getFormattedDate(): string {
       const dateService = new DateService();
